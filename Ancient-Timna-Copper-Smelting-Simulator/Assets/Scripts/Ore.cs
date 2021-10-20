@@ -11,7 +11,6 @@ public class Ore : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log(OVRInput.GetConnectedControllers());
     }
     private void Start()
     {
@@ -25,8 +24,9 @@ public class Ore : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(OVRInput.GetConnectedControllers());
         OVRInput.Update();
-
+        OVRInput.FixedUpdate();
         if (OVRInput.Get(OVRInput.Button.One))
         {
             print("Voila!");
