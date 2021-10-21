@@ -24,10 +24,7 @@ public class Ore : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(OVRInput.GetConnectedControllers());
-        print(UnityEngine.Input.GetJoystickNames());
-        OVRInput.Update();
-        OVRInput.FixedUpdate();
+
     }
 
 
