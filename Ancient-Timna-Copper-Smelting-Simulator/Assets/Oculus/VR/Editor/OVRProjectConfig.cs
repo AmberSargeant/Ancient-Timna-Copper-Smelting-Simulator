@@ -64,13 +64,9 @@ public class OVRProjectConfig : ScriptableObject
 	public string securityXmlPath;
 
 	public bool skipUnneededShaders = false;
-
-	[System.Obsolete("Focus awareness is now required. The option will be deprecated.", false)]
 	public bool focusAware = true;
-
 	public bool requiresSystemKeyboard = false;
-	public bool experimentalFeaturesEnabled = false;
-	public bool insightPassthroughEnabled = false;
+
 	public Texture2D systemSplashScreen;
 
 	//public const string OculusProjectConfigAssetPath = "Assets/Oculus/OculusProjectConfig.asset";
@@ -141,9 +137,8 @@ public class OVRProjectConfig : ScriptableObject
 			projectConfig.disableBackups = true;
 			projectConfig.enableNSCConfig = true;
 			projectConfig.skipUnneededShaders = false;
+			projectConfig.focusAware = true;
 			projectConfig.requiresSystemKeyboard = false;
-			projectConfig.experimentalFeaturesEnabled = false;
-			projectConfig.insightPassthroughEnabled = false;
 			AssetDatabase.CreateAsset(projectConfig, oculusProjectConfigAssetPath);
 		}
 		// Force migration to Quest device if still on legacy GearVR/Go device type

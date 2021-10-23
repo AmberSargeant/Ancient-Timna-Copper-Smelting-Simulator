@@ -229,8 +229,6 @@ class OVRPluginUpdater
 	private static bool enableAndroidUniversalSupport = true;
 
 	private static System.Version invalidVersion = new System.Version("0.0.0");
-	private static System.Version minimalProductionVersionForOpenXR = new Version(1, 63, 0);
-
 
 	static OVRPluginUpdater()
 	{
@@ -447,54 +445,7 @@ class OVRPluginUpdater
 
 	private static void EnablePluginPackage(PluginPackage pluginPkg)
 	{
-#if UNITY_2020_1_OR_NEWER
-		bool activateOpenXRPlugin = pluginPkg.Version >= minimalProductionVersionForOpenXR;
-		if (activateOpenXRPlugin && !unityRunningInBatchmode)
-		{
-			while(true)
-			{
-				// display a dialog to prompt developer to confirm if they want to proceed with OpenXR backend
-				int result = EditorUtility.DisplayDialogComplex("OpenXR Backend",
-					"OpenXR is now fully supported by Oculus. However, some of the functionalities are not supported in the baseline OpenXR spec, which would be provided in our future releases.\n\nIf you depend on the following features in your project, please click Cancel to continue using the legacy backend:\n\n  1. Advanced hand tracking features (collision capsule, input metadata, Thumb0, default handmesh)\n  2. Mixed Reality Capture on Rift\n\nNew features, such as Passthrough API, are only supported through the OpenXR backend.\n\nPlease check our release notes for more details.\n\nReminder: you can switch the legacy and OpenXR backends at any time from Oculus > Tools > OpenXR menu options.", "Use OpenXR", "Cancel", "Release Notes");
-				if (result == 0)
-					break;
-				else if (result == 1)
-				{
-					activateOpenXRPlugin = false;
-					break;
-				}
-				else if (result == 2)
-				{
-					Application.OpenURL("https://developer.oculus.com/downloads/package/unity-integration/");
-				}
-				else
-				{
-					UnityEngine.Debug.LogWarningFormat("Unrecognized result from DisplayDialogComplex: {0}", result);
-					break;
-				}
-			}
-		}
-#else
-		bool activateOpenXRPlugin = false;
-#endif
-		if (activateOpenXRPlugin)
-		{
-			UnityEngine.Debug.Log("OVRPlugin with OpenXR backend is activated by default");
-			if (!unityRunningInBatchmode)
-			{
-				EditorUtility.DisplayDialog("OVRPlugin", "OVRPlugin with OpenXR backend will be activated by default", "Ok");
-			}
-		}
-		else
-		{
-			UnityEngine.Debug.Log("OVRPlugin with LibOVR/VRAPI backend is activated by default");
-			if (!unityRunningInBatchmode)
-			{
-				EditorUtility.DisplayDialog("OVRPlugin", "OVRPlugin with LibOVR/VRAPI backend will be activated by default", "Ok");
-			}
-		}
-
-		foreach (var kvp in pluginPkg.Plugins)
+		foreach(var kvp in pluginPkg.Plugins)
 		{
 			PluginPlatform platform = kvp.Key;
 			string path = kvp.Value;
@@ -532,16 +483,9 @@ class OVRPluginUpdater
 						}
 						break;
 					case PluginPlatform.AndroidUniversal:
-						if (!activateOpenXRPlugin)
-						{
-							pi.SetCompatibleWithPlatform(BuildTarget.Android, unityVersionSupportsAndroidUniversal);
-						}
+						pi.SetCompatibleWithPlatform(BuildTarget.Android, unityVersionSupportsAndroidUniversal);
 						break;
 					case PluginPlatform.AndroidOpenXR:
-						if (activateOpenXRPlugin)
-						{
-							pi.SetCompatibleWithPlatform(BuildTarget.Android, unityVersionSupportsAndroidUniversal);
-						}
 						break;
 					case PluginPlatform.OSXUniversal:
 						pi.SetCompatibleWithPlatform(BuildTarget.StandaloneOSX, true);
@@ -560,26 +504,14 @@ class OVRPluginUpdater
 						pi.SetPlatformData("Editor", "OS", "Windows");
 						break;
 					case PluginPlatform.Win64:
-						if (!activateOpenXRPlugin)
-						{
-							pi.SetCompatibleWithPlatform(BuildTarget.StandaloneWindows64, true);
-							pi.SetCompatibleWithEditor(true);
-							pi.SetEditorData("CPU", "X86_64");
-							pi.SetEditorData("OS", "Windows");
-							pi.SetPlatformData("Editor", "CPU", "X86_64");
-							pi.SetPlatformData("Editor", "OS", "Windows");
-						}
+						pi.SetCompatibleWithPlatform(BuildTarget.StandaloneWindows64, true);
+						pi.SetCompatibleWithEditor(true);
+						pi.SetEditorData("CPU", "X86_64");
+						pi.SetEditorData("OS", "Windows");
+						pi.SetPlatformData("Editor", "CPU", "X86_64");
+						pi.SetPlatformData("Editor", "OS", "Windows");
 						break;
 					case PluginPlatform.Win64OpenXR:
-						if (activateOpenXRPlugin)
-						{
-							pi.SetCompatibleWithPlatform(BuildTarget.StandaloneWindows64, true);
-							pi.SetCompatibleWithEditor(true);
-							pi.SetEditorData("CPU", "X86_64");
-							pi.SetEditorData("OS", "Windows");
-							pi.SetPlatformData("Editor", "CPU", "X86_64");
-							pi.SetPlatformData("Editor", "OS", "Windows");
-						}
 						break;
 					default:
 						throw new ArgumentException("Attempted EnablePluginPackage() for unsupported BuildTarget: " + platform);
@@ -684,17 +616,7 @@ class OVRPluginUpdater
 		ActivateOVRPluginOpenXR();
 	}
 
-	[MenuItem("Oculus/Tools/OpenXR/Switch to OVRPlugin with OpenXR backend", true)]
-	private static bool IsActivateOVRPluginOpenXRMenuEnabled()
-	{
-#if !USING_XR_SDK && !REQUIRES_XR_SDK
-		return false;
-#else
-		return true;
-#endif
-	}
-
-	[MenuItem("Oculus/Tools/OpenXR/Switch to OVRPlugin with OpenXR backend")]
+	[MenuItem("Oculus/Tools/OpenXR (Experimental)/Activate Oculus Utilities Plugin with OpenXR")]
 	private static void ActivateOVRPluginOpenXR()
 	{
 		if (!unityVersionSupportsAndroidUniversal)
@@ -713,6 +635,21 @@ class OVRPluginUpdater
 		UnityEngine.Debug.LogError("Oculus Utilities Plugin with OpenXR only supports XR Plug-in Managmenent with Oculus XR Plugin");
 		return;
 #else
+
+		if (!unityRunningInBatchmode)
+		{
+			bool accepted = EditorUtility.DisplayDialog("Warning",
+				"Oculus Utilities Plugin with OpenXR is experimental. You may expect to encounter stability issues and/or missing functionalities, " +
+				"including but not limited to, fixed foveated rendering / composition layer / display refresh rates / etc." +
+				"\n\n" +
+				"Also, Oculus Utilities Plugin with OpenXR only supports XR Plug-in Managmenent with Oculus XR Plugin on Quest",
+				"Continue", "Cancel");
+
+			if (!accepted)
+			{
+				return;
+			}
+		}
 
 		List<PluginPackage> allUtilsPluginPkgs = GetAllUtilitiesPluginPackages();
 
@@ -746,24 +683,6 @@ class OVRPluginUpdater
 				EditorUtility.DisplayDialog("Unable to Activate OVRPlugin with OpenXR", "Both AndroidOpenXR/OVRPlugin.aar and Win64OpenXR/OVRPlugin.dll already enabled", "Ok");
 			}
 			return;
-		}
-
-		if (enabledUtilsPluginPkg.Version < minimalProductionVersionForOpenXR)
-		{
-			if (!unityRunningInBatchmode)
-			{
-				bool accepted = EditorUtility.DisplayDialog("Warning",
-					"OVRPlugin with OpenXR backend is experimental before v31. You may expect to encounter stability issues and/or missing functionalities, " +
-					"including but not limited to, fixed foveated rendering / composition layer / display refresh rates / etc." +
-					"\n\n" +
-					"Also, OVRPlugin with OpenXR backend only supports XR Plug-in Managmenent with Oculus XR Plugin on Quest",
-					"Continue", "Cancel");
-
-				if (!accepted)
-				{
-					return;
-				}
-			}
 		}
 
 		if (enabledUtilsPluginPkg.IsAndroidOpenXRPresent() && !enabledUtilsPluginPkg.IsAndroidOpenXREnabled())
@@ -867,7 +786,7 @@ class OVRPluginUpdater
 #endif // !USING_XR_SDK
 	}
 
-	[MenuItem("Oculus/Tools/OpenXR/Switch to Legacy OVRPlugin (with LibOVR and VRAPI backends)")]
+	[MenuItem("Oculus/Tools/OpenXR (Experimental)/Restore Standard Oculus Utilities Plugin")]
 	private static void RestoreStandardOVRPlugin()
 	{
 		if (!unityVersionSupportsAndroidUniversal) // sanity check

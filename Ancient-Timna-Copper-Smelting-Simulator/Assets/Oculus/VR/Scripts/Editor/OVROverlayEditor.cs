@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -96,26 +95,6 @@ public class OVROverlayEditor : Editor
 		Bottom
 	}
 
-	private GUIContent[] selectableShapeNames;
-	private OVROverlay.OverlayShape[] selectableShapeValues;
-
-	private void Awake()
-	{
-		List<GUIContent> selectableShapeNameList = new List<GUIContent>();
-		List<OVROverlay.OverlayShape> selectableShapesValueList = new List<OVROverlay.OverlayShape>();
-		foreach (OVROverlay.OverlayShape value in Enum.GetValues(typeof(OVROverlay.OverlayShape)))
-		{
-			if (!OVROverlay.IsPassthroughShape(value))
-			{
-				string name = Enum.GetName(typeof(OVROverlay.OverlayShape), value);
-				selectableShapeNameList.Add(new GUIContent(name, name));
-				selectableShapesValueList.Add(value);
-			}
-		}
-		selectableShapeNames = selectableShapeNameList.ToArray();
-		selectableShapeValues = selectableShapesValueList.ToArray();
-	}
-
 	public override void OnInspectorGUI()
 	{
 		OVROverlay overlay = (OVROverlay)target;
@@ -131,15 +110,7 @@ public class OVROverlayEditor : Editor
 		EditorGUILayout.Space();
 
 		EditorGUILayout.LabelField(new GUIContent("Overlay Shape", "The shape of this overlay"), EditorStyles.boldLabel);
-		int currentShapeIndex = Array.IndexOf(selectableShapeValues, overlay.currentOverlayShape);
-		if (currentShapeIndex == -1) {
-			Debug.LogError("Invalid shape encountered");
-			currentShapeIndex = 0;
-		}
-		currentShapeIndex = EditorGUILayout.Popup(new GUIContent("Overlay Shape", "The shape of this overlay"), currentShapeIndex, selectableShapeNames);
-		overlay.currentOverlayShape = selectableShapeValues[currentShapeIndex];
-
-
+		overlay.currentOverlayShape = (OVROverlay.OverlayShape)EditorGUILayout.EnumPopup(new GUIContent("Overlay Shape", "The shape of this overlay"), overlay.currentOverlayShape);
 		EditorGUILayout.Space();
 
 		EditorGUILayout.Separator();
@@ -349,24 +320,25 @@ public class OVROverlayEditor : Editor
 			}
 		}
 
-		EditorGUILayout.Separator();
-		EditorGUILayout.LabelField("Color Scale", EditorStyles.boldLabel);
-		EditorGUILayout.Space();
-		overlay.overridePerLayerColorScaleAndOffset = EditorGUILayout.Toggle(new GUIContent("Override Color Scale", "Manually set color scale and offset of this layer, regardless of what the global values are from OVRManager.SetColorScaleAndOffset()."), overlay.overridePerLayerColorScaleAndOffset);
-		if (overlay.overridePerLayerColorScaleAndOffset)
-		{
-			Vector4 colorScale = EditorGUILayout.Vector4Field(new GUIContent("Color Scale", "Scale that the color values for this overlay will be multiplied by."), overlay.colorScale);
-			Vector4 colorOffset = EditorGUILayout.Vector4Field(new GUIContent("Color Offset", "Offset that the color values for this overlay will be added to."), overlay.colorOffset);
-			overlay.SetPerLayerColorScaleAndOffset(colorScale, colorOffset);
-		}
-
-		EditorGUILayout.Separator();
-		EditorGUILayout.LabelField("Preview", EditorStyles.boldLabel);
-		overlay.previewInEditor = EditorGUILayout.Toggle(new GUIContent("Preview in Editor (Experimental)", "Preview the overlay in the editor using a mesh renderer."), overlay.previewInEditor);
 
 
+            EditorGUILayout.Separator();
+		    EditorGUILayout.LabelField("Color Scale", EditorStyles.boldLabel);
+		    EditorGUILayout.Space();
+		    overlay.overridePerLayerColorScaleAndOffset = EditorGUILayout.Toggle(new GUIContent("Override Color Scale", "Manually set color scale and offset of this layer, regardless of what the global values are from OVRManager.SetColorScaleAndOffset()."), overlay.overridePerLayerColorScaleAndOffset);
+		    if (overlay.overridePerLayerColorScaleAndOffset)
+		    {
+			    Vector4 colorScale = EditorGUILayout.Vector4Field(new GUIContent("Color Scale", "Scale that the color values for this overlay will be multiplied by."), overlay.colorScale);
+			    Vector4 colorOffset = EditorGUILayout.Vector4Field(new GUIContent("Color Offset", "Offset that the color values for this overlay will be added to."), overlay.colorOffset);
+			    overlay.SetPerLayerColorScaleAndOffset(colorScale, colorOffset);
+		    }
 
-		EditorUtility.SetDirty(overlay);
+		    EditorGUILayout.Separator();
+		    EditorGUILayout.LabelField("Preview", EditorStyles.boldLabel);
+		    overlay.previewInEditor = EditorGUILayout.Toggle(new GUIContent("Preview in Editor (Experimental)", "Preview the overlay in the editor using a mesh renderer."), overlay.previewInEditor);
+
+
+        EditorUtility.SetDirty(overlay);
 	}
 
 	private Rect Clamp01(Rect rect)
