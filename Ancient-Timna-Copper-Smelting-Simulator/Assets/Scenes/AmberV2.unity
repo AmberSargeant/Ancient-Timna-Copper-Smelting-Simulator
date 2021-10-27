@@ -140,7 +140,8 @@ GameObject:
   - component: {fileID: 214232534}
   - component: {fileID: 214232533}
   - component: {fileID: 214232532}
-  m_Layer: 0
+  - component: {fileID: 214232536}
+  m_Layer: 8
   m_Name: Big Ore (1)
   m_TagString: Big Ore
   m_Icon: {fileID: 0}
@@ -155,7 +156,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 214232530}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.987, y: -0.98100007, z: -3.514}
+  m_LocalPosition: {x: 0.987, y: -0.515, z: -3.514}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children: []
   m_Father: {fileID: 845505724}
@@ -237,6 +238,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 214232530}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &214232536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214232530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02d61468f8b77ae4b92c344bc9a600fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_allowOffhandGrab: 1
+  m_snapPosition: 0
+  m_snapOrientation: 0
+  m_snapOffset: {fileID: 0}
+  m_grabPoints: []
 --- !u!1 &234153868
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +300,8 @@ GameObject:
   - component: {fileID: 249721153}
   - component: {fileID: 249721152}
   - component: {fileID: 249721151}
-  m_Layer: 0
+  - component: {fileID: 249721155}
+  m_Layer: 9
   m_Name: Small Ore (4)
   m_TagString: Small Ore
   m_Icon: {fileID: 0}
@@ -297,7 +316,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 249721149}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.076, y: -0.986, z: -6.124}
+  m_LocalPosition: {x: 1.076, y: -0.475, z: -6.124}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 423188437}
@@ -379,6 +398,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 249721149}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &249721155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249721149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02d61468f8b77ae4b92c344bc9a600fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_allowOffhandGrab: 1
+  m_snapPosition: 0
+  m_snapOrientation: 0
+  m_snapOffset: {fileID: 0}
+  m_grabPoints: []
 --- !u!1001 &285096024
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -486,7 +522,8 @@ GameObject:
   - component: {fileID: 342195846}
   - component: {fileID: 342195845}
   - component: {fileID: 342195844}
-  m_Layer: 0
+  - component: {fileID: 342195848}
+  m_Layer: 9
   m_Name: Small Ore (1)
   m_TagString: Small Ore
   m_Icon: {fileID: 0}
@@ -501,7 +538,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 342195842}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.09, y: -1.121, z: -6.112}
+  m_LocalPosition: {x: 1.09, y: -0.61, z: -6.112}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 423188437}
@@ -583,6 +620,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 342195842}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &342195848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342195842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02d61468f8b77ae4b92c344bc9a600fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_allowOffhandGrab: 1
+  m_snapPosition: 0
+  m_snapOrientation: 0
+  m_snapOffset: {fileID: 0}
+  m_grabPoints: []
 --- !u!1 &342290448
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,7 +665,7 @@ Transform:
   m_GameObject: {fileID: 342290448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.687, y: -0.978, z: -0.666}
-  m_LocalScale: {x: 0.6, y: 1, z: 0.6}
+  m_LocalScale: {x: 0.6, y: 2, z: 0.6}
   m_Children: []
   m_Father: {fileID: 751952976}
   m_RootOrder: 0
@@ -689,7 +743,8 @@ GameObject:
   - component: {fileID: 396518968}
   - component: {fileID: 396518967}
   - component: {fileID: 396518966}
-  m_Layer: 0
+  - component: {fileID: 396518970}
+  m_Layer: 8
   m_Name: Big Ore (4)
   m_TagString: Big Ore
   m_Icon: {fileID: 0}
@@ -704,7 +759,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 396518964}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.99699986, y: -0.808, z: -3.2949998}
+  m_LocalPosition: {x: 0.99699986, y: -0.34199995, z: -3.2949998}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children: []
   m_Father: {fileID: 845505724}
@@ -786,6 +841,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 396518964}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &396518970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396518964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02d61468f8b77ae4b92c344bc9a600fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_allowOffhandGrab: 1
+  m_snapPosition: 0
+  m_snapOrientation: 0
+  m_snapOffset: {fileID: 0}
+  m_grabPoints: []
 --- !u!1 &423188436
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,7 +938,8 @@ GameObject:
   - component: {fileID: 505379094}
   - component: {fileID: 505379093}
   - component: {fileID: 505379092}
-  m_Layer: 0
+  - component: {fileID: 505379096}
+  m_Layer: 8
   m_Name: Big Ore (2)
   m_TagString: Big Ore
   m_Icon: {fileID: 0}
@@ -881,7 +954,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 505379090}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.7969999, y: -1.018, z: -3.2949998}
+  m_LocalPosition: {x: 0.7969999, y: -0.5519999, z: -3.2949998}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children: []
   m_Father: {fileID: 845505724}
@@ -963,6 +1036,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 505379090}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &505379096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505379090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02d61468f8b77ae4b92c344bc9a600fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_allowOffhandGrab: 1
+  m_snapPosition: 0
+  m_snapOrientation: 0
+  m_snapOffset: {fileID: 0}
+  m_grabPoints: []
 --- !u!1 &533389480
 GameObject:
   m_ObjectHideFlags: 0
@@ -1305,7 +1395,8 @@ GameObject:
   - component: {fileID: 1046743431}
   - component: {fileID: 1046743430}
   - component: {fileID: 1046743429}
-  m_Layer: 0
+  - component: {fileID: 1046743433}
+  m_Layer: 9
   m_Name: Small Ore (2)
   m_TagString: Small Ore
   m_Icon: {fileID: 0}
@@ -1320,7 +1411,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1046743427}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.09, y: -1.121, z: -6.259}
+  m_LocalPosition: {x: 1.09, y: -0.61, z: -6.259}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 423188437}
@@ -1402,6 +1493,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1046743427}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1046743433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1046743427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02d61468f8b77ae4b92c344bc9a600fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_allowOffhandGrab: 1
+  m_snapPosition: 0
+  m_snapOrientation: 0
+  m_snapOffset: {fileID: 0}
+  m_grabPoints: []
 --- !u!1001 &1118025783
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1476,7 +1584,8 @@ GameObject:
   - component: {fileID: 1199231489}
   - component: {fileID: 1199231488}
   - component: {fileID: 1199231487}
-  m_Layer: 0
+  - component: {fileID: 1199231491}
+  m_Layer: 8
   m_Name: Big Ore (3)
   m_TagString: Big Ore
   m_Icon: {fileID: 0}
@@ -1491,7 +1600,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1199231485}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.7909998, y: -0.824, z: -3.2949998}
+  m_LocalPosition: {x: 0.7909998, y: -0.35799992, z: -3.2949998}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children: []
   m_Father: {fileID: 845505724}
@@ -1573,6 +1682,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1199231485}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1199231491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199231485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02d61468f8b77ae4b92c344bc9a600fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_allowOffhandGrab: 1
+  m_snapPosition: 0
+  m_snapOrientation: 0
+  m_snapOffset: {fileID: 0}
+  m_grabPoints: []
 --- !u!1001 &1227847508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1745,7 +1871,7 @@ Transform:
   m_GameObject: {fileID: 1509530632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.687, y: -0.978, z: -1.711}
-  m_LocalScale: {x: 0.6, y: 1, z: 0.6}
+  m_LocalScale: {x: 0.6, y: 2, z: 0.6}
   m_Children: []
   m_Father: {fileID: 751952976}
   m_RootOrder: 1
@@ -1823,7 +1949,8 @@ GameObject:
   - component: {fileID: 1566506578}
   - component: {fileID: 1566506577}
   - component: {fileID: 1566506576}
-  m_Layer: 0
+  - component: {fileID: 1566506580}
+  m_Layer: 9
   m_Name: Small Ore (3)
   m_TagString: Small Ore
   m_Icon: {fileID: 0}
@@ -1838,7 +1965,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1566506574}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.944, y: -1.121, z: -6.124}
+  m_LocalPosition: {x: 0.944, y: -0.61, z: -6.124}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 423188437}
@@ -1920,6 +2047,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1566506574}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1566506580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566506574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02d61468f8b77ae4b92c344bc9a600fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_allowOffhandGrab: 1
+  m_snapPosition: 0
+  m_snapOrientation: 0
+  m_snapOffset: {fileID: 0}
+  m_grabPoints: []
 --- !u!1001 &2008916079
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2133,6 +2277,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ab558481898a4d5b86032a2f46de56e, type: 3}
+--- !u!1001 &2323644250751661137
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2323644250660055048, guid: 2788040cee2d25c40ad83ad624b2d5da,
+        type: 3}
+      propertyPath: m_Name
+      value: OVRPlayerController
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323644250660484134, guid: 2788040cee2d25c40ad83ad624b2d5da,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323644250660484134, guid: 2788040cee2d25c40ad83ad624b2d5da,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323644250660484134, guid: 2788040cee2d25c40ad83ad624b2d5da,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.099
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323644250660484134, guid: 2788040cee2d25c40ad83ad624b2d5da,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323644250660484134, guid: 2788040cee2d25c40ad83ad624b2d5da,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323644250660484134, guid: 2788040cee2d25c40ad83ad624b2d5da,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323644250660484134, guid: 2788040cee2d25c40ad83ad624b2d5da,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323644250660484134, guid: 2788040cee2d25c40ad83ad624b2d5da,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323644250660484134, guid: 2788040cee2d25c40ad83ad624b2d5da,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323644250660484134, guid: 2788040cee2d25c40ad83ad624b2d5da,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323644250660484134, guid: 2788040cee2d25c40ad83ad624b2d5da,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2788040cee2d25c40ad83ad624b2d5da, type: 3}
 --- !u!65 &3013058866368549720
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2154,7 +2367,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3013058866368549734}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.98699987, y: -0.99100006, z: -3.284}
+  m_LocalPosition: {x: 0.98699987, y: -0.525, z: -3.284}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children: []
   m_Father: {fileID: 845505724}
@@ -2220,7 +2433,8 @@ GameObject:
   - component: {fileID: 3013058866368549723}
   - component: {fileID: 3013058866368549720}
   - component: {fileID: 3013058866368549735}
-  m_Layer: 0
+  - component: {fileID: 3013058866368549736}
+  m_Layer: 8
   m_Name: Big Ore
   m_TagString: Big Ore
   m_Icon: {fileID: 0}
@@ -2243,6 +2457,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3013058866368549736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3013058866368549734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02d61468f8b77ae4b92c344bc9a600fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_allowOffhandGrab: 1
+  m_snapPosition: 0
+  m_snapOrientation: 0
+  m_snapOffset: {fileID: 0}
+  m_grabPoints: []
 --- !u!1001 &3398387005260993830
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2511,7 +2742,8 @@ GameObject:
   - component: {fileID: 7959469891651448407}
   - component: {fileID: 7959469891651448406}
   - component: {fileID: 7959469891651448408}
-  m_Layer: 0
+  - component: {fileID: 7959469891651448409}
+  m_Layer: 9
   m_Name: Small Ore
   m_TagString: Small Ore
   m_Icon: {fileID: 0}
@@ -2526,7 +2758,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7959469891651448404}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.09, y: -1.121, z: -5.97}
+  m_LocalPosition: {x: 1.09, y: -0.61, z: -5.97}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 423188437}
@@ -2600,6 +2832,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7959469891651448409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7959469891651448404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02d61468f8b77ae4b92c344bc9a600fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_allowOffhandGrab: 1
+  m_snapPosition: 0
+  m_snapOrientation: 0
+  m_snapOffset: {fileID: 0}
+  m_grabPoints: []
 --- !u!1001 &8755716330751532747
 PrefabInstance:
   m_ObjectHideFlags: 0
