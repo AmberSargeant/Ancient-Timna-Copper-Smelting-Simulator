@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 214232533}
   - component: {fileID: 214232532}
   - component: {fileID: 214232536}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Big Ore (1)
   m_TagString: Big Ore
   m_Icon: {fileID: 0}
@@ -744,7 +744,7 @@ GameObject:
   - component: {fileID: 396518967}
   - component: {fileID: 396518966}
   - component: {fileID: 396518970}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Big Ore (4)
   m_TagString: Big Ore
   m_Icon: {fileID: 0}
@@ -939,7 +939,7 @@ GameObject:
   - component: {fileID: 505379093}
   - component: {fileID: 505379092}
   - component: {fileID: 505379096}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Big Ore (2)
   m_TagString: Big Ore
   m_Icon: {fileID: 0}
@@ -1077,7 +1077,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 533389480}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.44826645, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 845505724}
@@ -1085,6 +1085,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &603517454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 603517455}
+  - component: {fileID: 603517456}
+  m_Layer: 8
+  m_Name: trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &603517455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603517454}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1624873447}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &603517456
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603517454}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,7 +1246,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 751952975}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.87526643, y: 0.0010550618, z: -2.8805752}
+  m_LocalPosition: {x: 0.427, y: 0.0010550618, z: -2.8805752}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 342290449}
@@ -1313,6 +1358,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce21a090bd9184c07b8bedc1b1e8ee02, type: 3}
+--- !u!1 &956049374
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 956049375}
+  - component: {fileID: 956049376}
+  m_Layer: 0
+  m_Name: Small Ore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &956049375
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956049374}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.31856441, y: -0.8070075, z: -4.6851463}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &956049376
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956049374}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1001477838
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1585,7 +1674,7 @@ GameObject:
   - component: {fileID: 1199231488}
   - component: {fileID: 1199231487}
   - component: {fileID: 1199231491}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Big Ore (3)
   m_TagString: Big Ore
   m_Icon: {fileID: 0}
@@ -1843,6 +1932,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1315179708}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1424479576
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1424479577}
+  m_Layer: 0
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1424479577
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424479576}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.3731675, y: -0.7388552, z: -4.04829}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1509530632
 GameObject:
   m_ObjectHideFlags: 0
@@ -2064,6 +2183,76 @@ MonoBehaviour:
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints: []
+--- !u!1 &1624873442 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2323644250660055048, guid: 2788040cee2d25c40ad83ad624b2d5da,
+    type: 3}
+  m_PrefabInstance: {fileID: 2323644250751661137}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1624873447 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2323644250660484134, guid: 2788040cee2d25c40ad83ad624b2d5da,
+    type: 3}
+  m_PrefabInstance: {fileID: 2323644250751661137}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1624873448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624873442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65a1031e71b241e4dbf7e05960ffdb3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  largeOre: 0
+  smallOre: 0
+--- !u!1 &1966324534
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1966324535}
+  - component: {fileID: 1966324536}
+  m_Layer: 0
+  m_Name: Large Ore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1966324535
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966324534}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.31856441, y: -0.8070075, z: -3.4391465}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1966324536
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966324534}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2008916079
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2139,6 +2328,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2008916079}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2096775082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2096775083}
+  m_Layer: 0
+  m_Name: Triggers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2096775083
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096775082}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.1405644, y: -1.3850075, z: 2.7888536}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2143267399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2284,10 +2503,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2323644250646060480, guid: 2788040cee2d25c40ad83ad624b2d5da,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 2323644250660055048, guid: 2788040cee2d25c40ad83ad624b2d5da,
         type: 3}
       propertyPath: m_Name
       value: OVRPlayerController
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323644250660055048, guid: 2788040cee2d25c40ad83ad624b2d5da,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2323644250660484134, guid: 2788040cee2d25c40ad83ad624b2d5da,
         type: 3}
@@ -2297,7 +2526,7 @@ PrefabInstance:
     - target: {fileID: 2323644250660484134, guid: 2788040cee2d25c40ad83ad624b2d5da,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.668
       objectReference: {fileID: 0}
     - target: {fileID: 2323644250660484134, guid: 2788040cee2d25c40ad83ad624b2d5da,
         type: 3}
@@ -2434,7 +2663,7 @@ GameObject:
   - component: {fileID: 3013058866368549720}
   - component: {fileID: 3013058866368549735}
   - component: {fileID: 3013058866368549736}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Big Ore
   m_TagString: Big Ore
   m_Icon: {fileID: 0}
