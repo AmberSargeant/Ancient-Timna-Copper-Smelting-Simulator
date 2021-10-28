@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    public bool largeOre;
-    public bool smallOre;
+    public bool largeOre = false;
+    public bool smallOre = false;
     void Start()
     {
 
@@ -39,14 +39,20 @@ public class PlayerCollision : MonoBehaviour
         if(other.gameObject.name == "Large Ore")
         {
             largeOre = true;
-            //If the GameObject's name matches the one you suggest, output this message in the console
-            print(largeOre);
+     
+            print(largeOre + "Large Ore");
         }
         if (other.gameObject.name == "Small Ore")
         {
             smallOre = true;
-            print(smallOre);
+            print(smallOre + "Small Ore");
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        largeOre = false;
+        smallOre = false;
     }
 
 }
