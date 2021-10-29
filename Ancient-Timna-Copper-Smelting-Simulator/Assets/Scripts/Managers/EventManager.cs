@@ -8,6 +8,7 @@ public class EventManager : MonoBehaviour
     private PlayerCollision playerCollision;
     private VesselCollision vesselCollision;
     private FurnaceCollision furnaceCollision;
+    private BlowPipeCollision blowPipeCollision;
     private bool firstStage = true;
     private bool secondStage,thirdStage, fourthStage = false;
     public bool ovrGrabbableCheck = false;
@@ -17,6 +18,7 @@ public class EventManager : MonoBehaviour
     public GameObject smallOreTable;
     public GameObject vesselPrefab;
     public GameObject blowpipePrefab;
+    public GameObject fireUIPrefab;
     public GameObject largeOreText;
     public GameObject smallOreText;
     public GameObject chooseOreText;
@@ -29,6 +31,7 @@ public class EventManager : MonoBehaviour
         playerCollision = FindObjectOfType<PlayerCollision>();
         vesselCollision = FindObjectOfType<VesselCollision>();
         furnaceCollision = FindObjectOfType<FurnaceCollision>();
+         blowPipeCollision = FindObjectOfType<BlowPipeCollision>();
     }
     void Update()
     {
@@ -118,7 +121,12 @@ public class EventManager : MonoBehaviour
             //need to refactor
             fourthStageText.SetActive(true);
             blowpipePrefab.GetComponent<OVRGrabbable>().allowOffhandGrab = true;
-           
+           if(blowPipeCollision.grabbedBlowPipe == true)
+            {
+                fourthStageText.SetActive(false);
+                fourthStage = false;
+                fireUIPrefab.SetActive(true);
+            }
 
         }
 

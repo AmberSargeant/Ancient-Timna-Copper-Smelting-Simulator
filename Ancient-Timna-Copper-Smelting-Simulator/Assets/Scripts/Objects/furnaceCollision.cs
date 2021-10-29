@@ -11,6 +11,7 @@ public class FurnaceCollision : MonoBehaviour
         if (other.tag == "Vessel")
         {
             inFurnace = true;
+            Destroy(other.gameObject);
         }
     }
 }

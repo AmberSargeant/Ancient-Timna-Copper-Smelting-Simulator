@@ -20,11 +20,14 @@ public class VesselCollision : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.collider.tag == "Ore" &&!hitted)
+        if (enableCollision)
         {
-            Destroy(other.gameObject);
-            hitted = true;
-            countOre++;
+            if (other.collider.tag == "Ore" && !hitted)
+            {
+                Destroy(other.gameObject);
+                hitted = true;
+                countOre++;
+            }
         }
     }
 

@@ -237,6 +237,10 @@ public class OVRGrabber : MonoBehaviour
             {
                 continue;
             }
+            if (grabbable == null)
+            {
+                continue;
+            }
 
             for (int j = 0; j < grabbable.grabPoints.Length; ++j)
             {

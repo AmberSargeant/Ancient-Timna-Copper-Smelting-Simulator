@@ -4913,6 +4913,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2594672594054040128}
   - component: {fileID: 6362652055285359755}
+  - component: {fileID: 1613422234496120762}
   m_Layer: 0
   m_Name: Furnace
   m_TagString: Untagged
@@ -4954,6 +4955,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1613422234496120762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2594672594054040129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acd406688be04d54c8a763ac60afc067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inFurnace: 0
 --- !u!1 &2594672595001703157
 GameObject:
   m_ObjectHideFlags: 0
