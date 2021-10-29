@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class furnaceCollision : MonoBehaviour
+public class FurnaceCollision : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public bool inFurnace;
+    void OnTriggerEnter(Collider other)
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (other.tag == "Vessel")
+        {
+            inFurnace = true;
+        }
     }
 }

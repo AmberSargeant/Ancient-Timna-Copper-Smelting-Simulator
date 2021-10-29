@@ -7,22 +7,28 @@ public class EventManager : MonoBehaviour
 {
     private PlayerCollision playerCollision;
     private VesselCollision vesselCollision;
+    private FurnaceCollision furnaceCollision;
     private bool firstStage = true;
     private bool secondStage,thirdStage, fourthStage = false;
-    public List<GameObject> ore = new List<GameObject>();
+    public bool ovrGrabbableCheck = false;
     public GameObject largeOrePrefab;
     public GameObject largeOreTable;
     public GameObject smallOrePrefab;
     public GameObject smallOreTable;
+    public GameObject vesselPrefab;
+    public GameObject blowpipePrefab;
     public GameObject largeOreText;
     public GameObject smallOreText;
+    public GameObject chooseOreText;
     public GameObject firstStagetext;
     public GameObject secondStagetext;
     public GameObject thirdStagetext;
+    public GameObject fourthStageText;
     void Start()
     {
         playerCollision = FindObjectOfType<PlayerCollision>();
         vesselCollision = FindObjectOfType<VesselCollision>();
+        furnaceCollision = FindObjectOfType<FurnaceCollision>();
     }
     void Update()
     {
@@ -59,7 +65,8 @@ public class EventManager : MonoBehaviour
                 //need to refactor
                 firstStage = false;
                 secondStage = true;
-            }
+                chooseOreText.SetActive(false);
+}
             else if (OVRInput.GetDown(OVRInput.Button.Two))
             {
                 firstStagetext.SetActive(false);
@@ -68,6 +75,7 @@ public class EventManager : MonoBehaviour
                 //need to refactor
                 firstStage = false;
                 secondStage = true;
+                chooseOreText.SetActive(false);
             }
         }
 
@@ -78,60 +86,41 @@ public class EventManager : MonoBehaviour
             secondStagetext.SetActive(true);
             largeOreText.SetActive(false);
             smallOreText.SetActive(false);
-            //need to refactor
-            if (vesselCollision.bigOre1)
-            {
-                ore[0].SetActive(false);
-            }
-            if (vesselCollision.bigOre2)
-            {
-                ore[1].SetActive(false);
-            }
-            if (vesselCollision.bigOre3)
-            {
-                ore[2].SetActive(false);
-            }
-            if (vesselCollision.bigOre4)
-            {
-                ore[3].SetActive(false);
-            }
-            if (vesselCollision.bigOre5)
-            {
-                ore[4].SetActive(false);
-            }
-            if (vesselCollision.smallOre1)
-            {
-                ore[5].SetActive(false);
-            }
-            if (vesselCollision.smallOre2)
-            {
-                ore[6].SetActive(false);
-            }
-            if (vesselCollision.smallOre3)
-            {
-                ore[7].SetActive(false);
-            }
-            if (vesselCollision.smallOre4)
-            {
-                ore[8].SetActive(false);
-            }
-            if (vesselCollision.smallOre5)
-            {
-                ore[9].SetActive(false);
-            }
+            vesselCollision.enableCollision = true;
+           
             if(vesselCollision.countOre == 5)
             {
                 //need to refactor
                 secondStage = false;
                 thirdStage = true;
+                secondStagetext.SetActive(false);
+                vesselPrefab.GetComponent<OVRGrabbable>().allowOffhandGrab = true;
+            }
+
+        }
+        //need to refactor
+        if (thirdStage)
+        {
+            //need to refactor
+            thirdStagetext.SetActive(true);
+
+            if (furnaceCollision.inFurnace == true)
+            {
+                fourthStage = true;
+                thirdStagetext.SetActive(false);
             }
 
         }
 
         //need to refactor
-        if (thirdStage)
+        if (fourthStage)
         {
-            thirdStagetext.SetActive(true);
+            //need to refactor
+            fourthStageText.SetActive(true);
+            blowpipePrefab.GetComponent<OVRGrabbable>().allowOffhandGrab = true;
+           
+
         }
+
     }
 }
