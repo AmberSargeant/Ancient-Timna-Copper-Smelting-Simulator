@@ -22,12 +22,16 @@ public class MessageListener : MonoBehaviour
 {
     public GameObject flame1, flame2, flame3, flame4, flame5;
     public Image progressBar;
+    public GameObject breatheIn;
+    public GameObject breatheOut;
     float temperature;
     bool startTimer = false;
     bool startWaitOnce ,startWaitTwo,startWaitThree,startWaitFour= false;
     bool fill = false;
+    bool decrease = false;
     float currentValue;
     float currentFillValue;
+    [SerializeField]
     int fillCounter = 0;
     [SerializeField]
     float speed;
@@ -77,7 +81,9 @@ public class MessageListener : MonoBehaviour
                 if (temperature >= currentValue + 5)
                     if(!fill)
                 {
-                    currentFillValue += speed * Time.deltaTime;
+                        breatheIn.SetActive(false);
+                        breatheOut.SetActive(true);
+                        currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
                 }
 
                 progressBar.fillAmount = currentFillValue / 100;
@@ -85,61 +91,51 @@ public class MessageListener : MonoBehaviour
 
             if (progressBar.fillAmount == 1)
             {
+                decrease = true;
                 fillCounter++;
-                currentFillValue = 0;
-                progressBar.fillAmount = 0;
+                //currentFillValue = 0;
+                //progressBar.fillAmount = 0;
             }
+
+            if (decrease)
+            {
+                fill = true;
+                currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
+                breatheIn.SetActive(true);
+                breatheOut.SetActive(false);
+                if (progressBar.fillAmount == 0)
+                {
+                    fill = false;
+                    decrease = false;
+                }
+            }
+
         }
 
         if(fillCounter == 1)
         {
             flame1.SetActive(false);
             flame2.SetActive(true);
-            if (!startWaitOnce)
-            {
-                fill = true;
-                startWaitOnce = true;
-                StartCoroutine("Wait");
-            }
+
         }
         if (fillCounter == 2)
         {
             flame2.SetActive(false);
             flame3.SetActive(true);
-            if (!startWaitTwo)
-            {
-                fill = true;
-                startWaitTwo = true;
-                StartCoroutine("Wait");
-            }
+
         }
         if (fillCounter == 3)
         {
             flame3.SetActive(false);
             flame4.SetActive(true);
-            if (!startWaitThree)
-            {
-                fill = true;
-                startWaitThree = true;
-                StartCoroutine("Wait");
-            }
+
         }
         if (fillCounter == 4)
         {
             flame4.SetActive(false);
             flame5.SetActive(true);
-            if (!startWaitFour)
-            {
-                fill = true;
-                startWaitFour = true;
-                StartCoroutine("Wait");
-            }
+
         }
     }
-    private  IEnumerator Wait()
-    {
-        yield return new WaitForSeconds(3f);
-        fill = false;
-        
-    }
+
 }

@@ -12,6 +12,7 @@ public class EventManager : MonoBehaviour
     private bool firstStage = true;
     private bool secondStage,thirdStage, fourthStage = false;
     public bool ovrGrabbableCheck = false;
+    public GameObject playerControllerPrefab;
     public GameObject largeOrePrefab;
     public GameObject largeOreTable;
     public GameObject smallOrePrefab;
@@ -31,8 +32,8 @@ public class EventManager : MonoBehaviour
         playerCollision = FindObjectOfType<PlayerCollision>();
         vesselCollision = FindObjectOfType<VesselCollision>();
         furnaceCollision = FindObjectOfType<FurnaceCollision>();
-         blowPipeCollision = FindObjectOfType<BlowPipeCollision>();
-    }
+        blowPipeCollision = FindObjectOfType<BlowPipeCollision>();
+}
     void Update()
     {
         //need to refactor
@@ -63,8 +64,8 @@ public class EventManager : MonoBehaviour
             if (OVRInput.GetDown(OVRInput.Button.One))
             {
                 firstStagetext.SetActive(false);
-                smallOrePrefab.SetActive(false);
-                smallOreTable.SetActive(false);
+                Destroy(smallOrePrefab);
+                Destroy(smallOreTable);
                 //need to refactor
                 firstStage = false;
                 secondStage = true;
@@ -73,8 +74,8 @@ public class EventManager : MonoBehaviour
             else if (OVRInput.GetDown(OVRInput.Button.Two))
             {
                 firstStagetext.SetActive(false);
-                largeOrePrefab.SetActive(false);
-                largeOreTable.SetActive(false);
+                Destroy(largeOrePrefab);
+                Destroy(largeOreTable);
                 //need to refactor
                 firstStage = false;
                 secondStage = true;
@@ -104,6 +105,7 @@ public class EventManager : MonoBehaviour
         //need to refactor
         if (thirdStage)
         {
+            playerControllerPrefab.GetComponent<OVRPlayerController>().EnableLinearMovement = true;
             //need to refactor
             thirdStagetext.SetActive(true);
 
