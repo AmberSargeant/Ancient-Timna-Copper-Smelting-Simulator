@@ -26,7 +26,6 @@ public class MessageListener : MonoBehaviour
     public GameObject breatheOut;
     float temperature;
     bool startTimer = false;
-    bool startWaitOnce ,startWaitTwo,startWaitThree,startWaitFour= false;
     bool fill = false;
     bool decrease = false;
     float currentValue;
@@ -63,9 +62,8 @@ public class MessageListener : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(temperature + "Temperature");
-        Debug.Log(currentValue + "Current Value");
-        Debug.Log(startTimer + "StartTimer");
+        print(temperature + "Temperature");
+        print(currentValue + "Current Value");
         if (fillCounter <= 4)
         {
             if (temperature != 0)
