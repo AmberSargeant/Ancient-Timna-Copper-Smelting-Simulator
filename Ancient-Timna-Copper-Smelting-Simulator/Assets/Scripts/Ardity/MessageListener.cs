@@ -76,7 +76,7 @@ public class MessageListener : MonoBehaviour
             }
             if (temperature > 0 && currentValue > 0)
             {
-                if (temperature >= currentValue + 5)
+                if (temperature >= currentValue + 0.01f)
                     if(!fill)
                 {
                         breatheIn.SetActive(false);
@@ -91,8 +91,6 @@ public class MessageListener : MonoBehaviour
             {
                 decrease = true;
                 fillCounter++;
-                //currentFillValue = 0;
-                //progressBar.fillAmount = 0;
             }
 
             if (decrease)
