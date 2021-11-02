@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class EventManager : MonoBehaviour
 {
-    private PlayerCollision playerCollision;
     private VesselCollision vesselCollision;
     private FurnaceCollision furnaceCollision;
     private BlowPipeCollision blowPipeCollision;
@@ -14,14 +13,10 @@ public class EventManager : MonoBehaviour
     public bool ovrGrabbableCheck = false;
     public GameObject playerControllerPrefab;
     public GameObject largeOrePrefab;
-    public GameObject largeOreTable;
     public GameObject smallOrePrefab;
-    public GameObject smallOreTable;
     public GameObject vesselPrefab;
     public GameObject blowpipePrefab;
     public GameObject fireUIPrefab;
-    public GameObject largeOreText;
-    public GameObject smallOreText;
     public GameObject chooseOreText;
     public GameObject firstStagetext;
     public GameObject secondStagetext;
@@ -29,7 +24,6 @@ public class EventManager : MonoBehaviour
     public GameObject fourthStageText;
     void Start()
     {
-        playerCollision = FindObjectOfType<PlayerCollision>();
         vesselCollision = FindObjectOfType<VesselCollision>();
         furnaceCollision = FindObjectOfType<FurnaceCollision>();
         blowPipeCollision = FindObjectOfType<BlowPipeCollision>();
@@ -39,33 +33,11 @@ public class EventManager : MonoBehaviour
         //need to refactor
         if (firstStage)
         {
-            if (playerCollision.smallOre)
-            {
-                //need to refactor
-                smallOreText.SetActive(true);
-            }
-            else
-            {
-                //need to refactor
-                smallOreText.SetActive(false);
-            }
-
-            if (playerCollision.largeOre)
-            {
-                //need to refactor
-                largeOreText.SetActive(true);
-            }
-            else
-            {
-                //need to refactor
-                largeOreText.SetActive(false);
-            }
 
             if (OVRInput.GetDown(OVRInput.Button.One))
             {
                 firstStagetext.SetActive(false);
                 Destroy(smallOrePrefab);
-                Destroy(smallOreTable);
                 //need to refactor
                 firstStage = false;
                 secondStage = true;
@@ -75,7 +47,6 @@ public class EventManager : MonoBehaviour
             {
                 firstStagetext.SetActive(false);
                 Destroy(largeOrePrefab);
-                Destroy(largeOreTable);
                 //need to refactor
                 firstStage = false;
                 secondStage = true;
@@ -88,8 +59,6 @@ public class EventManager : MonoBehaviour
         {
             //need to refactor
             secondStagetext.SetActive(true);
-            largeOreText.SetActive(false);
-            smallOreText.SetActive(false);
             vesselCollision.enableCollision = true;
            
             if(vesselCollision.countOre == 5)
