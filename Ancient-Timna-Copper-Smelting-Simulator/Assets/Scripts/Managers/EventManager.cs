@@ -9,7 +9,7 @@ public class EventManager : MonoBehaviour
     private FurnaceCollision furnaceCollision;
     private BlowPipeCollision blowPipeCollision;
     private bool firstStage = true;
-    private bool secondStage,thirdStage, fourthStage = false;
+    private bool secondStage,thirdStage, fourthStage, fifthStage = false;
     public bool ovrGrabbableCheck = false;
     public GameObject playerControllerPrefab;
     public GameObject largeOrePrefab;
@@ -22,6 +22,7 @@ public class EventManager : MonoBehaviour
     public GameObject secondStagetext;
     public GameObject thirdStagetext;
     public GameObject fourthStageText;
+    public GameObject fifthStageText;
     void Start()
     {
         vesselCollision = FindObjectOfType<VesselCollision>();
@@ -96,9 +97,20 @@ public class EventManager : MonoBehaviour
             {
                 fourthStageText.SetActive(false);
                 fourthStage = false;
-                fireUIPrefab.SetActive(true);
+                fifthStage = true;
             }
 
+        }
+        //need to refactor
+        if (fifthStage)
+        {
+            fifthStageText.SetActive(true);
+            if (furnaceCollision.pipeInFurnace == true)
+            {
+                fifthStageText.SetActive(false);
+                fireUIPrefab.SetActive(true);
+                fifthStage = false;
+            }
         }
 
     }
