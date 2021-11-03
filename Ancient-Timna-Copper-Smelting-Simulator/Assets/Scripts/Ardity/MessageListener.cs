@@ -101,7 +101,7 @@ public class MessageListener : MonoBehaviour
                         {
                             if (counter <= 1049)
                             {
-                                counterSpeed = 89f;
+                                counterSpeed = 88.5f;
                                 counter = (int)(counter + 1 * counterSpeed * Time.deltaTime);
                                 countText.text = counter + "°F";
                             }
@@ -111,7 +111,7 @@ public class MessageListener : MonoBehaviour
                         {
                             if (counter <= 1149)
                             {
-                                counterSpeed = 88.9f;
+                                counterSpeed = 88.5f;
                                 counter = (int)(counter + 1 * counterSpeed * Time.deltaTime);
                                 countText.text = counter + "°F";
                             }
@@ -121,7 +121,7 @@ public class MessageListener : MonoBehaviour
                         {
                             if (counter <= 1249)
                             {
-                                counterSpeed = 88.9f;
+                                counterSpeed = 88.5f;
                                 counter = (int)(counter + 1 * counterSpeed * Time.deltaTime);
                                 countText.text = counter + "°F";
                             }
