@@ -69,124 +69,124 @@ public class MessageListener : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(temperature + "Temperature");
-        print(currentValue + "Current Value");
-        if (fillCounter <= 4)
-        {
-            if (temperature != 0)
-            {
-                if (!startTimer)
-                {
-                    currentValue = temperature;
-                    startTimer = true;
-                }
-            }
-            if (temperature > 0 && currentValue > 0)
-            {
-                if (temperature >= currentValue + 5f)
-                    if(!fill)
-                {
-                        breatheIn.SetActive(false);
-                        breatheOut.SetActive(true);
-                        if (firstCount)
-                        {
-                            if (counter <= 949)
-                            {
-                                counterSpeed = 90f;
-                                counter = (int)(counter + 1 * counterSpeed * Time.deltaTime);
-                                countText.text = counter + "°F";
-                            }
-                        }
-                        if (secondCount)
-                        {
-                            if (counter <= 1049)
-                            {
-                                counterSpeed = 88.5f;
-                                counter = (int)(counter + 1 * counterSpeed * Time.deltaTime);
-                                countText.text = counter + "°F";
-                            }
-                        }
+    //    print(temperature + "Temperature");
+    //    print(currentValue + "Current Value");
+    //    if (fillCounter <= 4)
+    //    {
+    //        if (temperature != 0)
+    //        {
+    //            if (!startTimer)
+    //            {
+    //                currentValue = temperature;
+    //                startTimer = true;
+    //            }
+    //        }
+    //        if (temperature > 0 && currentValue > 0)
+    //        {
+    //            if (temperature >= currentValue + 5f)
+    //                if(!fill)
+    //            {
+    //                    breatheIn.SetActive(false);
+    //                    breatheOut.SetActive(true);
+    //                    if (firstCount)
+    //                    {
+    //                        if (counter <= 949)
+    //                        {
+    //                            counterSpeed = 90f;
+    //                            counter = (int)(counter + 1 * counterSpeed * Time.deltaTime);
+    //                            countText.text = counter + "°F";
+    //                        }
+    //                    }
+    //                    if (secondCount)
+    //                    {
+    //                        if (counter <= 1049)
+    //                        {
+    //                            counterSpeed = 88.5f;
+    //                            counter = (int)(counter + 1 * counterSpeed * Time.deltaTime);
+    //                            countText.text = counter + "°F";
+    //                        }
+    //                    }
 
-                        if (thirdCount)
-                        {
-                            if (counter <= 1149)
-                            {
-                                counterSpeed = 88.5f;
-                                counter = (int)(counter + 1 * counterSpeed * Time.deltaTime);
-                                countText.text = counter + "°F";
-                            }
-                        }
+    //                    if (thirdCount)
+    //                    {
+    //                        if (counter <= 1149)
+    //                        {
+    //                            counterSpeed = 88.5f;
+    //                            counter = (int)(counter + 1 * counterSpeed * Time.deltaTime);
+    //                            countText.text = counter + "°F";
+    //                        }
+    //                    }
 
-                        if (fourthCount)
-                        {
-                            if (counter <= 1249)
-                            {
-                                counterSpeed = 88.5f;
-                                counter = (int)(counter + 1 * counterSpeed * Time.deltaTime);
-                                countText.text = counter + "°F";
-                            }
-                        }
-                        currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
+    //                    if (fourthCount)
+    //                    {
+    //                        if (counter <= 1249)
+    //                        {
+    //                            counterSpeed = 88.5f;
+    //                            counter = (int)(counter + 1 * counterSpeed * Time.deltaTime);
+    //                            countText.text = counter + "°F";
+    //                        }
+    //                    }
+    //                    currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
                         
-                }
+    //            }
 
-                progressBar.fillAmount = currentFillValue / 100;
-            }
+    //            progressBar.fillAmount = currentFillValue / 100;
+    //        }
 
-            if (progressBar.fillAmount == 1)
-            {
-                //startTimer = false;
-                decrease = true;
-                fillCounter++;
-            }
+    //        if (progressBar.fillAmount == 1)
+    //        {
+    //            //startTimer = false;
+    //            decrease = true;
+    //            fillCounter++;
+    //        }
 
-            if (decrease)
-            {
-                fill = true;
-                currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
-                breatheIn.SetActive(true);
-                breatheOut.SetActive(false);
-                if (progressBar.fillAmount == 0)
-                {
-                    fill = false;
-                    decrease = false;
-                }
-            }
+    //        if (decrease)
+    //        {
+    //            fill = true;
+    //            currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
+    //            breatheIn.SetActive(true);
+    //            breatheOut.SetActive(false);
+    //            if (progressBar.fillAmount == 0)
+    //            {
+    //                fill = false;
+    //                decrease = false;
+    //            }
+    //        }
 
-        }
+    //    }
 
-        if(fillCounter == 1)
-        {
-            firstCount = false;
-            secondCount = true;
-            flame1.SetActive(false);
-            flame2.SetActive(true);
+    //    if(fillCounter == 1)
+    //    {
+    //        firstCount = false;
+    //        secondCount = true;
+    //        flame1.SetActive(false);
+    //        flame2.SetActive(true);
 
-        }
-        if (fillCounter == 2)
-        {
-            secondCount = false;
-            thirdCount = true;
-            flame2.SetActive(false);
-            flame3.SetActive(true);
+    //    }
+    //    if (fillCounter == 2)
+    //    {
+    //        secondCount = false;
+    //        thirdCount = true;
+    //        flame2.SetActive(false);
+    //        flame3.SetActive(true);
 
-        }
-        if (fillCounter == 3)
-        {
-            thirdCount = false;
-            fourthCount = true;
-            flame3.SetActive(false);
-            flame4.SetActive(true);
+    //    }
+    //    if (fillCounter == 3)
+    //    {
+    //        thirdCount = false;
+    //        fourthCount = true;
+    //        flame3.SetActive(false);
+    //        flame4.SetActive(true);
 
-        }
-        if (fillCounter == 4)
-        {
-            fourthCount = false;
-            fifthCount = true;
-            flame4.SetActive(false);
-            flame5.SetActive(true);
+    //    }
+    //    if (fillCounter == 4)
+    //    {
+    //        fourthCount = false;
+    //        fifthCount = true;
+    //        flame4.SetActive(false);
+    //        flame5.SetActive(true);
 
-        }
-    }
+    //    }
+      }
 
 }

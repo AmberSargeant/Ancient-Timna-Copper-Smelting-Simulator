@@ -18,11 +18,11 @@ public class BlowPipeCollision : MonoBehaviour
         //needs to be refactored
         if (!occurOnce)
         {
-            if (this.transform.GetComponent<OVRGrabbable>().isGrabbed == true)
-            {
+            //if (this.transform.GetComponent<OVRGrabbable>().isGrabbed == true)
+            //{
                 occurOnce = true;
                 grabbedBlowPipe = true;
-            }
+            //}
         }
     }
 }
