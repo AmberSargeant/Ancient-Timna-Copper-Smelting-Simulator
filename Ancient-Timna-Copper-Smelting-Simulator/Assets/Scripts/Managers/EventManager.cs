@@ -76,6 +76,7 @@ public class EventManager : MonoBehaviour
         if (thirdStage)
         {
             playerControllerPrefab.GetComponent<OVRPlayerController>().EnableLinearMovement = true;
+            vesselPrefab.GetComponent<Rigidbody>().isKinematic = false;
             //need to refactor
             thirdStagetext.SetActive(true);
 
