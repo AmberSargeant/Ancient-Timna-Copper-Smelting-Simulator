@@ -979,6 +979,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7705f1b023c3545a2a95b6e0cb5ea11b, type: 3}
+--- !u!1 &1494239325 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7920818700237176951, guid: 2f031380fd8ed424a9b3ae4d1476d918,
+    type: 3}
+  m_PrefabInstance: {fileID: 1728628560}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1638471230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1170,10 +1176,20 @@ PrefabInstance:
       propertyPath: m_ModelTransform
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4789619294268497533, guid: 2f031380fd8ed424a9b3ae4d1476d918,
+        type: 3}
+      propertyPath: m_CameraFloorOffsetObject
+      value: 
+      objectReference: {fileID: 1494239325}
     - target: {fileID: 5843497292548984443, guid: 2f031380fd8ed424a9b3ae4d1476d918,
         type: 3}
       propertyPath: m_Name
       value: VRRig
+      objectReference: {fileID: 0}
+    - target: {fileID: 7740052771638995815, guid: 2f031380fd8ed424a9b3ae4d1476d918,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.36144
       objectReference: {fileID: 0}
     - target: {fileID: 8988972649474686637, guid: 2f031380fd8ed424a9b3ae4d1476d918,
         type: 3}
@@ -1739,7 +1755,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "750 \xB0F"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2830,7 +2846,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Breathe In
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -5027,7 +5043,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Breathe Out
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
