@@ -16,14 +16,19 @@ public class HandPresence : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        TryInitialize();
+    }
+
+    void TryInitialize()
+    {
         List<InputDevice> devices = new List<InputDevice>();
         InputDevices.GetDevicesWithCharacteristics(controllerCharacteristics, devices);
-        foreach(var item in devices)
+        foreach (var item in devices)
         {
             Debug.Log(item.name + item.characteristics);
         }
 
-        if(devices.Count > 0)
+        if (devices.Count > 0)
         {
             targetDevice = devices[0];
             GameObject prefab = controllerPrefabs.Find(controller => controller.name == targetDevice.name);
@@ -40,7 +45,6 @@ public class HandPresence : MonoBehaviour
             handAnimator = spawnedHandModel.GetComponent<Animator>();
         }
     }
-
     void UpdateHandAnimation()
     {
         if(targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue))
@@ -64,6 +68,10 @@ public class HandPresence : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!targetDevice.isValid)
+        {
+            TryInitialize();
+        }
         if (showController)
         {
             spawnedHandModel.SetActive(false);

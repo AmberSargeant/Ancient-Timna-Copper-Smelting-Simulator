@@ -34,84 +34,86 @@ public class EventManager : MonoBehaviour
         //need to refactor
         if (firstStage)
         {
-
-            if (rHand.selectTarget.tag == "Large Ore")
+            if (rHand.selectTarget != null)
             {
-                firstStagetext.SetActive(false);
-                Destroy(smallOrePrefab);
-                //need to refactor
-                firstStage = false;
-                secondStage = true;
+                if (rHand.selectTarget.tag == "Big Ore")
+                {
+                    firstStagetext.SetActive(false);
+                    Destroy(smallOrePrefab);
+                    //need to refactor
+                    firstStage = false;
+                    secondStage = true;
 
-            }
-            else if (rHand.selectTarget.tag == "Small Ore")
-            {
-                firstStagetext.SetActive(false);
-                Destroy(largeOrePrefab);
-                //need to refactor
-                firstStage = false;
-                secondStage = true;
-
+                }
+                else if (rHand.selectTarget.tag == "Small Ore")
+                {
+                    firstStagetext.SetActive(false);
+                    Destroy(largeOrePrefab);
+                    //need to refactor
+                    firstStage = false;
+                    secondStage = true;
+                } 
             }
         }
 
-        //    //need to refactor
-        //    if (secondStage)
-        //    {
-        //        //need to refactor
-        //        secondStagetext.SetActive(true);
-        //        vesselCollision.enableCollision = true;
+        //need to refactor
+        if (secondStage)
+        {
+            //need to refactor
+            secondStagetext.SetActive(true);
+            vesselCollision.enableCollision = true;
 
-        //        if(vesselCollision.countOre == 5)
-        //        {
-        //            //need to refactor
-        //            secondStage = false;
-        //            thirdStage = true;
-        //            secondStagetext.SetActive(false);
-        //            //vesselPrefab.GetComponent<OVRGrabbable>().allowOffhandGrab = true;
-        //        }
+            if (vesselCollision.countOre == 5)
+            {
+                //need to refactor
+                secondStage = false;
+                thirdStage = true;
+                secondStagetext.SetActive(false);
+                //vesselPrefab.GetComponent<OVRGrabbable>().allowOffhandGrab = true;
+            }
+        }
 
-        //    }
-        //    //need to refactor
-        //    if (thirdStage)
-        //    {
-        //        vesselPrefab.GetComponent<Rigidbody>().isKinematic = false;
-        //        //need to refactor
-        //        thirdStagetext.SetActive(true);
+            //    }
+            //    //need to refactor
+            //    if (thirdStage)
+            //    {
+            //        vesselPrefab.GetComponent<Rigidbody>().isKinematic = false;
+            //        //need to refactor
+            //        thirdStagetext.SetActive(true);
 
-        //        if (furnaceCollision.inFurnace == true)
-        //        {
-        //            fourthStage = true;
-        //            thirdStagetext.SetActive(false);
-        //        }
+            //        if (furnaceCollision.inFurnace == true)
+            //        {
+            //            fourthStage = true;
+            //            thirdStagetext.SetActive(false);
+            //        }
 
-        //    }
+            //    }
 
-        //    //need to refactor
-        //    if (fourthStage)
-        //    {
-        //        //need to refactor
-        //        fourthStageText.SetActive(true);
-        //        //blowpipePrefab.GetComponent<OVRGrabbable>().allowOffhandGrab = true;
-        //       if(blowPipeCollision.grabbedBlowPipe == true)
-        //        {
-        //            fourthStageText.SetActive(false);
-        //            fourthStage = false;
-        //            fifthStage = true;
-        //        }
+            //    //need to refactor
+            //    if (fourthStage)
+            //    {
+            //        //need to refactor
+            //        fourthStageText.SetActive(true);
+            //        //blowpipePrefab.GetComponent<OVRGrabbable>().allowOffhandGrab = true;
+            //       if(blowPipeCollision.grabbedBlowPipe == true)
+            //        {
+            //            fourthStageText.SetActive(false);
+            //            fourthStage = false;
+            //            fifthStage = true;
+            //        }
 
-        //    }
-        //    //need to refactor
-        //    if (fifthStage)
-        //    {
-        //        fifthStageText.SetActive(true);
-        //        if (furnaceCollision.pipeInFurnace == true)
-        //        {
-        //            fifthStageText.SetActive(false);
-        //            fireUIPrefab.SetActive(true);
-        //            fifthStage = false;
-        //        }
-        //    }
+            //    }
+            //    //need to refactor
+            //    if (fifthStage)
+            //    {
+            //        fifthStageText.SetActive(true);
+            //        if (furnaceCollision.pipeInFurnace == true)
+            //        {
+            //            fifthStageText.SetActive(false);
+            //            fireUIPrefab.SetActive(true);
+            //            fifthStage = false;
+            //        }
+            //    }
 
-    }
+        }
 }

@@ -444,18 +444,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cbd8524f305e9a4591e572ce780f47a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flame1: {fileID: 0}
-  flame2: {fileID: 0}
-  flame3: {fileID: 0}
-  flame4: {fileID: 0}
-  flame5: {fileID: 0}
-  progressBar: {fileID: 0}
-  countText: {fileID: 0}
-  breatheIn: {fileID: 0}
-  breatheOut: {fileID: 0}
+  flame1: {fileID: 6890023882041363817}
+  flame2: {fileID: 5459832732540515925}
+  flame3: {fileID: 3879907998318692797}
+  flame4: {fileID: 4855228309999778015}
+  flame5: {fileID: 3018013943815036877}
+  progressBar: {fileID: 7409290836579595578}
+  countText: {fileID: 1564468247998649718}
+  breatheIn: {fileID: 4328054172884601277}
+  breatheOut: {fileID: 1116089105942760626}
   fillCounter: 0
-  speed: 20
+  speed: 500
   counterSpeed: 0.01
+  storeTemperature: 
 --- !u!4 &338644279 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1626766035679557799, guid: a121c17958e5edd4db90b3ed4cf190fd,
@@ -1098,12 +1099,12 @@ PrefabInstance:
     - target: {fileID: 1429728536131650682, guid: 2f031380fd8ed424a9b3ae4d1476d918,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.181
+      value: 0.86
       objectReference: {fileID: 0}
     - target: {fileID: 1429728536131650682, guid: 2f031380fd8ed424a9b3ae4d1476d918,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.776
+      value: -2.04
       objectReference: {fileID: 0}
     - target: {fileID: 1429728536131650682, guid: 2f031380fd8ed424a9b3ae4d1476d918,
         type: 3}
@@ -1619,7 +1620,7 @@ GameObject:
   - component: {fileID: 1638471232}
   - component: {fileID: 1638471230}
   - component: {fileID: 919132147571501932}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Blowpipe
   m_TagString: BlowPipe
   m_Icon: {fileID: 0}
@@ -1755,7 +1756,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "750 \xB0F"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2146,7 +2147,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1907478274582155611}
-  m_Text: Choose Ore Pile to your Right. Click A or B to choose.
+  m_Text: Choose Ore Pile to your Right.
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -2266,7 +2267,7 @@ GameObject:
   - component: {fileID: 2099685880209031843}
   - component: {fileID: 2099685880209031838}
   - component: {fileID: 2099685880209031839}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Big Ore 1
   m_TagString: Big Ore
   m_Icon: {fileID: 0}
@@ -2288,7 +2289,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 3
 --- !u!114 &2099685880209031839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2846,7 +2847,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Breathe In
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3074,7 +3075,7 @@ GameObject:
   - component: {fileID: 3815424359972242427}
   - component: {fileID: 3815424359972241415}
   - component: {fileID: 3815424359972241416}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Big Ore 4
   m_TagString: Big Ore
   m_Icon: {fileID: 0}
@@ -3096,7 +3097,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 3
 --- !u!114 &3815424359972241416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3277,7 +3278,7 @@ GameObject:
   - component: {fileID: 3815424360058382763}
   - component: {fileID: 3815424360058382776}
   - component: {fileID: 3815424360058382770}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Vessel
   m_TagString: Vessel
   m_Icon: {fileID: 0}
@@ -3525,7 +3526,7 @@ GameObject:
   - component: {fileID: 3815424360074751914}
   - component: {fileID: 3815424360074751926}
   - component: {fileID: 3815424360074751927}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Small Ore 4
   m_TagString: Small Ore
   m_Icon: {fileID: 0}
@@ -3547,7 +3548,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 3
 --- !u!114 &3815424360074751927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3653,7 +3654,7 @@ GameObject:
   - component: {fileID: 3815424360856599598}
   - component: {fileID: 3815424360856599594}
   - component: {fileID: 3815424360856599595}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Big Ore 2
   m_TagString: Big Ore
   m_Icon: {fileID: 0}
@@ -3675,7 +3676,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 3
 --- !u!114 &3815424360856599595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3901,7 +3902,7 @@ GameObject:
   - component: {fileID: 3815424360888148155}
   - component: {fileID: 3815424360888148167}
   - component: {fileID: 3815424360888148168}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Small Ore 5
   m_TagString: Small Ore
   m_Icon: {fileID: 0}
@@ -3923,7 +3924,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 3
 --- !u!114 &3815424360888148168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4029,7 +4030,7 @@ GameObject:
   - component: {fileID: 3815424361169496302}
   - component: {fileID: 3815424361169496298}
   - component: {fileID: 3815424361169496299}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Big Ore 3
   m_TagString: Big Ore
   m_Icon: {fileID: 0}
@@ -4051,7 +4052,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 3
 --- !u!114 &3815424361169496299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4286,7 +4287,7 @@ GameObject:
   - component: {fileID: 3815424361265573758}
   - component: {fileID: 3815424361265573754}
   - component: {fileID: 3815424361265573755}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Small Ore 2
   m_TagString: Small Ore
   m_Icon: {fileID: 0}
@@ -4308,7 +4309,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 3
 --- !u!114 &3815424361265573755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4534,7 +4535,7 @@ GameObject:
   - component: {fileID: 3815424361311778764}
   - component: {fileID: 3815424361311778768}
   - component: {fileID: 3815424361311778769}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Big Ore 5
   m_TagString: Big Ore
   m_Icon: {fileID: 0}
@@ -4556,7 +4557,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 3
 --- !u!114 &3815424361311778769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4656,7 +4657,7 @@ GameObject:
   - component: {fileID: 3815424361701726333}
   - component: {fileID: 3815424361701726329}
   - component: {fileID: 3815424361701726330}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Small Ore 3
   m_TagString: Small Ore
   m_Icon: {fileID: 0}
@@ -4678,7 +4679,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 3
 --- !u!114 &3815424361701726330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4950,7 +4951,7 @@ CanvasRenderer:
   m_CullTransparentMesh: 0
 --- !u!222 &4750829923475132226
 CanvasRenderer:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -4976,7 +4977,7 @@ GameObject:
   m_IsActive: 0
 --- !u!222 &4987564355567669712
 CanvasRenderer:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -5043,7 +5044,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Breathe Out
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -5431,7 +5432,7 @@ GameObject:
   - component: {fileID: 6523089744328621997}
   - component: {fileID: 6523089744328622000}
   - component: {fileID: 6523089744328622001}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Small Ore 1
   m_TagString: Small Ore
   m_Icon: {fileID: 0}
@@ -5453,7 +5454,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 3
 --- !u!114 &6523089744328622001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5533,7 +5534,7 @@ MonoBehaviour:
   m_RetainTransformParent: 1
 --- !u!222 &6525684611017330266
 CanvasRenderer:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -5581,7 +5582,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &7194131719665096155
 MonoBehaviour:
   m_ObjectHideFlags: 0

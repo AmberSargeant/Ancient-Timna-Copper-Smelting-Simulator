@@ -22,12 +22,17 @@ public class VesselCollision : MonoBehaviour
     {
         if (enableCollision)
         {
-            if (other.collider.tag == "Ore" && !hitted)
+            if (other.collider.tag == "Big Ore")
             {
-                Destroy(other.gameObject);
-                hitted = true;
+                other.gameObject.SetActive(false);
                 countOre++;
             }
+            else if(other.collider.tag == "Small Ore")
+            {
+                other.gameObject.SetActive(false);
+                countOre++;
+            }
+
         }
     }
 
