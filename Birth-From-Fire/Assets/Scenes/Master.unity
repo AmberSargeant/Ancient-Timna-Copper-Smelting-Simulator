@@ -453,10 +453,9 @@ MonoBehaviour:
   countText: {fileID: 1564468247998649718}
   breatheIn: {fileID: 4328054172884601277}
   breatheOut: {fileID: 1116089105942760626}
-  fillCounter: 0
-  speed: 500
-  counterSpeed: 0.01
-  storeTemperature: 
+  progress: {fileID: 2717530668800025185}
+  speed: 60
+  decrease: 0
 --- !u!4 &338644279 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1626766035679557799, guid: a121c17958e5edd4db90b3ed4cf190fd,
