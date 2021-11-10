@@ -6,6 +6,7 @@ public class FurnaceCollision : MonoBehaviour
 {
     public bool inFurnace;
     public bool pipeInFurnace;
+    public int countCharcoal;
     void OnTriggerEnter(Collider other)
     {
 
@@ -17,6 +18,11 @@ public class FurnaceCollision : MonoBehaviour
         if (other.tag == "BlowPipe")
         {
             pipeInFurnace = true;
+        }
+        if(other.tag == "Charcoal")
+        {
+            other.gameObject.SetActive(false);
+            countCharcoal++;
         }
     }
 }

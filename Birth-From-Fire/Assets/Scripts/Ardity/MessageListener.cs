@@ -30,8 +30,8 @@ public class MessageListener : MonoBehaviour
     private int temperature;
     private bool decreasing = false;
     private bool setOnce = false;
-    private int changingTemperature;
-    private int prevTemperature;
+    private int previousTemperature;
+    private int StartingTemperature;
     private float currentFillValue;
     [SerializeField]
     float speed;
@@ -61,13 +61,13 @@ public class MessageListener : MonoBehaviour
 
     void Start()
     {
-        prevTemperature = temperature;
+        StartingTemperature = temperature;
         InvokeRepeating("SetVariable", 0, 0.1f);
     }
   
     void SetVariable()
     {
-        changingTemperature = temperature;
+        previousTemperature = temperature;
     }
 
     // Update is called once per frame
@@ -77,40 +77,49 @@ public class MessageListener : MonoBehaviour
         {
             if (!setOnce)
             {
-                prevTemperature = temperature;
+                StartingTemperature = temperature;
                 setOnce = true;
             }
         }
-        print(prevTemperature + " Prev Tempterature " + temperature + " Temperature" + changingTemperature + " ChangingTemperature");
-        if (temperature != 0 && prevTemperature != 0)
+        //print(StartingTemperature + " Starting Temperature " + temperature + " Temperature" + previousTemperature + " PreviousTemperature");
+        //print(decreasing + " Decreasing");
+        //print(currentFillValue + " Current Fill Value");
+        if (temperature != 0 && StartingTemperature != 0)
         {
             if (!decreasing)
             {
-                if (temperature > prevTemperature + 5)
+                decreasing = false;
+                if (temperature > StartingTemperature + 1)
                 {
                     currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
                 }
             }
-            if (temperature < changingTemperature)
+            if (temperature < previousTemperature)
             {
                 decreasing = true;
-                if (decreasing)
+            }
+            if (decreasing)
+            {
+                if (currentFillValue >= 0)
                 {
                     currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
-                    if(temperature == changingTemperature)
+                }
+                if (temperature == previousTemperature)
+                {
+                    if (currentFillValue >= 0)
                     {
                         currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
                     }
                 }
+                if (progressBar.fillAmount == 0)
+                {
+                    setOnce = false;
+                    decreasing = false;
+                }
             }
         }
-
-        if(progressBar.fillAmount == 0)
-        {
-            decreasing = false;
-        }
         
-            progressBar.fillAmount = currentFillValue / 100;
+           progressBar.fillAmount = currentFillValue / 100;
         //    if (fillCounter <= 4)
         //    {
         //        if (temperature != 0)

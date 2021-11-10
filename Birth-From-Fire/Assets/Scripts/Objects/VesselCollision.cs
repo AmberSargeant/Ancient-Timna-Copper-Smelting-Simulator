@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class VesselCollision : MonoBehaviour
 {
-    [SerializeField]
     public int countOre;
     public bool enableCollision = false;
     private bool hitted = false;
@@ -27,7 +26,7 @@ public class VesselCollision : MonoBehaviour
                 other.gameObject.SetActive(false);
                 countOre++;
             }
-            else if(other.collider.tag == "Small Ore")
+            else if (other.collider.tag == "Small Ore")
             {
                 other.gameObject.SetActive(false);
                 countOre++;
@@ -35,14 +34,4 @@ public class VesselCollision : MonoBehaviour
 
         }
     }
-
-    private void OnCollisionExit(Collision other)
-    {
-        if ((hitted == true))
-        {
-            hitted = false;
-        }
-
-    }
-
 }

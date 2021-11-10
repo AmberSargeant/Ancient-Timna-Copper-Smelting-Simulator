@@ -47,7 +47,7 @@ public class HandPresence : MonoBehaviour
     }
     void UpdateHandAnimation()
     {
-        if(targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue))
+        if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue))
         {
             handAnimator.SetFloat("Trigger", triggerValue);
         }
@@ -72,16 +72,20 @@ public class HandPresence : MonoBehaviour
         {
             TryInitialize();
         }
-        if (showController)
-        {
-            spawnedHandModel.SetActive(false);
-            spawnedController.SetActive(true);
-        }
         else
         {
-            spawnedHandModel.SetActive(true);
-            spawnedController.SetActive(false);
-            UpdateHandAnimation();
+            if (showController)
+            {
+                spawnedHandModel.SetActive(false);
+                spawnedController.SetActive(true);
+            }
+            else
+            {
+                //need to fix null reference exception.
+                spawnedHandModel.SetActive(true);
+                spawnedController.SetActive(false);
+                UpdateHandAnimation();
+            }
         }
     }
 }
