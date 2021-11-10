@@ -10,6 +10,7 @@ public class EventManager : MonoBehaviour
     private VesselCollision vesselCollision;
     private FurnaceCollision furnaceCollision;
     private BlowPipeCollision blowPipeCollision;
+    private MessageListener messageListener;
     private bool firstStage = true;
     private bool secondStage, thirdStage, fourthStage, fifthStage, sixthStage, seventhStage = false;
     private bool enough = false;
@@ -28,9 +29,9 @@ public class EventManager : MonoBehaviour
     public GameObject enoughText;
     public GameObject fifthStageText;
     public GameObject sixthStageText;
-    public GameObject inhaleText;
     void Start()
     {
+        messageListener = FindObjectOfType<MessageListener>();
         vesselCollision = FindObjectOfType<VesselCollision>();
         furnaceCollision = FindObjectOfType<FurnaceCollision>();
         blowPipeCollision = FindObjectOfType<BlowPipeCollision>();
@@ -169,9 +170,11 @@ public class EventManager : MonoBehaviour
     }
     IEnumerator StartInhale()
     {
-        inhaleText.SetActive(true);
-        yield return new WaitForSeconds(6);
-        inhaleText.SetActive(false);
+        messageListener.breatheIn.SetActive(true);
+        messageListener.breatheOut.SetActive(false);
         fireUIPrefab.SetActive(true);
+        yield return new WaitForSeconds(6);
+        messageListener.breatheIn.SetActive(false);
+        messageListener.breatheOut.SetActive(true);
     }
 }
