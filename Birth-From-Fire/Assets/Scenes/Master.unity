@@ -455,7 +455,6 @@ MonoBehaviour:
   breatheOut: {fileID: 1116089105942760626}
   progress: {fileID: 2717530668800025185}
   speed: 60
-  decrease: 0
 --- !u!4 &338644279 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1626766035679557799, guid: a121c17958e5edd4db90b3ed4cf190fd,
@@ -5634,6 +5633,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8620896660657811452, guid: ce21a090bd9184c07b8bedc1b1e8ee02,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8620896660990052163, guid: ce21a090bd9184c07b8bedc1b1e8ee02,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8620896661111124882, guid: ce21a090bd9184c07b8bedc1b1e8ee02,
         type: 3}
       propertyPath: m_RootOrder
@@ -5647,7 +5656,7 @@ PrefabInstance:
     - target: {fileID: 8620896661111124882, guid: ce21a090bd9184c07b8bedc1b1e8ee02,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.099
+      value: -1.199
       objectReference: {fileID: 0}
     - target: {fileID: 8620896661111124882, guid: ce21a090bd9184c07b8bedc1b1e8ee02,
         type: 3}
