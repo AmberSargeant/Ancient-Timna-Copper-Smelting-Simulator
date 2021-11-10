@@ -143,8 +143,8 @@ public class EventManager : MonoBehaviour
             if(furnaceCollision.pipeInFurnace == true)
             {
                 sixthStageText.SetActive(false);
-                fireUIPrefab.SetActive(true);
                 sixthStage = false;
+                seventhStage = true;
             }
         }
 
