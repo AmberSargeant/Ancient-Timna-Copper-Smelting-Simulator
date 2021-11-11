@@ -158,7 +158,6 @@ public class EventManager : MonoBehaviour
             }
             seventhStage = false;
         }
-
     }
 
     IEnumerator StartEnough()
@@ -173,6 +172,7 @@ public class EventManager : MonoBehaviour
         messageListener.breatheIn.SetActive(true);
         messageListener.breatheOut.SetActive(false);
         fireUIPrefab.SetActive(true);
+        messageListener.celciusCounter = 750;
         yield return new WaitForSeconds(6);
         messageListener.breatheIn.SetActive(false);
         messageListener.breatheOut.SetActive(true);
