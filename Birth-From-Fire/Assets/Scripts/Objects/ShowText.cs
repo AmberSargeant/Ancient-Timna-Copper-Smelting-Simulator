@@ -38,5 +38,4 @@ public class ShowText : MonoBehaviour
         smallOreText.SetActive(false);
     }
 
-
 }

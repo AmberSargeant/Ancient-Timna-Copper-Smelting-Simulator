@@ -7,16 +7,21 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class EventManager : MonoBehaviour
 {
+    private AudioManager audioManager;
     private VesselCollision vesselCollision;
     private FurnaceCollision furnaceCollision;
     private BlowPipeCollision blowPipeCollision;
     private MessageListener messageListener;
     private bool firstStage = true;
     private bool secondStage, thirdStage, fourthStage, fifthStage, sixthStage, seventhStage = false;
+    private bool playOnce1, playOnce2, playOnce3, playOnce4, playOnce5;
     private bool enough = false;
     private bool inhale = false;
+    public int countOre = 0;
+    public bool enableVesselCollision = false;
     public XRDirectInteractor rHand;
     public List<GameObject> charcoals = new List<GameObject>();
+    public List<GameObject> vessels = new List<GameObject>();
     public GameObject largeOrePrefab;
     public GameObject smallOrePrefab;
     public GameObject vesselPrefab;
@@ -31,6 +36,7 @@ public class EventManager : MonoBehaviour
     public GameObject sixthStageText;
     void Start()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         messageListener = FindObjectOfType<MessageListener>();
         vesselCollision = FindObjectOfType<VesselCollision>();
         furnaceCollision = FindObjectOfType<FurnaceCollision>();
@@ -74,10 +80,68 @@ public class EventManager : MonoBehaviour
         {
             //need to refactor
             secondStagetext.SetActive(true);
-            vesselCollision.enableCollision = true;
+            enableVesselCollision = true;
 
-            if (vesselCollision.countOre == 5)
+            if(countOre == 1)
             {
+                if (!playOnce1)
+                {
+                    audioManager.Play("Ore falling on the vessel");
+                    playOnce1 = true;
+                }
+                vessels[0].SetActive(false);
+                vessels[1].SetActive(true);
+            }
+            if (countOre == 2) 
+            {
+                if (!playOnce2)
+                {
+                    audioManager.Play("Ore falling on the vessel");
+                    playOnce2 = true;
+                }
+                vessels[0].SetActive(false);
+                vessels[1].SetActive(false);
+                vessels[2].SetActive(true);
+            }
+            if(countOre == 3) 
+            {
+                if (!playOnce3)
+                {
+                    audioManager.Play("Ore falling on the vessel");
+                    playOnce3 = true;
+                }
+                vessels[0].SetActive(false);
+                vessels[1].SetActive(false);
+                vessels[2].SetActive(false);
+                vessels[3].SetActive(true);
+            }
+            if(countOre == 4)
+            {
+                if (!playOnce4)
+                {
+                    audioManager.Play("Ore falling on the vessel");
+                    playOnce4 = true;
+                }
+                vessels[0].SetActive(false);
+                vessels[1].SetActive(false);
+                vessels[2].SetActive(false);
+                vessels[3].SetActive(false);
+                vessels[4].SetActive(true);
+            }
+            if (countOre == 5)
+            {
+                if (!playOnce5)
+                {
+                    audioManager.Play("Ore falling on the vessel");
+                    playOnce5 = true;
+                }
+                vessels[0].SetActive(false);
+                vessels[1].SetActive(false);
+                vessels[2].SetActive(false);
+                vessels[3].SetActive(false);
+                vessels[4].SetActive(false);
+                vessels[5].SetActive(true);
+
                 //need to refactor
                 secondStage = false;
                 thirdStage = true;
@@ -88,8 +152,6 @@ public class EventManager : MonoBehaviour
         //need to refactor
         if (thirdStage)
         {
-            vesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
-            vesselPrefab.GetComponent<Rigidbody>().isKinematic = false;
             //need to refactor
             thirdStagetext.SetActive(true);
 

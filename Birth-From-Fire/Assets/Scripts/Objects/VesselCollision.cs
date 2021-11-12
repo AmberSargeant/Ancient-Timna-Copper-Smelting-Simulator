@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class VesselCollision : MonoBehaviour
 {
-    public int countOre;
-    public bool enableCollision = false;
-    private bool hitted = false;
+    private EventManager eventManager;
     void Start()
     {
-
+        eventManager = FindObjectOfType<EventManager>();
     }
 
     void Update()
@@ -19,17 +17,17 @@ public class VesselCollision : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (enableCollision)
+        if (eventManager.enableVesselCollision)
         {
             if (other.collider.tag == "Big Ore")
             {
+                eventManager.countOre++;
                 other.gameObject.SetActive(false);
-                countOre++;
             }
             else if (other.collider.tag == "Small Ore")
             {
+                eventManager.countOre++;
                 other.gameObject.SetActive(false);
-                countOre++;
             }
 
         }
