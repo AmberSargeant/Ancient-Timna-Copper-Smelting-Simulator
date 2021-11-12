@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class FurnaceCollision : MonoBehaviour
 {
+    private AudioManager audioManager;
+    public GameObject flame;
     public bool inFurnace;
     public bool pipeInFurnace;
     public int countCharcoal;
+
+    private void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
     void OnTriggerEnter(Collider other)
     {
 
@@ -21,7 +28,9 @@ public class FurnaceCollision : MonoBehaviour
         }
         if(other.tag == "Charcoal")
         {
+            audioManager.Play("fire after adding coals");
             other.gameObject.SetActive(false);
+            flame.SetActive(true);
             countCharcoal++;
         }
     }

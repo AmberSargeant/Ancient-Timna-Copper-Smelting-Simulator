@@ -30,7 +30,9 @@ public class MessageListener : MonoBehaviour
     public GameObject bar;
     public GameObject changingTemp;
     public int celciusCounter = 750;
+    public bool startBreathing = false;
     private int temperature;
+    private AudioManager audioManager;
     [SerializeField]
     private int fillCounter = 0;
     private bool firstCount = true;
@@ -42,6 +44,7 @@ public class MessageListener : MonoBehaviour
     private bool atStart = false;
     private bool increasing = false;
     private bool isCelciusTimerStarted = false;
+    private bool isDCelciusTimerStarted = false;
     private int previousTemperature;
     private int StartingTemperature;
     private float currentFillValue;
@@ -76,6 +79,7 @@ public class MessageListener : MonoBehaviour
 
     void Start()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         startCelciusTimer = StartCelciusTimer();
         StartingTemperature = temperature;
         InvokeRepeating("SetVariable", 0, 0.1f);
@@ -233,186 +237,196 @@ public class MessageListener : MonoBehaviour
     {
         StartTimer();
         print("Starting Temperature " + StartingTemperature + " Prev Temperature " + previousTemperature + " Temperature " + temperature);
-        if (fillCounter <= 4)
+        if (startBreathing)
         {
-            if (temperature != 0)
+            if (fillCounter <= 4)
             {
-                if (!setOnce)
+                if (temperature != 0)
                 {
-                    StartingTemperature = temperature;
-                    setOnce = true;
-                }
-            }
-            if (temperature != 0 && StartingTemperature != 0)
-            {
-                if (!decreasing)
-                {
-                    if (!atStart)
+                    if (!setOnce)
                     {
-                        if (!isCelciusTimerStarted)
-                        {
-                            StartCoroutine(StartCelciusTimer());
-                            isCelciusTimerStarted = true;
-                        }
+                        StartingTemperature = temperature;
+                        setOnce = true;
                     }
+                }
+                if (temperature != 0 && StartingTemperature != 0)
+                {
+                    if (!decreasing)
+                    {
+                        if (!atStart)
+                        {
+                            if (!isCelciusTimerStarted)
+                            {
+                                StartCoroutine(StartCelciusTimer());
+                                isCelciusTimerStarted = true;
+                            }
+                        }
 
-                    decreasing = false;
-                    if (temperature > StartingTemperature + 1)
-                    {
-                        increasing = true;
-                        startTimer = false;
-                        atStart = false;
-                        if (increasing)
+                        decreasing = false;
+                        if (temperature > StartingTemperature + 1)
                         {
-                            currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
+                            increasing = true;
+                            startTimer = false;
+                            atStart = false;
+                            if (increasing)
+                            {
+                                currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
+                            }
+                        }
+                        if (temperature > previousTemperature)
+                        {
+                            timeRemaining = 1.0f;
                         }
                     }
-                    if (temperature > previousTemperature)
+                    if (temperature < previousTemperature)
                     {
-                        timeRemaining = 1.0f;
+                        increasing = false;
+                        if (!atStart)
+                        {
+                            startTimer = true;
+                        }
+                        if (startTimer)
+                        {
+                            timerIsRunning = true;
+                            startTimer = false;
+                        }
+                        if (timeRemaining == 0 && !increasing)
+                        {
+                            decreasing = true;
+                        }
                     }
-                }
-                if (temperature < previousTemperature)
-                {
-                    increasing = false;
-                    if (!atStart)
+                    if (decreasing)
                     {
-                        startTimer = true;
-                    }
-                    if (startTimer)
-                    {
-                        timerIsRunning = true;
-                        startTimer = false;
-                    }
-                    if (timeRemaining == 0 && !increasing)
-                    {
-                        decreasing = true;
-                    }
-                }
-                if (decreasing)
-                {
-                    if (isCelciusTimerStarted)
-                    {
-                        StopCoroutine(startCelciusTimer);
-                        isCelciusTimerStarted = false;
-                    }
-                    if (firstCount)
-                    {
-                        StartDCelciusTimer();
-                    }
-                    if (secondCount)
-                    {
-                        StartDCelciusTimer();
-                    }
-                    if (thirdCount)
-                    {
-                        StartDCelciusTimer();
-                    }
-                    if (fourthCount)
-                    {
-                        StartDCelciusTimer();
-                    }
-                    if (fifthCount)
-                    {
-                        StartDCelciusTimer();
-                    }
-                    if (currentFillValue >= 0)
-                    {
-                        currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
-                    }
-                    if (temperature == previousTemperature)
-                    {
+                        if (isCelciusTimerStarted)
+                        {
+                            StopCoroutine(startCelciusTimer);
+                            isCelciusTimerStarted = false;
+                        }
+                        if (firstCount)
+                        {
+                            StartDCelciusTimer();
+                        }
+                        if (secondCount)
+                        {
+                            StartDCelciusTimer();
+                        }
+                        if (thirdCount)
+                        {
+                            StartDCelciusTimer();
+                        }
+                        if (fourthCount)
+                        {
+                            StartDCelciusTimer();
+                        }
+                        if (fifthCount)
+                        {
+                            StartDCelciusTimer();
+                        }
                         if (currentFillValue >= 0)
                         {
                             currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
                         }
-                    }
-                    if (progressBar.fillAmount <= 0)
-                    {
-                        breatheIn.SetActive(false);
-                        breatheOut.SetActive(true);
-                        setOnce = false;
-                        startTimer = false;
-                        decreasing = false;
-                        atStart = true;
-                        timeRemaining = 1.5f;
+                        if (temperature == previousTemperature)
+                        {
+                            if (currentFillValue >= 0)
+                            {
+                                currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
+                            }
+                        }
+                        if (progressBar.fillAmount <= 0)
+                        {
+                            breatheIn.SetActive(false);
+                            breatheOut.SetActive(true);
+                            setOnce = false;
+                            startTimer = false;
+                            decreasing = false;
+                            atStart = true;
+                            timeRemaining = 1.5f;
+                        }
                     }
                 }
+
             }
 
-        }
+            progressBar.fillAmount = currentFillValue / 100;
 
-        progressBar.fillAmount = currentFillValue / 100;
-
-        if (progressBar.fillAmount <= 0)
-        {
-            atStart = true;
-        }
-
-        if (progressBar.fillAmount >= 0.9 && fillCounter <= 5)
-        {
-            breatheIn.SetActive(false);
-            breatheOut.SetActive(true);
-            decreasing = true;
-            fillCounter++;
-        }
-
-        if (fillCounter == 1)
-        {
-            if (firstCount)
+            if (progressBar.fillAmount <= 0)
             {
-                celciusCounter = 949;
+                atStart = true;
             }
-            firstCount = false;
-            secondCount = true;
-            changingTemp.SetActive(true);
-            flame1.SetActive(false);
-            flame2.SetActive(true);
+
+            if (progressBar.fillAmount >= 0.9 && fillCounter <= 5)
+            {
+                breatheIn.SetActive(false);
+                breatheOut.SetActive(true);
+                decreasing = true;
+                fillCounter++;
+            }
+
+            if (fillCounter == 1)
+            {
+                if (firstCount)
+                {
+                    audioManager.Play("Prompt sound effect after each step is completed");
+                    celciusCounter = 949;
+                }
+                firstCount = false;
+                secondCount = true;
+                changingTemp.SetActive(true);
+                flame1.SetActive(false);
+                flame2.SetActive(true);
+
+            }
+            if (fillCounter == 2)
+            {
+                if (secondCount)
+                {
+                    audioManager.Play("Prompt sound effect after each step is completed");
+                    celciusCounter = 1049;
+                }
+                secondCount = false;
+                thirdCount = true;
+                flame2.SetActive(false);
+                flame3.SetActive(true);
+
+            }
+            if (fillCounter == 3)
+            {
+                if (thirdCount)
+                {
+                    audioManager.Play("Prompt sound effect after each step is completed");
+                    celciusCounter = 1149;
+                }
+                thirdCount = false;
+                fourthCount = true;
+                flame3.SetActive(false);
+                flame4.SetActive(true);
+            }
+            if (fillCounter == 4)
+            {
+                if (fourthCount)
+                {
+                    audioManager.Play("Prompt sound effect after each step is completed");
+                    celciusCounter = 1249;
+                }
+                fourthCount = false;
+                fifthCount = true;
+                flame4.SetActive(false);
+                flame5.SetActive(true);
+            }
+            if (fillCounter == 5)
+            {
+                if (fifthCount)
+                {
+                    audioManager.Play("Prompt sound effect after each step is completed");
+                    celciusCounter = 1269;
+                }
+                fifthCount = false;
+                bar.SetActive(false);
+                startBreathing = false;
+                CancelInvoke();
+            }
 
         }
-        if (fillCounter == 2)
-        {
-            if (secondCount)
-            {
-                celciusCounter = 1049;
-            }
-            secondCount = false;
-            thirdCount = true;
-            flame2.SetActive(false);
-            flame3.SetActive(true);
-
-        }
-        if (fillCounter == 3)
-        {
-            if (thirdCount)
-            {
-                celciusCounter = 1149;
-            }
-            thirdCount = false;
-            fourthCount = true;
-            flame3.SetActive(false);
-            flame4.SetActive(true);
-        }
-        if (fillCounter == 4)
-        {
-            if (fourthCount)
-            {
-                celciusCounter = 1249;
-            }
-            fourthCount = false;
-            fifthCount = true;
-            flame4.SetActive(false);
-            flame5.SetActive(true);
-        }
-        if (fillCounter == 5)
-        {
-            if (fifthCount)
-            {
-                celciusCounter = 1269;
-            }
-            fifthCount = false;
-            bar.SetActive(false);
-        }
-
     }
 }
