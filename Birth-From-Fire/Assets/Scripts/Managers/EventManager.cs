@@ -8,7 +8,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class EventManager : MonoBehaviour
 {
     private AudioManager audioManager;
-    private VesselCollision vesselCollision;
     private FurnaceCollision furnaceCollision;
     private BlowPipeCollision blowPipeCollision;
     private MessageListener messageListener;
@@ -17,12 +16,12 @@ public class EventManager : MonoBehaviour
     private bool playOnce1, playOnce2, playOnce3, playOnce4, playOnce5;
     private bool enough = false;
     private bool inhale = false;
+    public VesselCollision finalVesselCollision;
     public Vector3 vesselTransform;
     public int countOre = 0;
     public bool checkVesselPosition = false;
     public bool enableVesselCollision = false;
     public XRDirectInteractor rHand;
-    public HandPresence handPresence;
     public Transform tongPrefab;
     public List<GameObject> charcoals = new List<GameObject>();
     public List<GameObject> vCharcoals = new List<GameObject>();
@@ -43,16 +42,15 @@ public class EventManager : MonoBehaviour
     public GameObject enoughText;
     public GameObject fifthStageText;
     public GameObject sixthStageText;
+    public GameObject seventhStageText;
     public GameObject eigthStageText;
     public GameObject ninthStageText;
     public GameObject tenthStageText;
     void Start()
     {
         vesselTransform = vesselPrefab.transform.position;
-        handPresence.showController = false;
         audioManager = FindObjectOfType<AudioManager>();
         messageListener = FindObjectOfType<MessageListener>();
-        vesselCollision = FindObjectOfType<VesselCollision>();
         furnaceCollision = FindObjectOfType<FurnaceCollision>();
         blowPipeCollision = FindObjectOfType<BlowPipeCollision>();
         vesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
@@ -249,13 +247,16 @@ public class EventManager : MonoBehaviour
         if (eigthStage)
         {
             checkVesselPosition = true;
-            handPresence.showController = true;
-            if (!vesselCollision.vesselGrabbable)
+            rHand.GetComponent<XRController>().modelPrefab = tongPrefab;
+            fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
+            if (!finalVesselCollision.vesselGrabbable)
             {
                 fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
                 foreach (GameObject c in vCharcoals)
                 {
                     c.SetActive(true);
+                    c.GetComponent<MeshCollider>().enabled = true;
+                    c.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
                 }
                 eigthStage = false;
                 ninthStage = true;
@@ -264,21 +265,22 @@ public class EventManager : MonoBehaviour
 
         if (ninthStage)
         {
-            if(furnaceCollision.countCharcoal == 10)
+            if (furnaceCollision.countCharcoal == 10)
             {
                 fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
                 checkVesselPosition = false;
                 charcoalPiece.SetActive(false);
+                seventhStageText.SetActive(false);
                 ninthStageText.SetActive(true);
+                ninthStage = false;
+                tenthStage = true;
             }
-            ninthStage = false;
-            tenthStage = true;
         }
 
         if (tenthStage)
         {
             newCollider.SetActive(true);
-            if (vesselCollision.celebration)
+            if (finalVesselCollision.celebration)
             {
                 ninthStageText.SetActive(false);
                 tenthStageText.SetActive(true);
@@ -311,5 +313,6 @@ public class EventManager : MonoBehaviour
         eigthStageText.SetActive(true);
         yield return new WaitForSeconds(6);
         eigthStageText.SetActive(false);
+        seventhStageText.SetActive(true);
     }
 }

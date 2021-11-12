@@ -10,6 +10,7 @@ public class FurnaceCollision : MonoBehaviour
     public GameObject light;
     public bool inFurnace;
     public bool pipeInFurnace;
+    [SerializeField]
     public int countCharcoal;
 
     private void Start()
@@ -29,7 +30,7 @@ public class FurnaceCollision : MonoBehaviour
         {
             pipeInFurnace = true;
         }
-        if(other.tag == "Charcoal")
+        if (other.tag == "Charcoal")
         {
             StartCoroutine(IncreaseLight());
             audioManager.Play("fire after adding coals");
@@ -45,7 +46,7 @@ public class FurnaceCollision : MonoBehaviour
         {
             yield return new WaitForSeconds(0.06f);
             light.transform.localScale += lightScale;
-            if(light.transform.localScale.x >= 7 && light.transform.localScale.y >= 7 && light.transform.localScale.z >= 7)
+            if (light.transform.localScale.x >= 7 && light.transform.localScale.y >= 7 && light.transform.localScale.z >= 7)
             {
                 StartCoroutine(DecreaseLight());
                 yield break;
@@ -55,7 +56,7 @@ public class FurnaceCollision : MonoBehaviour
 
     IEnumerator DecreaseLight()
     {
-        while (light.transform.localScale.x > 1  && light.transform.localScale.y > 1 && light.transform.localScale.z > 1)
+        while (light.transform.localScale.x > 1 && light.transform.localScale.y > 1 && light.transform.localScale.z > 1)
         {
             yield return new WaitForSeconds(0.06f);
             light.transform.localScale -= lightScale;
@@ -66,3 +67,4 @@ public class FurnaceCollision : MonoBehaviour
         }
     }
 }
+

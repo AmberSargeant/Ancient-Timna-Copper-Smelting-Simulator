@@ -42,8 +42,12 @@ public class VesselCollision : MonoBehaviour
                 this.transform.position = eventManager.vesselTransform;
             }
         }
+    }
 
-        if(other.collider.tag == "Reput Vessel")
+    private void OnTriggerEnter(Collider other)
+    {
+
+        if (other.tag == "Reput Vessel")
         {
             celebration = true;
         }

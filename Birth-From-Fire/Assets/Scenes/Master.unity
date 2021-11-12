@@ -427,7 +427,7 @@ PrefabInstance:
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
@@ -672,7 +672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861fcff95af15744d9e1fb7602373ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vesselGrabbable: 0
+  vesselGrabbable: 1
   celebration: 0
 --- !u!64 &52103705
 MeshCollider:
@@ -811,7 +811,7 @@ Transform:
   m_LocalScale: {x: 0.012, y: 0.012, z: 1}
   m_Children: []
   m_Father: {fileID: 1907478274818612239}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!102 &140658176
 TextMesh:
@@ -942,6 +942,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Vessel5
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5fa9c423b88eb4b92868d099e10164fe,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5fa9c423b88eb4b92868d099e10164fe,
         type: 3}
@@ -1130,6 +1135,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Vessel4
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 29c995728fa1d48589ad122c85768731,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 29c995728fa1d48589ad122c85768731,
         type: 3}
@@ -1348,6 +1358,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Vessel1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4fd12cc946da14a029d484c663337e91,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4fd12cc946da14a029d484c663337e91,
         type: 3}
@@ -1746,7 +1761,7 @@ PrefabInstance:
     - target: {fileID: 7070687108334962904, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7070687108334962904, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
@@ -1806,7 +1821,7 @@ PrefabInstance:
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
@@ -1842,7 +1857,7 @@ MonoBehaviour:
   m_Colliders: []
   m_InteractionLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -1912,7 +1927,7 @@ MeshCollider:
   m_GameObject: {fileID: 381124073}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -2227,7 +2242,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!64 &440135737
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2295,7 +2310,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 447191258}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2763,7 +2778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861fcff95af15744d9e1fb7602373ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vesselGrabbable: 0
+  vesselGrabbable: 1
   celebration: 0
 --- !u!114 &568493425
 MonoBehaviour:
@@ -2953,7 +2968,7 @@ PrefabInstance:
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
@@ -3086,7 +3101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861fcff95af15744d9e1fb7602373ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vesselGrabbable: 0
+  vesselGrabbable: 1
   celebration: 0
 --- !u!114 &644796231
 MonoBehaviour:
@@ -3906,7 +3921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861fcff95af15744d9e1fb7602373ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vesselGrabbable: 0
+  vesselGrabbable: 1
   celebration: 0
 --- !u!114 &808804373
 MonoBehaviour:
@@ -4222,6 +4237,12 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 890582513}
   m_Enabled: 1
+--- !u!1 &892969612 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8620896660049202082, guid: ce21a090bd9184c07b8bedc1b1e8ee02,
+    type: 3}
+  m_PrefabInstance: {fileID: 2594672595393920945}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &916145532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4377,7 +4398,7 @@ PrefabInstance:
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
@@ -4919,6 +4940,100 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1044914429}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1047590659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1047590660}
+  - component: {fileID: 1047590662}
+  - component: {fileID: 1047590661}
+  m_Layer: 0
+  m_Name: Remove Vessel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1047590660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047590659}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -9.084, y: -0.546, z: 2.991}
+  m_LocalScale: {x: 0.012, y: 0.012, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1907478274818612239}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!102 &1047590661
+TextMesh:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047590659}
+  m_Text: "Remove vessel from furnace, (Hover over furnace) and \nplace vessel in
+    its original posititon. Then remove charcoal.\n"
+  m_OffsetZ: 0
+  m_CharacterSize: 1
+  m_LineSpacing: 1
+  m_Anchor: 0
+  m_Alignment: 0
+  m_TabSize: 4
+  m_FontSize: 78
+  m_FontStyle: 0
+  m_RichText: 1
+  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Color:
+    serializedVersion: 2
+    rgba: 4294967295
+--- !u!23 &1047590662
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047590659}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &1057323757
 GameObject:
   m_ObjectHideFlags: 0
@@ -5227,12 +5342,12 @@ GameObject:
   - component: {fileID: 1114969002}
   - component: {fileID: 1114969001}
   m_Layer: 12
-  m_Name: Vessel Boundaries
-  m_TagString: Untagged
+  m_Name: New Collider
+  m_TagString: Reput Vessel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1114969001
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5529,7 +5644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861fcff95af15744d9e1fb7602373ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vesselGrabbable: 0
+  vesselGrabbable: 1
   celebration: 0
 --- !u!114 &1202359759
 MonoBehaviour:
@@ -5653,7 +5768,7 @@ PrefabInstance:
     - target: {fileID: 7070687108334962904, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7070687108334962904, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
@@ -5713,7 +5828,7 @@ PrefabInstance:
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
@@ -5749,7 +5864,7 @@ MonoBehaviour:
   m_Colliders: []
   m_InteractionLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -5819,7 +5934,7 @@ MeshCollider:
   m_GameObject: {fileID: 1221456981}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -6082,7 +6197,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!64 &1251003264
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6282,7 +6397,7 @@ Transform:
   m_LocalScale: {x: 0.012, y: 0.012, z: 1}
   m_Children: []
   m_Father: {fileID: 1907478274818612239}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!102 &1313866347
 TextMesh:
@@ -6444,12 +6559,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1 &1397339130 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1122632789567433244, guid: ce21a090bd9184c07b8bedc1b1e8ee02,
-    type: 3}
-  m_PrefabInstance: {fileID: 2594672595393920945}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1447379687 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
@@ -6554,7 +6663,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!64 &1447379693
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6644,6 +6753,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7336380fa87d442c8ba2bad4d664c8ad,
         type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7336380fa87d442c8ba2bad4d664c8ad,
+        type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -6720,6 +6834,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Vessel3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 29c995728fa1d48589ad122c85768731,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 29c995728fa1d48589ad122c85768731,
         type: 3}
@@ -6980,7 +7099,7 @@ PrefabInstance:
     - target: {fileID: 7070687108334962904, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7070687108334962904, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
@@ -7040,7 +7159,7 @@ PrefabInstance:
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
@@ -7076,7 +7195,7 @@ MonoBehaviour:
   m_Colliders: []
   m_InteractionLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -7146,7 +7265,7 @@ MeshCollider:
   m_GameObject: {fileID: 1721515490}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -7815,7 +7934,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!64 &1795557950
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7899,6 +8018,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0318231ef4f1147fd8fac54fd8790eb2,
         type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0318231ef4f1147fd8fac54fd8790eb2,
+        type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -7924,7 +8048,7 @@ PrefabInstance:
     - target: {fileID: 7070687108334962904, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7070687108334962904, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
@@ -7984,7 +8108,7 @@ PrefabInstance:
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
@@ -8020,7 +8144,7 @@ MonoBehaviour:
   m_Colliders: []
   m_InteractionLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -8090,7 +8214,7 @@ MeshCollider:
   m_GameObject: {fileID: 1834313777}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -8141,7 +8265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861fcff95af15744d9e1fb7602373ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vesselGrabbable: 0
+  vesselGrabbable: 1
   celebration: 0
 --- !u!114 &1883613929
 MonoBehaviour:
@@ -8325,7 +8449,7 @@ PrefabInstance:
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
@@ -8593,7 +8717,7 @@ PrefabInstance:
     - target: {fileID: 7070687108334962904, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7070687108334962904, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
@@ -8653,7 +8777,7 @@ PrefabInstance:
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
@@ -8689,7 +8813,7 @@ MonoBehaviour:
   m_Colliders: []
   m_InteractionLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -8759,7 +8883,7 @@ MeshCollider:
   m_GameObject: {fileID: 2016139304}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -8949,7 +9073,7 @@ PrefabInstance:
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7596430015995908706, guid: 195a1a53186d14680890f3a3f033b79b,
         type: 3}
@@ -10049,6 +10173,7 @@ Transform:
   - {fileID: 83316808}
   - {fileID: 763118606}
   - {fileID: 1698154876}
+  - {fileID: 1047590660}
   - {fileID: 140658175}
   - {fileID: 1313866346}
   m_Father: {fileID: 5050739795764615385}
@@ -10508,7 +10633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flame: {fileID: 1853549733}
-  light: {fileID: 1397339130}
+  light: {fileID: 892969612}
   inFurnace: 0
   pipeInFurnace: 0
   countCharcoal: 0
@@ -11412,13 +11537,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e82c464edb4d1244a2d7e3623adbc84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finalVesselCollision: {fileID: 644796230}
   vesselTransform: {x: 0, y: 0, z: 0}
   countOre: 0
   checkVesselPosition: 0
   enableVesselCollision: 0
   rHand: {fileID: 548084170}
-  handPresence: {fileID: 5385614438959070160, guid: 02c7092d9d99df7498b5a328454b7260,
-    type: 3}
   tongPrefab: {fileID: 6050470772536379411, guid: 6ce856e6c76d1460989afd068e4fd239,
     type: 3}
   charcoals:
@@ -11456,6 +11580,7 @@ MonoBehaviour:
   enoughText: {fileID: 1983788333}
   fifthStageText: {fileID: 330487914}
   sixthStageText: {fileID: 706273733}
+  seventhStageText: {fileID: 1047590659}
   eigthStageText: {fileID: 1698154875}
   ninthStageText: {fileID: 140658174}
   tenthStageText: {fileID: 1313866345}
