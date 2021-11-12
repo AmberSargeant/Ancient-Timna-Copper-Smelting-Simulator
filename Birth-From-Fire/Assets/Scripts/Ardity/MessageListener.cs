@@ -29,8 +29,11 @@ public class MessageListener : MonoBehaviour
     public GameObject progress;
     public GameObject bar;
     public GameObject changingTemp;
+    public GameObject furnaceFlame;
+    public GameObject greenFlame;
     public int celciusCounter = 750;
     public bool startBreathing = false;
+    public bool birth = false;
     private int temperature;
     private AudioManager audioManager;
     [SerializeField]
@@ -39,6 +42,7 @@ public class MessageListener : MonoBehaviour
     private bool secondCount, thirdCount, fourthCount, fifthCount;
     private bool decreasing = false;
     private bool setOnce = false;
+    private bool setFlameSize = false;
     private bool timerIsRunning = false;
     private bool startTimer = false;
     private bool atStart = false;
@@ -48,6 +52,7 @@ public class MessageListener : MonoBehaviour
     private int previousTemperature;
     private int StartingTemperature;
     private float currentFillValue;
+    private Vector3 flameScale;
     [SerializeField]
     private float timeRemaining = 1.0f;
     [SerializeField]
@@ -79,6 +84,7 @@ public class MessageListener : MonoBehaviour
 
     void Start()
     {
+        flameScale = new Vector3(0.010f, 0.010f, 0.010f);
         audioManager = FindObjectOfType<AudioManager>();
         startCelciusTimer = StartCelciusTimer();
         StartingTemperature = temperature;
@@ -106,6 +112,115 @@ public class MessageListener : MonoBehaviour
         }
     }
 
+    IEnumerator FlameIncrease()
+    {
+        if (firstCount)
+        {
+            while (furnaceFlame.transform.localScale.x <= 0.3 && furnaceFlame.transform.localScale.y <= 0.3 && furnaceFlame.transform.localScale.z <= 0.3)
+            {
+                yield return new WaitForSeconds(0.3f);
+                furnaceFlame.transform.localScale+=flameScale;
+                if (decreasing)
+                {
+                    yield break;
+                }
+            }
+        }
+
+        if (secondCount)
+        {
+            while (furnaceFlame.transform.localScale.x <= 0.4 && furnaceFlame.transform.localScale.y <= 0.4 && furnaceFlame.transform.localScale.z <= 0.4)
+            {
+                yield return new WaitForSeconds(0.3f);
+                furnaceFlame.transform.localScale += flameScale;
+                if (decreasing)
+                {
+                    yield break;
+                }
+            }
+        }
+
+        if (thirdCount)
+        {
+            while (greenFlame.transform.localScale.x <= 0.5 && greenFlame.transform.localScale.y <= 0.5 && greenFlame.transform.localScale.z <= 0.5)
+            {
+                yield return new WaitForSeconds(0.3f);
+                greenFlame.transform.localScale += flameScale;
+                if (decreasing)
+                {
+                    yield break;
+                }
+            }
+        }
+
+        if (fourthCount)
+        {
+            while (greenFlame.transform.localScale.x <= 0.6 && greenFlame.transform.localScale.y <= 0.6 && greenFlame.transform.localScale.z <= 0.6)
+            {
+                yield return new WaitForSeconds(0.3f);
+                greenFlame.transform.localScale += flameScale;
+                if (decreasing)
+                {
+                    yield break;
+                }
+            }
+        }
+
+        if (fifthCount)
+        {
+            while (greenFlame.transform.localScale.x <= 0.7 && greenFlame.transform.localScale.y <= 0.7 && greenFlame.transform.localScale.z <= 0.7)
+            {
+                yield return new WaitForSeconds(0.3f);
+                greenFlame.transform.localScale += flameScale;
+                if (decreasing)
+                {
+                    yield break;
+                }
+            }
+        }
+    }
+
+    void FlameDecrease()
+    {
+        if (firstCount)
+        {
+            if (furnaceFlame.transform.localScale.x >= 0.2 && furnaceFlame.transform.localScale.y >= 0.2 && furnaceFlame.transform.localScale.z >= 0.2)
+            {
+                furnaceFlame.transform.localScale -= flameScale * Time.deltaTime;
+            }
+        }
+
+        if (secondCount)
+        {
+            if (furnaceFlame.transform.localScale.x >= 0.3 && furnaceFlame.transform.localScale.y >= 0.3 && furnaceFlame.transform.localScale.z >= 0.3)
+            {
+                furnaceFlame.transform.localScale -= flameScale * Time.deltaTime;
+            }
+        }
+
+        if (thirdCount)
+        {
+            if (greenFlame.transform.localScale.x >= 0.4 && greenFlame.transform.localScale.y >= 0.4 && greenFlame.transform.localScale.z >= 0.4)
+            {
+                greenFlame.transform.localScale -= flameScale * Time.deltaTime;
+            }
+        }
+
+        if (fourthCount)
+        {
+            if (greenFlame.transform.localScale.x >= 0.5 && greenFlame.transform.localScale.y >= 0.5 && greenFlame.transform.localScale.z >= 0.5)
+            {
+                greenFlame.transform.localScale -= flameScale * Time.deltaTime;
+            }
+        }
+        if (fifthCount)
+        {
+            if (greenFlame.transform.localScale.x >= 0.6 && greenFlame.transform.localScale.y >= 0.6 && greenFlame.transform.localScale.z >= 0.6)
+            {
+                greenFlame.transform.localScale -= flameScale * Time.deltaTime;
+            }
+        }
+    }
     IEnumerator StartCelciusTimer()
     {
         if (firstCount)
@@ -208,7 +323,7 @@ public class MessageListener : MonoBehaviour
 
         if (thirdCount)
         {
-            if (celciusCounter >= 1151)
+            if (celciusCounter >= 1051)
             {
                 celciusCounter = (int)(celciusCounter - 1 * Time.deltaTime);
                 countText.text = celciusCounter + "°F";
@@ -220,6 +335,18 @@ public class MessageListener : MonoBehaviour
         }
 
         if (fourthCount)
+        {
+            if (celciusCounter >= 1151)
+            {
+                celciusCounter = (int)(celciusCounter - 1 * Time.deltaTime);
+                countText.text = celciusCounter + "°F";
+                if (celciusCounter == 1250)
+                {
+                    isDCelciusTimerStarted = false;
+                }
+            }
+        }
+        if (fifthCount)
         {
             if (celciusCounter >= 1251)
             {
@@ -253,21 +380,21 @@ public class MessageListener : MonoBehaviour
                 {
                     if (!decreasing)
                     {
-                        if (!atStart)
-                        {
-                            if (!isCelciusTimerStarted)
-                            {
-                                StartCoroutine(StartCelciusTimer());
-                                isCelciusTimerStarted = true;
-                            }
-                        }
-
                         decreasing = false;
                         if (temperature > StartingTemperature + 1)
                         {
                             increasing = true;
                             startTimer = false;
                             atStart = false;
+                            if (!atStart)
+                            {
+                                if (!isCelciusTimerStarted)
+                                {
+                                    StartCoroutine(StartCelciusTimer());
+                                    StartCoroutine(FlameIncrease());
+                                    isCelciusTimerStarted = true;
+                                }
+                            }
                             if (increasing)
                             {
                                 currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
@@ -300,26 +427,32 @@ public class MessageListener : MonoBehaviour
                         if (isCelciusTimerStarted)
                         {
                             StopCoroutine(startCelciusTimer);
+                            StopCoroutine(FlameIncrease());
                             isCelciusTimerStarted = false;
                         }
                         if (firstCount)
                         {
+                            FlameDecrease();
                             StartDCelciusTimer();
                         }
                         if (secondCount)
                         {
+                            FlameDecrease();
                             StartDCelciusTimer();
                         }
                         if (thirdCount)
                         {
+                            FlameDecrease();
                             StartDCelciusTimer();
                         }
                         if (fourthCount)
                         {
+                            FlameDecrease();
                             StartDCelciusTimer();
                         }
                         if (fifthCount)
                         {
+                            FlameDecrease();
                             StartDCelciusTimer();
                         }
                         if (currentFillValue >= 0)
@@ -384,8 +517,16 @@ public class MessageListener : MonoBehaviour
                     audioManager.Play("Prompt sound effect after each step is completed");
                     celciusCounter = 1049;
                 }
+                furnaceFlame.SetActive(false);
+                greenFlame.SetActive(true);
+                if (!setFlameSize)
+                {
+                    greenFlame.transform.localScale = furnaceFlame.transform.localScale;
+                    setFlameSize = true;
+                }
                 secondCount = false;
                 thirdCount = true;
+                changingTemp.SetActive(false);
                 flame2.SetActive(false);
                 flame3.SetActive(true);
 
@@ -418,8 +559,10 @@ public class MessageListener : MonoBehaviour
             {
                 if (fifthCount)
                 {
+                    StartCoroutine(OriginalFlame());
                     audioManager.Play("Prompt sound effect after each step is completed");
                     celciusCounter = 1269;
+                    birth = true;
                 }
                 fifthCount = false;
                 bar.SetActive(false);
@@ -429,4 +572,21 @@ public class MessageListener : MonoBehaviour
 
         }
     }
+
+    IEnumerator OriginalFlame()
+    {
+        greenFlame.SetActive(false);
+        furnaceFlame.SetActive(true);
+        while (furnaceFlame.transform.localScale.x > 0.2 && furnaceFlame.transform.localScale.y >= 0.2 && furnaceFlame.transform.localScale.z >= 0.2)
+        {
+            yield return new WaitForSeconds(0.3f);
+            furnaceFlame.transform.localScale -= flameScale * Time.deltaTime;
+            if (furnaceFlame.transform.localScale.x <= 0.2 && furnaceFlame.transform.localScale.y >= 0.2 && furnaceFlame.transform.localScale.z >= 0.2)
+            {
+                furnaceFlame.SetActive(false);
+                yield break;
+            }
+        }
+    }
+
 }
