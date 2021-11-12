@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class VesselCollision : MonoBehaviour
 {
+    private Vector3 vesselTransform;
     private EventManager eventManager;
+    public bool vesselGrabbable = true;
+    public bool celebration = false;
     void Start()
     {
         eventManager = FindObjectOfType<EventManager>();
@@ -12,7 +15,6 @@ public class VesselCollision : MonoBehaviour
 
     void Update()
     {
-
     }
 
     void OnCollisionEnter(Collision other)
@@ -30,6 +32,20 @@ public class VesselCollision : MonoBehaviour
                 other.gameObject.SetActive(false);
             }
 
+        }
+
+        if (eventManager.checkVesselPosition)
+        {
+            if(other.collider.tag == "VesselPosition")
+            {
+                vesselGrabbable = false;
+                this.transform.position = eventManager.vesselTransform;
+            }
+        }
+
+        if(other.collider.tag == "Reput Vessel")
+        {
+            celebration = true;
         }
     }
 }

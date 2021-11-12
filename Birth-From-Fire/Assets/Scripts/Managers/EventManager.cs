@@ -13,18 +13,27 @@ public class EventManager : MonoBehaviour
     private BlowPipeCollision blowPipeCollision;
     private MessageListener messageListener;
     private bool firstStage = true;
-    private bool secondStage, thirdStage, fourthStage, fifthStage, sixthStage, seventhStage = false;
+    private bool secondStage, thirdStage, fourthStage, fifthStage, sixthStage, seventhStage, eigthStage ,ninthStage,tenthStage= false;
     private bool playOnce1, playOnce2, playOnce3, playOnce4, playOnce5;
     private bool enough = false;
     private bool inhale = false;
+    public Vector3 vesselTransform;
     public int countOre = 0;
+    public bool checkVesselPosition = false;
     public bool enableVesselCollision = false;
     public XRDirectInteractor rHand;
+    public HandPresence handPresence;
+    public Transform tongPrefab;
     public List<GameObject> charcoals = new List<GameObject>();
+    public List<GameObject> vCharcoals = new List<GameObject>();
     public List<GameObject> vessels = new List<GameObject>();
+    public GameObject newCollider;
+    public GameObject charcoalPiece;
+    public GameObject rHandPrefab;
     public GameObject largeOrePrefab;
     public GameObject smallOrePrefab;
     public GameObject vesselPrefab;
+    public GameObject fullVesselPrefab;
     public GameObject blowpipePrefab;
     public GameObject fireUIPrefab;
     public GameObject firstStagetext;
@@ -34,8 +43,13 @@ public class EventManager : MonoBehaviour
     public GameObject enoughText;
     public GameObject fifthStageText;
     public GameObject sixthStageText;
+    public GameObject eigthStageText;
+    public GameObject ninthStageText;
+    public GameObject tenthStageText;
     void Start()
     {
+        vesselTransform = vesselPrefab.transform.position;
+        handPresence.showController = false;
         audioManager = FindObjectOfType<AudioManager>();
         messageListener = FindObjectOfType<MessageListener>();
         vesselCollision = FindObjectOfType<VesselCollision>();
@@ -157,8 +171,11 @@ public class EventManager : MonoBehaviour
 
             if (furnaceCollision.inFurnace == true)
             {
+                charcoalPiece.SetActive(true);
                 fourthStage = true;
                 thirdStagetext.SetActive(false);
+                thirdStage = false;
+                fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
             }
 
         }
@@ -205,6 +222,7 @@ public class EventManager : MonoBehaviour
             sixthStageText.SetActive(true);
             if(furnaceCollision.pipeInFurnace == true)
             {
+                blowpipePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
                 sixthStageText.SetActive(false);
                 sixthStage = false;
                 seventhStage = true;
@@ -219,6 +237,53 @@ public class EventManager : MonoBehaviour
                 inhale = true;
             }
             seventhStage = false;
+        }
+
+        if (messageListener.birth)
+        {
+            StartCoroutine(Birth());
+            eigthStage = true;
+            messageListener.birth = false;
+        }
+
+        if (eigthStage)
+        {
+            checkVesselPosition = true;
+            handPresence.showController = true;
+            if (!vesselCollision.vesselGrabbable)
+            {
+                fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
+                foreach (GameObject c in vCharcoals)
+                {
+                    c.SetActive(true);
+                }
+                eigthStage = false;
+                ninthStage = true;
+            }
+        }
+
+        if (ninthStage)
+        {
+            if(furnaceCollision.countCharcoal == 10)
+            {
+                fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
+                checkVesselPosition = false;
+                charcoalPiece.SetActive(false);
+                ninthStageText.SetActive(true);
+            }
+            ninthStage = false;
+            tenthStage = true;
+        }
+
+        if (tenthStage)
+        {
+            newCollider.SetActive(true);
+            if (vesselCollision.celebration)
+            {
+                ninthStageText.SetActive(false);
+                tenthStageText.SetActive(true);
+                tenthStage = false;
+            }
         }
     }
 
@@ -238,5 +303,13 @@ public class EventManager : MonoBehaviour
         yield return new WaitForSeconds(6);
         messageListener.breatheIn.SetActive(false);
         messageListener.breatheOut.SetActive(true);
+        messageListener.startBreathing = true;
+    }
+
+    IEnumerator Birth()
+    {
+        eigthStageText.SetActive(true);
+        yield return new WaitForSeconds(6);
+        eigthStageText.SetActive(false);
     }
 }
