@@ -363,7 +363,7 @@ public class MessageListener : MonoBehaviour
     void Update()
     {
         StartTimer();
-        print("Starting Temperature " + StartingTemperature + " Prev Temperature " + previousTemperature + " Temperature " + temperature);
+        //print("Starting Temperature " + StartingTemperature + " Prev Temperature " + previousTemperature + " Temperature " + temperature);
         if (startBreathing)
         {
             if (fillCounter <= 4)
@@ -490,8 +490,8 @@ public class MessageListener : MonoBehaviour
 
             if (progressBar.fillAmount >= 0.9 && fillCounter <= 5)
             {
-                breatheIn.SetActive(false);
-                breatheOut.SetActive(true);
+                breatheIn.SetActive(true);
+                breatheOut.SetActive(false);
                 decreasing = true;
                 fillCounter++;
             }
