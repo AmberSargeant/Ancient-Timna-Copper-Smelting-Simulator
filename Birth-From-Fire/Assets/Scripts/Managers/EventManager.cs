@@ -9,7 +9,6 @@ public class EventManager : MonoBehaviour
 {
     private AudioManager audioManager;
     private FurnaceCollision furnaceCollision;
-    private BlowPipeCollision blowPipeCollision;
     private MessageListener messageListener;
     private bool firstStage = true;
     private bool secondStage, thirdStage, fourthStage, fifthStage, sixthStage, seventhStage, eigthStage ,ninthStage,tenthStage= false;
@@ -22,10 +21,12 @@ public class EventManager : MonoBehaviour
     public bool checkVesselPosition = false;
     public bool enableVesselCollision = false;
     public XRDirectInteractor rHand;
-    public Transform tongPrefab;
     public List<GameObject> charcoals = new List<GameObject>();
     public List<GameObject> vCharcoals = new List<GameObject>();
     public List<GameObject> vessels = new List<GameObject>();
+    public List<GameObject> information = new List<GameObject>();
+    public GameObject tongPrefab;
+    public GameObject handPrefab;
     public GameObject newCollider;
     public GameObject charcoalPiece;
     public GameObject rHandPrefab;
@@ -52,7 +53,6 @@ public class EventManager : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         messageListener = FindObjectOfType<MessageListener>();
         furnaceCollision = FindObjectOfType<FurnaceCollision>();
-        blowPipeCollision = FindObjectOfType<BlowPipeCollision>();
         vesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
         blowpipePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
         foreach (GameObject c in charcoals)
@@ -62,6 +62,7 @@ public class EventManager : MonoBehaviour
     }
     void Update()
     {
+        //rHand.GetComponent<XRController>().modelPrefab = tongPrefab;
         //need to refactor
         if (firstStage)
         {
@@ -247,7 +248,8 @@ public class EventManager : MonoBehaviour
         if (eigthStage)
         {
             checkVesselPosition = true;
-            rHand.GetComponent<XRController>().modelPrefab = tongPrefab;
+            tongPrefab.SetActive(true);
+            handPrefab.SetActive(false);
             fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
             if (!finalVesselCollision.vesselGrabbable)
             {
