@@ -54,7 +54,7 @@ public class MessageListener : MonoBehaviour
     private float currentFillValue;
     private Vector3 flameScale;
     [SerializeField]
-    private float timeRemaining = 1.2f;
+    private float timeRemaining = 1.3f;
     [SerializeField]
     private float speed;
     private IEnumerator startCelciusTimer;
@@ -402,7 +402,7 @@ public class MessageListener : MonoBehaviour
                         }
                         if (temperature > previousTemperature)
                         {
-                            timeRemaining = 1.2f;
+                            timeRemaining = 1.3f;
                         }
                     }
                     if (temperature < previousTemperature)
@@ -474,7 +474,7 @@ public class MessageListener : MonoBehaviour
                             startTimer = false;
                             decreasing = false;
                             atStart = true;
-                            timeRemaining = 1.2f;
+                            timeRemaining = 1.3f;
                         }
                     }
                 }
