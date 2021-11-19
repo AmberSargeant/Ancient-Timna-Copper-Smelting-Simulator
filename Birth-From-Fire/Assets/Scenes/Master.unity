@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.04518666, g: 0.039375115, b: 0.047922775, a: 1}
+  m_IndirectSpecularColor: {r: 0.044339806, g: 0.039306067, b: 0.047032475, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -371,7 +371,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &47480386
 Transform:
   m_ObjectHideFlags: 0
@@ -2676,7 +2676,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 476602506}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.023, y: 0.0467, z: -0.2469}
+  m_LocalPosition: {x: 0.023, y: 0.0467, z: -0.2741}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 2594672595393920946}
@@ -2871,7 +2871,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &497347731
 Transform:
   m_ObjectHideFlags: 0
@@ -5881,7 +5881,7 @@ Transform:
   m_LocalScale: {x: 0.4, y: 0.1, z: 0.4}
   m_Children: []
   m_Father: {fileID: 2594672595393920946}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1118025783
 PrefabInstance:
@@ -7610,20 +7610,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 3
---- !u!136 &1638471232
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132147571501931}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.013728423
-  m_Height: 0.90999997
-  m_Direction: 1
-  m_Center: {x: 9.313226e-10, y: 0.02, z: -0.0000000018626451}
 --- !u!1 &1698154875
 GameObject:
   m_ObjectHideFlags: 0
@@ -9986,7 +9972,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2109255792
 Transform:
   m_ObjectHideFlags: 0
@@ -10495,8 +10481,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132147571501931}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.388, y: -0.744, z: -4.5303}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 1.388, y: -0.491, z: -4.5303}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3815424361174970705}
   m_RootOrder: 3
@@ -10660,9 +10646,9 @@ GameObject:
   - component: {fileID: 3469287838025743988}
   - component: {fileID: 1711813855103650494}
   - component: {fileID: 1638471231}
-  - component: {fileID: 1638471232}
   - component: {fileID: 1638471230}
   - component: {fileID: 919132147571501932}
+  - component: {fileID: 919132147571501933}
   m_Layer: 11
   m_Name: Blowpipe
   m_TagString: BlowPipe
@@ -10747,6 +10733,20 @@ MonoBehaviour:
   m_ThrowAngularVelocityScale: 1
   m_GravityOnDetach: 0
   m_RetainTransformParent: 1
+--- !u!64 &919132147571501933
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132147571501931}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4888451795112509415, guid: f94261e430f454304b8874489ba2a86f, type: 3}
 --- !u!114 &1023649887173784603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11453,7 +11453,7 @@ PrefabInstance:
     - target: {fileID: 2417367373489425202, guid: ce21a090bd9184c07b8bedc1b1e8ee02,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2417367373489425202, guid: ce21a090bd9184c07b8bedc1b1e8ee02,
         type: 3}
@@ -11743,6 +11743,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acd406688be04d54c8a763ac60afc067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flame: {fileID: 1853549733}
+  light: {fileID: 2594672595393920949}
+  inFurnace: 0
+  pipeInFurnace: 0
+  countCharcoal: 0
+--- !u!1 &2594672595393920949 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1122632789567433244, guid: ce21a090bd9184c07b8bedc1b1e8ee02,
+    type: 3}
+  m_PrefabInstance: {fileID: 2594672595393920945}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2717530668800025185
 GameObject:
   m_ObjectHideFlags: 0
