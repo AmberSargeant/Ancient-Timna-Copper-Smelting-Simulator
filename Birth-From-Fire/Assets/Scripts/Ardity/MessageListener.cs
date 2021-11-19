@@ -54,7 +54,7 @@ public class MessageListener : MonoBehaviour
     private float currentFillValue;
     private Vector3 flameScale;
     [SerializeField]
-    private float timeRemaining = 1.0f;
+    private float timeRemaining = 3.0f;
     [SerializeField]
     private float speed;
     private IEnumerator startCelciusTimer;
@@ -363,7 +363,7 @@ public class MessageListener : MonoBehaviour
     void Update()
     {
         StartTimer();
-        //print("Starting Temperature " + StartingTemperature + " Prev Temperature " + previousTemperature + " Temperature " + temperature);
+        print("Starting Temperature " + StartingTemperature + " Prev Temperature " + previousTemperature + " Temperature " + temperature);
         if (startBreathing)
         {
             if (fillCounter <= 4)
@@ -402,7 +402,7 @@ public class MessageListener : MonoBehaviour
                         }
                         if (temperature > previousTemperature)
                         {
-                            timeRemaining = 1.0f;
+                            timeRemaining = 3.0f;
                         }
                     }
                     if (temperature < previousTemperature)
@@ -474,7 +474,7 @@ public class MessageListener : MonoBehaviour
                             startTimer = false;
                             decreasing = false;
                             atStart = true;
-                            timeRemaining = 1.5f;
+                            timeRemaining = 3.0f;
                         }
                     }
                 }
