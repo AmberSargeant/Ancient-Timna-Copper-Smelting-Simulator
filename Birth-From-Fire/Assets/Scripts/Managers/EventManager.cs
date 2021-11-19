@@ -8,7 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class EventManager : MonoBehaviour
 {
     private AudioManager audioManager;
-    private FurnaceCollision furnaceCollision;
+    private CampfireCollision campfireCollision;
     private MessageListener messageListener;
     private bool firstStage = true;
     private bool secondStage, thirdStage, fourthStage, fifthStage, sixthStage, seventhStage, eigthStage ,ninthStage,tenthStage= false;
@@ -52,7 +52,7 @@ public class EventManager : MonoBehaviour
         vesselTransform = vesselPrefab.transform.position;
         audioManager = FindObjectOfType<AudioManager>();
         messageListener = FindObjectOfType<MessageListener>();
-        furnaceCollision = FindObjectOfType<FurnaceCollision>();
+        campfireCollision = FindObjectOfType<CampfireCollision>();
         vesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
         blowpipePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
         foreach (GameObject c in charcoals)
@@ -168,7 +168,7 @@ public class EventManager : MonoBehaviour
             //need to refactor
             thirdStagetext.SetActive(true);
 
-            if (furnaceCollision.inFurnace == true)
+            if (campfireCollision.inFurnace == true)
             {
                 charcoalPiece.SetActive(true);
                 fourthStage = true;
@@ -189,7 +189,7 @@ public class EventManager : MonoBehaviour
                 c.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
             }
 
-            if (furnaceCollision.countCharcoal == 5)
+            if (campfireCollision.countCharcoal == 5)
             {
                 fourthStageText.SetActive(false);
                 fourthStage = false;
@@ -219,7 +219,7 @@ public class EventManager : MonoBehaviour
         if (sixthStage)
         {
             sixthStageText.SetActive(true);
-            if(furnaceCollision.pipeInFurnace == true)
+            if(campfireCollision.pipeInFurnace == true)
             {
                 blowpipePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
                 sixthStageText.SetActive(false);
@@ -267,7 +267,7 @@ public class EventManager : MonoBehaviour
 
         if (ninthStage)
         {
-            if (furnaceCollision.countCharcoal == 10)
+            if (campfireCollision.countCharcoal == 10)
             {
                 fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
                 checkVesselPosition = false;
