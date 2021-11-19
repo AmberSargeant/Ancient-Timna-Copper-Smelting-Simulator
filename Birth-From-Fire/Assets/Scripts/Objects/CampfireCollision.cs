@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FurnaceCollision : MonoBehaviour
+public class CampfireCollision : MonoBehaviour
 {
     private AudioManager audioManager;
     private Vector3 lightScale;
