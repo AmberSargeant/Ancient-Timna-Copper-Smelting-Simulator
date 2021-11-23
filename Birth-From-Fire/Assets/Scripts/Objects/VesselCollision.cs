@@ -21,12 +21,12 @@ public class VesselCollision : MonoBehaviour
     {
         if (eventManager.enableVesselCollision)
         {
-            if (other.collider.tag == "Big Ore")
-            {
-                eventManager.countOre++;
-                other.gameObject.SetActive(false);
-            }
-            else if (other.collider.tag == "Small Ore")
+            //if (other.collider.tag == "Big Ore")
+            //{
+            //    eventManager.countOre++;
+            //    other.gameObject.SetActive(false);
+            //}
+            if (other.collider.tag == "Small Ore")
             {
                 eventManager.countOre++;
                 other.gameObject.SetActive(false);

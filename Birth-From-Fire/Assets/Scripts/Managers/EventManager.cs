@@ -12,7 +12,7 @@ public class EventManager : MonoBehaviour
     private MessageListener messageListener;
     private bool firstStage = true;
     private bool secondStage, thirdStage, fourthStage, fifthStage, sixthStage, seventhStage, eigthStage ,ninthStage,tenthStage= false;
-    private bool playOnce1, playOnce2, playOnce3, playOnce4, playOnce5;
+    private bool playOnce1;
     private bool enough = false;
     private bool inhale = false;
     public VesselCollision finalVesselCollision;
@@ -24,13 +24,11 @@ public class EventManager : MonoBehaviour
     public List<GameObject> charcoals = new List<GameObject>();
     public List<GameObject> vCharcoals = new List<GameObject>();
     public List<GameObject> vessels = new List<GameObject>();
-    public List<GameObject> information = new List<GameObject>();
     public GameObject tongPrefab;
     public GameObject handPrefab;
     public GameObject newCollider;
     public GameObject charcoalPiece;
     public GameObject rHandPrefab;
-    public GameObject largeOrePrefab;
     public GameObject smallOrePrefab;
     public GameObject vesselPrefab;
     public GameObject fullVesselPrefab;
@@ -68,19 +66,18 @@ public class EventManager : MonoBehaviour
         {
             if (rHand.selectTarget != null)
             {
-                if (rHand.selectTarget.tag == "Big Ore")
-                {
-                    firstStagetext.SetActive(false);
-                    smallOrePrefab.SetActive(false);
-                    //need to refactor
-                    firstStage = false;
-                    secondStage = true;
+                //if (rHand.selectTarget.tag == "Big Ore")
+                //{
+                //    firstStagetext.SetActive(false);
+                //    smallOrePrefab.SetActive(false);
+                //    //need to refactor
+                //    firstStage = false;
+                //    secondStage = true;
 
-                }
-                else if (rHand.selectTarget.tag == "Small Ore")
+                //}
+                if (rHand.selectTarget.tag == "Small Ore")
                 {
                     firstStagetext.SetActive(false);
-                    largeOrePrefab.SetActive(false);
                     //need to refactor
                     firstStage = false;
                     secondStage = true;
@@ -104,62 +101,67 @@ public class EventManager : MonoBehaviour
                 }
                 vessels[0].SetActive(false);
                 vessels[1].SetActive(true);
-            }
-            if (countOre == 2) 
-            {
-                if (!playOnce2)
-                {
-                    audioManager.Play("Ore falling on the vessel");
-                    playOnce2 = true;
-                }
-                vessels[0].SetActive(false);
-                vessels[1].SetActive(false);
-                vessels[2].SetActive(true);
-            }
-            if(countOre == 3) 
-            {
-                if (!playOnce3)
-                {
-                    audioManager.Play("Ore falling on the vessel");
-                    playOnce3 = true;
-                }
-                vessels[0].SetActive(false);
-                vessels[1].SetActive(false);
-                vessels[2].SetActive(false);
-                vessels[3].SetActive(true);
-            }
-            if(countOre == 4)
-            {
-                if (!playOnce4)
-                {
-                    audioManager.Play("Ore falling on the vessel");
-                    playOnce4 = true;
-                }
-                vessels[0].SetActive(false);
-                vessels[1].SetActive(false);
-                vessels[2].SetActive(false);
-                vessels[3].SetActive(false);
-                vessels[4].SetActive(true);
-            }
-            if (countOre == 5)
-            {
-                if (!playOnce5)
-                {
-                    audioManager.Play("Ore falling on the vessel");
-                    playOnce5 = true;
-                }
-                vessels[0].SetActive(false);
-                vessels[1].SetActive(false);
-                vessels[2].SetActive(false);
-                vessels[3].SetActive(false);
-                vessels[4].SetActive(false);
-                vessels[5].SetActive(true);
 
                 //need to refactor
                 secondStage = false;
                 thirdStage = true;
                 secondStagetext.SetActive(false);
             }
+            //if (countOre == 2) 
+            //{
+            //    if (!playOnce2)
+            //    {
+            //        audioManager.Play("Ore falling on the vessel");
+            //        playOnce2 = true;
+            //    }
+            //    vessels[0].SetActive(false);
+            //    vessels[1].SetActive(false);
+            //    vessels[2].SetActive(true);
+            //}
+            //if(countOre == 3) 
+            //{
+            //    if (!playOnce3)
+            //    {
+            //        audioManager.Play("Ore falling on the vessel");
+            //        playOnce3 = true;
+            //    }
+            //    vessels[0].SetActive(false);
+            //    vessels[1].SetActive(false);
+            //    vessels[2].SetActive(false);
+            //    vessels[3].SetActive(true);
+            //}
+            //if(countOre == 4)
+            //{
+            //    if (!playOnce4)
+            //    {
+            //        audioManager.Play("Ore falling on the vessel");
+            //        playOnce4 = true;
+            //    }
+            //    vessels[0].SetActive(false);
+            //    vessels[1].SetActive(false);
+            //    vessels[2].SetActive(false);
+            //    vessels[3].SetActive(false);
+            //    vessels[4].SetActive(true);
+            //}
+            //if (countOre == 5)
+            //{
+            //    if (!playOnce5)
+            //    {
+            //        audioManager.Play("Ore falling on the vessel");
+            //        playOnce5 = true;
+            //    }
+            //    vessels[0].SetActive(false);
+            //    vessels[1].SetActive(false);
+            //    vessels[2].SetActive(false);
+            //    vessels[3].SetActive(false);
+            //    vessels[4].SetActive(false);
+            //    vessels[5].SetActive(true);
+
+            //    //need to refactor
+            //    secondStage = false;
+            //    thirdStage = true;
+            //    secondStagetext.SetActive(false);
+            //}
         }
 
         //need to refactor
@@ -189,7 +191,7 @@ public class EventManager : MonoBehaviour
                 c.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
             }
 
-            if (campfireCollision.countCharcoal == 5)
+            if (campfireCollision.countCharcoal == 1)
             {
                 fourthStageText.SetActive(false);
                 fourthStage = false;
@@ -267,9 +269,9 @@ public class EventManager : MonoBehaviour
 
         if (ninthStage)
         {
-            if (campfireCollision.countCharcoal == 10)
+            if (campfireCollision.countCharcoal == 2)
             {
-                fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
+                //fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
                 checkVesselPosition = false;
                 charcoalPiece.SetActive(false);
                 seventhStageText.SetActive(false);
