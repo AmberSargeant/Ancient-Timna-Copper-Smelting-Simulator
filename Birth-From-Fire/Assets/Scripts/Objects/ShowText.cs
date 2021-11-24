@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ShowText : MonoBehaviour
 {
-    public GameObject bigOreText;
     public GameObject smallOreText;
     public GameObject charcoalText;
     public GameObject vesselText;
@@ -19,11 +18,6 @@ public class ShowText : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void ShowBigOreText()
-    {
-        bigOreText.SetActive(true);
     }
 
     public void ShowSmallOreText()
@@ -44,11 +38,6 @@ public class ShowText : MonoBehaviour
     {
         blowPipeText.SetActive(true);
     }
-    public void HideBigOreText()
-    {
-        bigOreText.SetActive(false);
-    }
-
     public void HideSmallOreText()
     {
         smallOreText.SetActive(false);

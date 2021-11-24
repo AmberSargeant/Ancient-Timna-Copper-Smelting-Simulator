@@ -9,6 +9,7 @@ public class EventManager : MonoBehaviour
 {
     private AudioManager audioManager;
     private CampfireCollision campfireCollision;
+    private FloorCollision floorCollision;
     private MessageListener messageListener;
     private bool firstStage = true;
     private bool secondStage, thirdStage, fourthStage, fifthStage, sixthStage, seventhStage, eigthStage ,ninthStage,tenthStage= false;
@@ -20,13 +21,14 @@ public class EventManager : MonoBehaviour
     public int countOre = 0;
     public bool checkVesselPosition = false;
     public bool enableVesselCollision = false;
+    public bool enableFloorCollision = false;
     public XRDirectInteractor rHand;
     public List<GameObject> charcoals = new List<GameObject>();
     public List<GameObject> vCharcoals = new List<GameObject>();
     public List<GameObject> vessels = new List<GameObject>();
+    public List<GameObject> glows = new List<GameObject>();
     public GameObject tongPrefab;
     public GameObject handPrefab;
-    public GameObject newCollider;
     public GameObject charcoalPiece;
     public GameObject rHandPrefab;
     public GameObject smallOrePrefab;
@@ -43,7 +45,7 @@ public class EventManager : MonoBehaviour
     public GameObject sixthStageText;
     public GameObject seventhStageText;
     public GameObject eigthStageText;
-    public GameObject ninthStageText;
+    //public GameObject ninthStageText;
     public GameObject tenthStageText;
     void Start()
     {
@@ -51,6 +53,7 @@ public class EventManager : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         messageListener = FindObjectOfType<MessageListener>();
         campfireCollision = FindObjectOfType<CampfireCollision>();
+        floorCollision = FindObjectOfType<FloorCollision>();
         vesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
         blowpipePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
         foreach (GameObject c in charcoals)
@@ -60,21 +63,13 @@ public class EventManager : MonoBehaviour
     }
     void Update()
     {
-        //rHand.GetComponent<XRController>().modelPrefab = tongPrefab;
         //need to refactor
         if (firstStage)
         {
+            //ore glow
+            glows[0].SetActive(true);
             if (rHand.selectTarget != null)
             {
-                //if (rHand.selectTarget.tag == "Big Ore")
-                //{
-                //    firstStagetext.SetActive(false);
-                //    smallOrePrefab.SetActive(false);
-                //    //need to refactor
-                //    firstStage = false;
-                //    secondStage = true;
-
-                //}
                 if (rHand.selectTarget.tag == "Small Ore")
                 {
                     firstStagetext.SetActive(false);
@@ -91,8 +86,9 @@ public class EventManager : MonoBehaviour
             //need to refactor
             secondStagetext.SetActive(true);
             enableVesselCollision = true;
-
-            if(countOre == 1)
+            //First vessel Glow
+            glows[6].SetActive(true);
+            if (countOre == 1)
             {
                 if (!playOnce1)
                 {
@@ -107,66 +103,13 @@ public class EventManager : MonoBehaviour
                 thirdStage = true;
                 secondStagetext.SetActive(false);
             }
-            //if (countOre == 2) 
-            //{
-            //    if (!playOnce2)
-            //    {
-            //        audioManager.Play("Ore falling on the vessel");
-            //        playOnce2 = true;
-            //    }
-            //    vessels[0].SetActive(false);
-            //    vessels[1].SetActive(false);
-            //    vessels[2].SetActive(true);
-            //}
-            //if(countOre == 3) 
-            //{
-            //    if (!playOnce3)
-            //    {
-            //        audioManager.Play("Ore falling on the vessel");
-            //        playOnce3 = true;
-            //    }
-            //    vessels[0].SetActive(false);
-            //    vessels[1].SetActive(false);
-            //    vessels[2].SetActive(false);
-            //    vessels[3].SetActive(true);
-            //}
-            //if(countOre == 4)
-            //{
-            //    if (!playOnce4)
-            //    {
-            //        audioManager.Play("Ore falling on the vessel");
-            //        playOnce4 = true;
-            //    }
-            //    vessels[0].SetActive(false);
-            //    vessels[1].SetActive(false);
-            //    vessels[2].SetActive(false);
-            //    vessels[3].SetActive(false);
-            //    vessels[4].SetActive(true);
-            //}
-            //if (countOre == 5)
-            //{
-            //    if (!playOnce5)
-            //    {
-            //        audioManager.Play("Ore falling on the vessel");
-            //        playOnce5 = true;
-            //    }
-            //    vessels[0].SetActive(false);
-            //    vessels[1].SetActive(false);
-            //    vessels[2].SetActive(false);
-            //    vessels[3].SetActive(false);
-            //    vessels[4].SetActive(false);
-            //    vessels[5].SetActive(true);
-
-            //    //need to refactor
-            //    secondStage = false;
-            //    thirdStage = true;
-            //    secondStagetext.SetActive(false);
-            //}
         }
 
         //need to refactor
         if (thirdStage)
         {
+            //vessel glow
+            glows[1].SetActive(true);
             //need to refactor
             thirdStagetext.SetActive(true);
 
@@ -184,6 +127,10 @@ public class EventManager : MonoBehaviour
         //need to refactor
         if (fourthStage)
         {
+            //vessel glow
+            glows[1].SetActive(false);
+            //charcoal glow
+            glows[2].SetActive(true);
             //need to refactor
             fourthStageText.SetActive(true);
             foreach (GameObject c in charcoals)
@@ -223,6 +170,7 @@ public class EventManager : MonoBehaviour
             sixthStageText.SetActive(true);
             if(campfireCollision.pipeInFurnace == true)
             {
+                glows[5].SetActive(false);
                 blowpipePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
                 sixthStageText.SetActive(false);
                 sixthStage = false;
@@ -249,19 +197,27 @@ public class EventManager : MonoBehaviour
 
         if (eigthStage)
         {
+            blowpipePrefab.SetActive(false);
             checkVesselPosition = true;
             tongPrefab.SetActive(true);
             handPrefab.SetActive(false);
             fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
             if (!finalVesselCollision.vesselGrabbable)
             {
+                charcoalPiece.SetActive(false);
                 fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
+                //vessel pos glow
+                glows[3].SetActive(false);
+                //vessel glow
+                glows[1].SetActive(false);
                 foreach (GameObject c in vCharcoals)
                 {
                     c.SetActive(true);
                     c.GetComponent<MeshCollider>().enabled = true;
                     c.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
                 }
+                //v charcoal glow
+                glows[4].SetActive(true);
                 eigthStage = false;
                 ninthStage = true;
             }
@@ -269,13 +225,12 @@ public class EventManager : MonoBehaviour
 
         if (ninthStage)
         {
-            if (campfireCollision.countCharcoal == 2)
+            enableFloorCollision = true;
+            if (floorCollision.charcoalOnFloor)
             {
-                //fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
-                checkVesselPosition = false;
-                charcoalPiece.SetActive(false);
+                //v charcoal glow
+                glows[4].SetActive(false);
                 seventhStageText.SetActive(false);
-                ninthStageText.SetActive(true);
                 ninthStage = false;
                 tenthStage = true;
             }
@@ -283,13 +238,8 @@ public class EventManager : MonoBehaviour
 
         if (tenthStage)
         {
-            newCollider.SetActive(true);
-            if (finalVesselCollision.celebration)
-            {
-                ninthStageText.SetActive(false);
-                tenthStageText.SetActive(true);
-                tenthStage = false;
-            }
+             tenthStageText.SetActive(true);
+             tenthStage = false;
         }
     }
 
@@ -299,6 +249,8 @@ public class EventManager : MonoBehaviour
         yield return new WaitForSeconds(5);
         enoughText.SetActive(false);
         fifthStageText.SetActive(true);
+        //blowpipe glow
+        glows[5].SetActive(true);
     }
     IEnumerator StartInhale()
     {
@@ -318,5 +270,9 @@ public class EventManager : MonoBehaviour
         yield return new WaitForSeconds(6);
         eigthStageText.SetActive(false);
         seventhStageText.SetActive(true);
+        //vessel pos glow
+        glows[3].SetActive(true);
+        //vessel glow
+        glows[1].SetActive(true);
     }
 }

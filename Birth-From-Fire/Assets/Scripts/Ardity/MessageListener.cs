@@ -397,6 +397,7 @@ public class MessageListener : MonoBehaviour
                             }
                             if (increasing)
                             {
+                                progressBar.color = Color.cyan;
                                 currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
                             }
                         }
@@ -424,6 +425,7 @@ public class MessageListener : MonoBehaviour
                     }
                     if (decreasing)
                     {
+                        progressBar.color = Color.gray;
                         if (isCelciusTimerStarted)
                         {
                             StopCoroutine(startCelciusTimer);
