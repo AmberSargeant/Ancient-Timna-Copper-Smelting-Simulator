@@ -170,6 +170,7 @@ public class EventManager : MonoBehaviour
             sixthStageText.SetActive(true);
             if(campfireCollision.pipeInFurnace == true)
             {
+                //blowpipe glow
                 glows[5].SetActive(false);
                 blowpipePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
                 sixthStageText.SetActive(false);
@@ -201,6 +202,8 @@ public class EventManager : MonoBehaviour
             checkVesselPosition = true;
             tongPrefab.SetActive(true);
             handPrefab.SetActive(false);
+            //org vessel pos glow
+            glows[7].SetActive(true);
             fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
             if (!finalVesselCollision.vesselGrabbable)
             {
@@ -210,6 +213,8 @@ public class EventManager : MonoBehaviour
                 glows[3].SetActive(false);
                 //vessel glow
                 glows[1].SetActive(false);
+                //org vessel position glow
+                glows[7].SetActive(false);
                 foreach (GameObject c in vCharcoals)
                 {
                     c.SetActive(true);

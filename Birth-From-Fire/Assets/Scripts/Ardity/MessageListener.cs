@@ -26,6 +26,7 @@ public class MessageListener : MonoBehaviour
     public TMP_Text countText;
     public GameObject breatheIn;
     public GameObject breatheOut;
+    public GameObject stoppedBreathing;
     public GameObject progress;
     public GameObject bar;
     public GameObject changingTemp;
@@ -41,6 +42,7 @@ public class MessageListener : MonoBehaviour
     private bool firstCount = true;
     private bool secondCount, thirdCount, fourthCount, fifthCount;
     private bool decreasing = false;
+    private bool continueDecreasing = false;
     private bool setOnce = false;
     private bool setFlameSize = false;
     private bool timerIsRunning = false;
@@ -119,7 +121,7 @@ public class MessageListener : MonoBehaviour
             while (furnaceFlame.transform.localScale.x <= 0.3 && furnaceFlame.transform.localScale.y <= 0.3 && furnaceFlame.transform.localScale.z <= 0.3)
             {
                 yield return new WaitForSeconds(0.3f);
-                furnaceFlame.transform.localScale+=flameScale;
+                furnaceFlame.transform.localScale += flameScale;
                 if (decreasing)
                 {
                     yield break;
@@ -399,6 +401,11 @@ public class MessageListener : MonoBehaviour
                             {
                                 progressBar.color = Color.cyan;
                                 currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
+                                if (temperature == previousTemperature)
+                                {
+                                    currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
+
+                                }
                             }
                         }
                         if (temperature > previousTemperature)
@@ -421,6 +428,11 @@ public class MessageListener : MonoBehaviour
                         if (timeRemaining == 0 && !increasing)
                         {
                             decreasing = true;
+                            if (!continueDecreasing)
+                            {
+                                stoppedBreathing.SetActive(true);
+                                breatheOut.SetActive(false);
+                            }
                         }
                     }
                     if (decreasing)
@@ -470,6 +482,9 @@ public class MessageListener : MonoBehaviour
                         }
                         if (progressBar.fillAmount <= 0)
                         {
+                            //added
+                            stoppedBreathing.SetActive(false);
+                            //-----
                             breatheIn.SetActive(false);
                             breatheOut.SetActive(true);
                             setOnce = false;
@@ -477,6 +492,7 @@ public class MessageListener : MonoBehaviour
                             decreasing = false;
                             atStart = true;
                             timeRemaining = 1.3f;
+                            continueDecreasing = false;
                         }
                     }
                 }
@@ -492,10 +508,12 @@ public class MessageListener : MonoBehaviour
 
             if (progressBar.fillAmount >= 0.9 && fillCounter <= 5)
             {
+                stoppedBreathing.SetActive(false);
                 breatheIn.SetActive(true);
                 breatheOut.SetActive(false);
                 decreasing = true;
                 fillCounter++;
+                continueDecreasing = true;
             }
 
             if (fillCounter == 1)
