@@ -153,7 +153,6 @@ public class EventManager : MonoBehaviour
                 StartCoroutine("StartEnough");
                 enough = true;
             }
-            blowpipePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
             if (rHand.selectTarget != null)
             {
                 if (rHand.selectTarget.tag == "BlowPipe")
@@ -252,6 +251,7 @@ public class EventManager : MonoBehaviour
     {
         enoughText.SetActive(true);
         yield return new WaitForSeconds(5);
+        blowpipePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
         enoughText.SetActive(false);
         fifthStageText.SetActive(true);
         //blowpipe glow
