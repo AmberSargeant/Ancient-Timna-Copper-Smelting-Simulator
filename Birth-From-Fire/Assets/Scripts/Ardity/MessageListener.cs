@@ -27,7 +27,6 @@ public class MessageListener : MonoBehaviour
     public GameObject breatheIn;
     public GameObject breatheOut;
     public GameObject stoppedBreathing;
-    public GameObject progress;
     public GameObject bar;
     public GameObject changingTemp;
     public GameObject furnaceFlame;

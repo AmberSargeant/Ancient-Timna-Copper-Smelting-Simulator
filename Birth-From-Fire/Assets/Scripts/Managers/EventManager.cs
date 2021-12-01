@@ -49,6 +49,7 @@ public class EventManager : MonoBehaviour
     public GameObject tenthStageText;
     void Start()
     {
+        audioManager.Play("Dessert ambience");
         vesselTransform = vesselPrefab.transform.position;
         audioManager = FindObjectOfType<AudioManager>();
         messageListener = FindObjectOfType<MessageListener>();
