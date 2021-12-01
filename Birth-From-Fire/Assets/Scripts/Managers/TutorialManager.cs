@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 public class TutorialManager : MonoBehaviour
@@ -46,7 +48,13 @@ public class TutorialManager : MonoBehaviour
     public GameObject barPrefab;
     public GameObject dust;
     public GameObject thankYou;
+    public GameObject smoke;
+    private GameManager GM;
 
+    private void Awake()
+    {
+        GM = FindObjectOfType<GameManager>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -176,6 +184,7 @@ public class TutorialManager : MonoBehaviour
             messageListener.startBreathing = true;
             if(messageListener.finishedBreathing == true)
             {
+                blowpipePrefab.SetActive(false);
                 blowpipe.SetActive(false);
                 dust.SetActive(false);
                 barPrefab.SetActive(false);
@@ -183,12 +192,18 @@ public class TutorialManager : MonoBehaviour
                 scrollScreenDirty.SetActive(false);
                 scrollScreenClean.SetActive(true);
                 thankYou.SetActive(true);
+                smoke.SetActive(true);
+                StartCoroutine("DesertScene");
             }
 
         }
 
     }
-        public void LightSpot1() {
+    public void HandleOnStateChange()
+    {
+        Debug.Log("OnStateChange!");
+    }
+    public void LightSpot1() {
         if (thirdStage)
         {
             lightSpots[0].SetActive(false);
@@ -319,5 +334,11 @@ public class TutorialManager : MonoBehaviour
         dust.SetActive(true);
         barPrefab.SetActive(true);
         sixthStage = true;
+    }
+
+    IEnumerator DesertScene()
+    {
+        yield return new WaitForSeconds(10f);
+        GM.MainGame();
     }
 }

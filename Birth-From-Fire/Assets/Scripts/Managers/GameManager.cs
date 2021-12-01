@@ -1,24 +1,51 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
+using UnityEngine.SceneManagement;
+// Game States
 
 public class GameManager : MonoBehaviour
 {
-    protected GameManager() { }
-    private static GameManager instance = null;
-
-    //game manager is never destroyed between scenes
-    void Awake()
+    public static GameManager instance;
+    private void Awake()
     {
+
+        //Singleton method
         if (instance == null)
         {
+            //First run, set the instance
             instance = this;
+            DontDestroyOnLoad(gameObject);
+
         }
-        else
+        else if (instance != this)
         {
-            Destroy(gameObject);
-            return;
+            //Instance is not the same as the one we have, destroy old one, and reset to newest one
+            Destroy(instance.gameObject);
+            instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
+
+        //if (instance == null)
+        //{
+        //    instance = this;
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //    return;
+        //}
+        //DontDestroyOnLoad(gameObject);
     }
+
+    public void MainGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void MainMenu()
+    {
+
+    }
+
+
 }

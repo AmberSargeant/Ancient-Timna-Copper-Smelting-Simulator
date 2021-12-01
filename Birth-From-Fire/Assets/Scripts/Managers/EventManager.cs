@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR;
+using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class EventManager : MonoBehaviour
@@ -23,6 +24,7 @@ public class EventManager : MonoBehaviour
     public bool enableVesselCollision = false;
     public bool enableFloorCollision = false;
     public XRDirectInteractor rHand;
+    public List<Image> whiteScreens;
     public List<GameObject> charcoals = new List<GameObject>();
     public List<GameObject> vCharcoals = new List<GameObject>();
     public List<GameObject> vessels = new List<GameObject>();
@@ -36,6 +38,7 @@ public class EventManager : MonoBehaviour
     public GameObject fullVesselPrefab;
     public GameObject blowpipePrefab;
     public GameObject fireUIPrefab;
+    public GameObject titleText;
     public GameObject firstStagetext;
     public GameObject secondStagetext;
     public GameObject thirdStagetext;
@@ -45,16 +48,21 @@ public class EventManager : MonoBehaviour
     public GameObject sixthStageText;
     public GameObject seventhStageText;
     public GameObject eigthStageText;
-    //public GameObject ninthStageText;
     public GameObject tenthStageText;
+
+    private void Awake()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
     void Start()
     {
+        StartCoroutine("Intro");
         audioManager.Play("Dessert ambience");
         vesselTransform = vesselPrefab.transform.position;
-        audioManager = FindObjectOfType<AudioManager>();
         messageListener = FindObjectOfType<MessageListener>();
         campfireCollision = FindObjectOfType<CampfireCollision>();
         floorCollision = FindObjectOfType<FloorCollision>();
+        smallOrePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
         vesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
         blowpipePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
         foreach (GameObject c in charcoals)
@@ -64,9 +72,15 @@ public class EventManager : MonoBehaviour
     }
     void Update()
     {
+        //crossfade alpha
+        foreach (Image w in whiteScreens)
+        {
+            w.CrossFadeAlpha(0, 3, false);
+        }
         //need to refactor
         if (firstStage)
         {
+            smallOrePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
             //ore glow
             glows[0].SetActive(true);
             if (rHand.selectTarget != null)
@@ -247,7 +261,13 @@ public class EventManager : MonoBehaviour
              tenthStage = false;
         }
     }
-
+    IEnumerator Intro()
+    {
+        yield return new WaitForSeconds(8);
+        titleText.SetActive(false);
+        firstStagetext.SetActive(true);
+        firstStage = true;
+    }
     IEnumerator StartEnough()
     {
         enoughText.SetActive(true);

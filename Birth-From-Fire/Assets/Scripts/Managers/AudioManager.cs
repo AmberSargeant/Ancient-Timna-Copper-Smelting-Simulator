@@ -16,15 +16,30 @@ public class AudioManager : MonoBehaviour
     }
     void Awake()
     {
-        if(instance == null)
+        //if(instance == null)
+        //{
+        //    instance = this;
+        //}else
+        //{
+        //    Destroy(gameObject);
+        //    return;
+        //}
+        //DontDestroyOnLoad(gameObject);
+        //Singleton method
+        if (instance == null)
         {
+            //First run, set the instance
             instance = this;
-        }else
-        {
-            Destroy(gameObject);
-            return;
+            DontDestroyOnLoad(gameObject);
+
         }
-        DontDestroyOnLoad(gameObject);
+        else if (instance != this)
+        {
+            //Instance is not the same as the one we have, destroy old one, and reset to newest one
+            Destroy(instance.gameObject);
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();

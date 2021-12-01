@@ -82,11 +82,14 @@ public class MessageListener : MonoBehaviour
     }
 
 
+    private void Awake()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
 
     void Start()
     {
         flameScale = new Vector3(0.010f, 0.010f, 0.010f);
-        audioManager = FindObjectOfType<AudioManager>();
         startCelciusTimer = StartCelciusTimer();
         StartingTemperature = temperature;
         InvokeRepeating("SetVariable", 0, 0.1f);

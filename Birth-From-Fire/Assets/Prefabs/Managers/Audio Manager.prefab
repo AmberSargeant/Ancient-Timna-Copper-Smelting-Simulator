@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8852186469335444746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8852186469335444855}
+  - component: {fileID: 8852186469335444852}
+  - component: {fileID: 8852186469335444853}
+  m_Layer: 0
+  m_Name: Audio Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8852186469335444855
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8852186469335444746}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.9717333, y: 2.072, z: -3.6679997}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8852186469335444852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8852186469335444746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbefeae8775df2c42907c9b38de30269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: burning fire
+    clip: {fileID: 8300000, guid: aec0db1cb7eac564bab32ca7be938d36, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: 0}
+  - name: Dessert ambience
+    clip: {fileID: 8300000, guid: a1daadeeb476ba449b4f54ac4bb09e9b, type: 3}
+    volume: 0.293
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+    mixerGroup: {fileID: 0}
+  - name: fire after adding coals
+    clip: {fileID: 8300000, guid: 44db015c6da9ff7439117fc942b3e4c4, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: 0}
+  - name: Ore falling on the vessel
+    clip: {fileID: 8300000, guid: fbcb4298ada752241b7d7d4c96f2c1a8, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: 0}
+  - name: Prompt sound effect after each step is completed
+    clip: {fileID: 8300000, guid: 5afb349aa4a76c242873e0b80888522b, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: 0}
+--- !u!81 &8852186469335444853
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8852186469335444746}
+  m_Enabled: 1
