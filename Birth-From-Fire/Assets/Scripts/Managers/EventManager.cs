@@ -245,7 +245,7 @@ public class EventManager : MonoBehaviour
         if (ninthStage)
         {
             enableFloorCollision = true;
-            if (floorCollision.charcoalOnFloor)
+            if (floorCollision.charcoalOnFloor || campfireCollision.vCharcoalInFurnace)
             {
                 //v charcoal glow
                 glows[4].SetActive(false);
