@@ -10,6 +10,7 @@ public class CampfireCollision : MonoBehaviour
     public GameObject light;
     public bool inFurnace;
     public bool pipeInFurnace;
+    public bool vCharcoalInFurnace = false;
     [SerializeField]
     public int countCharcoal;
 
@@ -37,6 +38,14 @@ public class CampfireCollision : MonoBehaviour
             other.gameObject.SetActive(false);
             flame.SetActive(true);
             countCharcoal++;
+        }
+        if(other.tag == "VCharcoal")
+        {
+            StartCoroutine(IncreaseLight());
+            audioManager.Play("fire after adding coals");
+            other.gameObject.SetActive(false);
+            flame.SetActive(true);
+            vCharcoalInFurnace = true;
         }
     }
 
