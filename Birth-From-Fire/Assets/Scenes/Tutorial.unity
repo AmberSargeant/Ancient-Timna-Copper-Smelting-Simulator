@@ -24470,6 +24470,91 @@ PrefabInstance:
       propertyPath: m_Name
       value: Audio Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 8852186469335444852, guid: 8a91fd8393d7bb14a8c65787e50fc572,
+        type: 3}
+      propertyPath: sounds.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852186469335444852, guid: 8a91fd8393d7bb14a8c65787e50fc572,
+        type: 3}
+      propertyPath: sounds.Array.data[5].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5afb349aa4a76c242873e0b80888522b, type: 3}
+    - target: {fileID: 8852186469335444852, guid: 8a91fd8393d7bb14a8c65787e50fc572,
+        type: 3}
+      propertyPath: sounds.Array.data[5].name
+      value: Prompt sound effect after each step is completed
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852186469335444852, guid: 8a91fd8393d7bb14a8c65787e50fc572,
+        type: 3}
+      propertyPath: sounds.Array.data[6].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5afb349aa4a76c242873e0b80888522b, type: 3}
+    - target: {fileID: 8852186469335444852, guid: 8a91fd8393d7bb14a8c65787e50fc572,
+        type: 3}
+      propertyPath: sounds.Array.data[6].name
+      value: Prompt sound effect after each step is completed
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852186469335444852, guid: 8a91fd8393d7bb14a8c65787e50fc572,
+        type: 3}
+      propertyPath: sounds.Array.data[7].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5afb349aa4a76c242873e0b80888522b, type: 3}
+    - target: {fileID: 8852186469335444852, guid: 8a91fd8393d7bb14a8c65787e50fc572,
+        type: 3}
+      propertyPath: sounds.Array.data[7].name
+      value: Prompt sound effect after each step is completed
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852186469335444852, guid: 8a91fd8393d7bb14a8c65787e50fc572,
+        type: 3}
+      propertyPath: sounds.Array.data[8].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5afb349aa4a76c242873e0b80888522b, type: 3}
+    - target: {fileID: 8852186469335444852, guid: 8a91fd8393d7bb14a8c65787e50fc572,
+        type: 3}
+      propertyPath: sounds.Array.data[8].name
+      value: Prompt sound effect after each step is completed
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852186469335444852, guid: 8a91fd8393d7bb14a8c65787e50fc572,
+        type: 3}
+      propertyPath: sounds.Array.data[5].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852186469335444852, guid: 8a91fd8393d7bb14a8c65787e50fc572,
+        type: 3}
+      propertyPath: sounds.Array.data[6].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852186469335444852, guid: 8a91fd8393d7bb14a8c65787e50fc572,
+        type: 3}
+      propertyPath: sounds.Array.data[7].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852186469335444852, guid: 8a91fd8393d7bb14a8c65787e50fc572,
+        type: 3}
+      propertyPath: sounds.Array.data[8].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852186469335444852, guid: 8a91fd8393d7bb14a8c65787e50fc572,
+        type: 3}
+      propertyPath: sounds.Array.data[5].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852186469335444852, guid: 8a91fd8393d7bb14a8c65787e50fc572,
+        type: 3}
+      propertyPath: sounds.Array.data[6].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852186469335444852, guid: 8a91fd8393d7bb14a8c65787e50fc572,
+        type: 3}
+      propertyPath: sounds.Array.data[7].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852186469335444852, guid: 8a91fd8393d7bb14a8c65787e50fc572,
+        type: 3}
+      propertyPath: sounds.Array.data[8].volume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8852186469335444855, guid: 8a91fd8393d7bb14a8c65787e50fc572,
         type: 3}
       propertyPath: m_RootOrder
@@ -24525,5 +24610,88 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8852186469335444852, guid: 8a91fd8393d7bb14a8c65787e50fc572, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8a91fd8393d7bb14a8c65787e50fc572, type: 3}
+--- !u!1 &8852186468150704950 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8852186469335444746, guid: 8a91fd8393d7bb14a8c65787e50fc572,
+    type: 3}
+  m_PrefabInstance: {fileID: 8852186468150704949}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8852186468150704951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8852186468150704950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbefeae8775df2c42907c9b38de30269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: burning fire
+    clip: {fileID: 8300000, guid: aec0db1cb7eac564bab32ca7be938d36, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: 0}
+  - name: Dessert ambience
+    clip: {fileID: 8300000, guid: a1daadeeb476ba449b4f54ac4bb09e9b, type: 3}
+    volume: 0.293
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+    mixerGroup: {fileID: 0}
+  - name: fire after adding coals
+    clip: {fileID: 8300000, guid: 44db015c6da9ff7439117fc942b3e4c4, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: 0}
+  - name: Ore falling on the vessel
+    clip: {fileID: 8300000, guid: fbcb4298ada752241b7d7d4c96f2c1a8, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: 0}
+  - name: Prompt sound effect after each step is completed
+    clip: {fileID: 8300000, guid: 5afb349aa4a76c242873e0b80888522b, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: 0}
+  - name: tutorial leaflet
+    clip: {fileID: 8300000, guid: 07d36a86eafe2434cb63a8cc02523305, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: 0}
+  - name: SFX2 Tutorial
+    clip: {fileID: 8300000, guid: dca1f122a8c216842b84b422e172657d, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: 0}
+  - name: tutorial background
+    clip: {fileID: 8300000, guid: eb03d8713dbe33049a1816b0daea620c, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+    mixerGroup: {fileID: 0}
+  - name: tutorial smoke
+    clip: {fileID: 8300000, guid: 70c0e1304eaa10445924af4be99a8d9d, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: 0}
