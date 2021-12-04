@@ -7,6 +7,7 @@ using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 public class TutorialManager : MonoBehaviour
 {
+    private AudioManager audioManager;
     private MessageListenerTutorial messageListener;
     private bool secondStage = false;
     private bool thirdStage = false;
@@ -16,6 +17,7 @@ public class TutorialManager : MonoBehaviour
     private bool fifthStagePart2 = false;
     private bool sixthStage = false;
     private bool lspot1, lspot2, lspot3;
+    private bool playOnce1, playOnce2, playOnce3, playOnce4, playOnce5, playOnce6;
     public Camera cam;
     public XRDirectInteractor rHand;
     public GameObject wakeUp;
@@ -53,11 +55,13 @@ public class TutorialManager : MonoBehaviour
 
     private void Awake()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         GM = FindObjectOfType<GameManager>();
     }
     // Start is called before the first frame update
     void Start()
     {
+        audioManager.Play("tutorial background");
         messageListener = FindObjectOfType<MessageListenerTutorial>();
         StartCoroutine("WakeUpScene");
     }
@@ -73,28 +77,45 @@ public class TutorialManager : MonoBehaviour
             {
                 if (hit.transform.name == "Floor_Bottom_01")
                 {
+                    if (!playOnce1)
+                    {
+                        audioManager.Play("SFX2 Tutorial");
+                        playOnce1 = true;
+                    }
                     tasks[0].SetActive(false);
-                    print("hit floor");
+           
                 }
                 if (hit.transform.name == "Floor_Top_01")
                 {
-                    print("hit top");
+                    if (!playOnce2)
+                    {
+                        audioManager.Play("SFX2 Tutorial");
+                        playOnce2 = true;
+                    }
                     tasks[1].SetActive(false);
                 }
                 if (hit.transform.name == "Task Sculpture")
                 {
-                    print("hit sculpture");
+                    if (!playOnce3)
+                    {
+                        audioManager.Play("SFX2 Tutorial");
+                        playOnce3 = true;
+                    }
                     tasks[2].SetActive(false);
                 }
                 if (hit.transform.name == "Task Painting")
                 {
-                    print("hit painting");
+                    if (!playOnce4)
+                    {
+                        audioManager.Play("SFX2 Tutorial");
+                        playOnce4 = true;
+                    }
                     tasks[3].SetActive(false);
                 }
 
                 if (tasks[0].activeSelf == false && tasks[1].activeSelf == false && tasks[2].activeSelf == false && tasks[3].activeSelf == false)
                 {
-                    print("reached");
+
                     changePerspective.SetActive(false);
                     completeContent.SetActive(false);
                     well.SetActive(true);
@@ -129,6 +150,7 @@ public class TutorialManager : MonoBehaviour
             {
                 if (rHand.selectTarget.tag == "Leaflet")
                 {
+                    audioManager.Play("tutorial leaflet");
                     grab.SetActive(false);
                     leaflet.SetActive(false);
                     fourthStage = false;
@@ -142,6 +164,7 @@ public class TutorialManager : MonoBehaviour
         {
             if(rHand.selectTarget == null)
             {
+                audioManager.Play("SFX2 Tutorial");
                 leafletPrefab.SetActive(false);
                 putDown.SetActive(false);
                 rays.SetActive(true);
@@ -169,6 +192,7 @@ public class TutorialManager : MonoBehaviour
         {
             if (rHand.selectTarget == null)
             {
+                audioManager.Play("SFX2 Tutorial");
                 everythingWell.SetActive(false);
                 blowpipe.SetActive(true);
                 blowpipePrefab.SetActive(true);
@@ -184,6 +208,8 @@ public class TutorialManager : MonoBehaviour
             messageListener.startBreathing = true;
             if(messageListener.finishedBreathing == true)
             {
+                audioManager.Play("SFX2 Tutorial");
+                audioManager.Play("tutorial smoke");
                 blowpipePrefab.SetActive(false);
                 blowpipe.SetActive(false);
                 dust.SetActive(false);
@@ -206,8 +232,12 @@ public class TutorialManager : MonoBehaviour
     public void LightSpot1() {
         if (thirdStage)
         {
-            lightSpots[0].SetActive(false);
-            lspot1 = true;
+            if (!lspot1)
+            {
+                audioManager.Play("SFX2 Tutorial");
+                lightSpots[0].SetActive(false);
+                lspot1 = true;
+            }
         }
     }
 
@@ -215,8 +245,12 @@ public class TutorialManager : MonoBehaviour
     {
         if (thirdStage)
         {
-            lightSpots[1].SetActive(false);
-            lspot2 = true;
+            if (!lspot2)
+            {
+                audioManager.Play("SFX2 Tutorial");
+                lightSpots[1].SetActive(false);
+                lspot2 = true;
+            }
         }
     }
 
@@ -224,8 +258,12 @@ public class TutorialManager : MonoBehaviour
     {
         if (thirdStage)
         {
-            lightSpots[2].SetActive(false);
-            lspot3 = true;
+            if (!lspot3)
+            {
+                audioManager.Play("SFX2 Tutorial");
+                lightSpots[2].SetActive(false);
+                lspot3 = true;
+            }
         }
     }
     IEnumerator WakeUpScene()
@@ -238,13 +276,13 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator TimnaScene()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(5);
         moveBody.SetActive(true);
         StartCoroutine("EndFirstScene");
     }
     IEnumerator EndFirstScene()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(5);
         wakeUp.SetActive(false);
         timna.SetActive(false);
         moveBody.SetActive(false);
@@ -253,7 +291,7 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator CompleteContentScene()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(5);
         completeContent.SetActive(true);
         tasksPrefab.SetActive(true);
         secondStage = true;
@@ -262,7 +300,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator EndSecondScene()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(5);
         well.SetActive(false);
         rightHand.SetActive(true);
         StartCoroutine("LightSpotScene");
@@ -270,7 +308,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator LightSpotScene()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(5);
         lightSpot.SetActive(true);
         foreach (GameObject l in lightSpots)
         {
@@ -282,7 +320,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator EndThirdScene()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(5);
         better.SetActive(false);
         grab.SetActive(true);
         StartCoroutine("LeafletEvent");
@@ -290,7 +328,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator LeafletEvent()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(5);
         leaflet.SetActive(true);
         leafletPrefab.SetActive(true);
         fourthStage = true;
@@ -305,7 +343,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator EndFourthStagePart2()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
         flyer.SetActive(false);
         fourthStagePart2 = true;
         putDown.SetActive(true);
@@ -313,14 +351,14 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator RayShootingEvent()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
         rayShooting.SetActive(true);
         StartCoroutine("RayScrollEvent");
     }
 
     IEnumerator RayScrollEvent()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
         rayScroll.SetActive(true);
         scrollPrefab.SetActive(true);
         fifthStage = true;
