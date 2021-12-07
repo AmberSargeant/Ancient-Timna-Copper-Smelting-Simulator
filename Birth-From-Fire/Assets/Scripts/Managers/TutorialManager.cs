@@ -231,6 +231,7 @@ public class TutorialManager : MonoBehaviour
                 scrollScreenClean.SetActive(true);
                 thankYou.SetActive(true);
                 smoke.SetActive(true);
+                scrollScreenClean.GetComponent<Image>().CrossFadeAlpha(0, 8, false);
                 StartCoroutine("DesertScene");
             }
 
@@ -383,10 +384,10 @@ public class TutorialManager : MonoBehaviour
         sixthStage = true;
         blowPipeDemo.SetActive(true);
     }
-
     IEnumerator DesertScene()
     {
         yield return new WaitForSeconds(10f);
+        audioManager.Stop("tutorial background");
         GM.MainGame();
     }
 }

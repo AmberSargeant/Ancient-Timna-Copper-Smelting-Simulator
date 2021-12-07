@@ -17,6 +17,7 @@ public class EventManager : MonoBehaviour
     private bool playOnce1;
     private bool enough = false;
     private bool inhale = false;
+    private bool oreGlow, charcoalGlow, vesselGlow;
     public VesselCollision finalVesselCollision;
     public Vector3 vesselTransform;
     public int countOre = 0;
@@ -82,8 +83,12 @@ public class EventManager : MonoBehaviour
         {
             smallOrePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
             //ore glow
-            glows[0].SetActive(true);
-            if (rHand.selectTarget != null)
+            if (!oreGlow)
+            {
+                glows[0].SetActive(true);
+                oreGlow = true;
+            }
+                if (rHand.selectTarget != null)
             {
                 if (rHand.selectTarget.tag == "Small Ore")
                 {
@@ -124,7 +129,11 @@ public class EventManager : MonoBehaviour
         if (thirdStage)
         {
             //vessel glow
-            glows[1].SetActive(true);
+            if (!vesselGlow)
+            {
+                glows[1].SetActive(true);
+                vesselGlow = true;
+            }
             //need to refactor
             thirdStagetext.SetActive(true);
 
@@ -145,7 +154,11 @@ public class EventManager : MonoBehaviour
             //vessel glow
             glows[1].SetActive(false);
             //charcoal glow
-            glows[2].SetActive(true);
+            if (!charcoalGlow)
+            {
+                glows[2].SetActive(true);
+                charcoalGlow = true;
+            }
             //need to refactor
             fourthStageText.SetActive(true);
             foreach (GameObject c in charcoals)

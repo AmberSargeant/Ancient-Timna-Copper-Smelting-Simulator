@@ -94,11 +94,6 @@ public class ShowText : MonoBehaviour
         charcoalGlow.SetActive(false);
     }
 
-    public void ShowVCharcoalGlow()
-    {
-        vCharcoalGlow.SetActive(true);
-    }
-
     public void HideVCharcoalGlow()
     {
         vCharcoalGlow.SetActive(false);
