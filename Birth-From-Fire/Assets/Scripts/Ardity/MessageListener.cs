@@ -28,7 +28,7 @@ public class MessageListener : MonoBehaviour
     public GameObject breatheOut;
     public GameObject stoppedBreathing;
     public GameObject bar;
-    public GameObject changingTemp;
+    //public GameObject changingTemp;
     public GameObject furnaceFlame;
     public GameObject greenFlame;
     public int celciusCounter = 750;
@@ -527,7 +527,7 @@ public class MessageListener : MonoBehaviour
                 }
                 firstCount = false;
                 secondCount = true;
-                changingTemp.SetActive(true);
+                //changingTemp.SetActive(true);
                 flame1.SetActive(false);
                 flame2.SetActive(true);
 
@@ -548,7 +548,7 @@ public class MessageListener : MonoBehaviour
                 }
                 secondCount = false;
                 thirdCount = true;
-                changingTemp.SetActive(false);
+                //changingTemp.SetActive(false);
                 flame2.SetActive(false);
                 flame3.SetActive(true);
 
