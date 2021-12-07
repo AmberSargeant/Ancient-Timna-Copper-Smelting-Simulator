@@ -20,6 +20,7 @@ public class TutorialManager : MonoBehaviour
     private bool playOnce1, playOnce2, playOnce3, playOnce4, playOnce5, playOnce6;
     public Camera cam;
     public XRDirectInteractor rHand;
+    public GameObject rayPrefab;
     public GameObject wakeUp;
     public GameObject timna;
     public GameObject moveBody;
@@ -33,6 +34,7 @@ public class TutorialManager : MonoBehaviour
     public List<GameObject> lightSpots = new List<GameObject>();
     public GameObject better;
     public GameObject grab;
+    public GameObject controllerDemo;
     public GameObject leaflet;
     public GameObject leafletPrefab;
     public GameObject flyer;
@@ -48,6 +50,7 @@ public class TutorialManager : MonoBehaviour
     public GameObject blowpipePrefab;
     public GameObject blowpipeUI;
     public GameObject barPrefab;
+    public GameObject blowPipeDemo;
     public GameObject dust;
     public GameObject thankYou;
     public GameObject smoke;
@@ -61,6 +64,7 @@ public class TutorialManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rayPrefab.SetActive(false);
         audioManager.Play("tutorial background");
         messageListener = FindObjectOfType<MessageListenerTutorial>();
         StartCoroutine("WakeUpScene");
@@ -69,6 +73,7 @@ public class TutorialManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(rHand.selectTarget);
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
         RaycastHit hit;
         if (secondStage)
@@ -146,10 +151,12 @@ public class TutorialManager : MonoBehaviour
 
         if (fourthStage)
         {
+            controllerDemo.SetActive(true);
             if (rHand.selectTarget != null)
             {
                 if (rHand.selectTarget.tag == "Leaflet")
                 {
+                    controllerDemo.SetActive(false);
                     audioManager.Play("tutorial leaflet");
                     grab.SetActive(false);
                     leaflet.SetActive(false);
@@ -175,10 +182,13 @@ public class TutorialManager : MonoBehaviour
 
         if (fifthStage)
         {
+            controllerDemo.SetActive(true);
+            rayPrefab.SetActive(true);
             if (rHand.selectTarget != null)
             {
-                if (rHand.selectTarget.tag == "Leaflet" || rHand.selectTarget.tag == "Scroll")
+                if (rHand.selectTarget.tag == "Scroll")
                 {
+                    controllerDemo.SetActive(false);
                     rays.SetActive(false);
                     rayShooting.SetActive(false);
                     rayScroll.SetActive(false);
@@ -206,8 +216,10 @@ public class TutorialManager : MonoBehaviour
         if (sixthStage)
         {
             messageListener.startBreathing = true;
+
             if(messageListener.finishedBreathing == true)
             {
+                blowPipeDemo.SetActive(false);
                 audioManager.Play("SFX2 Tutorial");
                 audioManager.Play("tutorial smoke");
                 blowpipePrefab.SetActive(false);
@@ -219,16 +231,14 @@ public class TutorialManager : MonoBehaviour
                 scrollScreenClean.SetActive(true);
                 thankYou.SetActive(true);
                 smoke.SetActive(true);
+                scrollScreenClean.GetComponent<Image>().CrossFadeAlpha(0, 8, false);
                 StartCoroutine("DesertScene");
             }
 
         }
 
     }
-    public void HandleOnStateChange()
-    {
-        Debug.Log("OnStateChange!");
-    }
+
     public void LightSpot1() {
         if (thirdStage)
         {
@@ -353,14 +363,14 @@ public class TutorialManager : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         rayShooting.SetActive(true);
+        rayScroll.SetActive(true);
+        scrollPrefab.SetActive(true);
         StartCoroutine("RayScrollEvent");
     }
 
     IEnumerator RayScrollEvent()
     {
         yield return new WaitForSeconds(5f);
-        rayScroll.SetActive(true);
-        scrollPrefab.SetActive(true);
         fifthStage = true;
     }
 
@@ -372,11 +382,12 @@ public class TutorialManager : MonoBehaviour
         dust.SetActive(true);
         barPrefab.SetActive(true);
         sixthStage = true;
+        blowPipeDemo.SetActive(true);
     }
-
     IEnumerator DesertScene()
     {
         yield return new WaitForSeconds(10f);
+        audioManager.Stop("tutorial background");
         GM.MainGame();
     }
 }
