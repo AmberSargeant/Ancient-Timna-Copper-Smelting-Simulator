@@ -12,8 +12,8 @@ public class EventManager : MonoBehaviour
     private CampfireCollision campfireCollision;
     private FloorCollision floorCollision;
     private MessageListener messageListener;
-    private bool firstStage = true;
-    private bool secondStage, thirdStage, fourthStage, fifthStage, sixthStage, seventhStage, eigthStage ,ninthStage,tenthStage= false;
+    private bool firstStage = false;
+    private bool secondStage, thirdStage, fourthStage, fifthStage, sixthStage, seventhStage, eigthStage, ninthStage, tenthStage = false;
     private bool playOnce1;
     private bool enough = false;
     private bool inhale = false;
@@ -182,7 +182,7 @@ public class EventManager : MonoBehaviour
         if (sixthStage)
         {
             sixthStageText.SetActive(true);
-            if(campfireCollision.pipeInFurnace == true)
+            if (campfireCollision.pipeInFurnace == true)
             {
                 //blowpipe glow
                 glows[5].SetActive(false);
@@ -257,8 +257,8 @@ public class EventManager : MonoBehaviour
 
         if (tenthStage)
         {
-             tenthStageText.SetActive(true);
-             tenthStage = false;
+            tenthStageText.SetActive(true);
+            tenthStage = false;
         }
     }
     IEnumerator Intro()

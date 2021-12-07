@@ -98,7 +98,7 @@ public class MessageListenerTutorial : MonoBehaviour
     {
         StartTimer();
         print("Starting Temperature " + StartingTemperature + " Prev Temperature " + previousTemperature + " Temperature " + temperature);
-        print(startBreathing);
+       
         if (startBreathing)
         {
             if (temperature != 0)
