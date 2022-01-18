@@ -73,7 +73,7 @@ public class TutorialManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(rHand.selectTarget);
+        //print(rHand.selectTarget);
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
         RaycastHit hit;
         if (secondStage)

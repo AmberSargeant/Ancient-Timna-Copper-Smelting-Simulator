@@ -10,13 +10,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
+using UnityEngine.XR;
 using TMPro;
-/**
- * When creating your message listeners you need to implement these two methods:
- *  - OnMessageArrived
- *  - OnConnectionEvent
- */
 
 //Need to refactor this entire script lol
 public class MessageListenerTutorial : MonoBehaviour
@@ -26,176 +21,77 @@ public class MessageListenerTutorial : MonoBehaviour
     public GameObject stoppedBreathing;
     public bool finishedBreathing = false;
     public bool startBreathing = false;
-    private int temperature;
-    private AudioManager audioManager;
+
+    private InputDevice targetDevice;
+
     private bool decreasing = false;
-    private bool continueDecreasing = false;
-    private bool setOnce = false;
-    private bool timerIsRunning = false;
-    private bool startTimer = false;
-    private bool atStart = false;
-    private bool increasing = false;
-    private int previousTemperature;
-    private int StartingTemperature;
     private float currentFillValue;
-    [SerializeField]
-    private float timeRemaining = 1.3f;
+
     [SerializeField]
     private float speed;
-
-
-    // Invoked when a line of data is received from the serial device.
-
-
-    public void OnMessageArrived(string msg)
-    {
-        string[] msgSplit = msg.Split(' ');
-        temperature = int.Parse(msgSplit[0]);
-    }
-
-    // Invoked when a connect/disconnect event occurs. The parameter 'success'
-    // will be 'true' upon connection, and 'false' upon disconnection or
-    // failure to connect.
-    void OnConnectionEvent(bool success)
-    {
-        if (success)
-            Debug.Log("Connection established");
-        else
-            Debug.Log("Connection attempt failed or disconnection detected");
-    }
 
 
 
     void Start()
     {
-        audioManager = FindObjectOfType<AudioManager>();
-        StartingTemperature = temperature;
-        InvokeRepeating("SetVariable", 0, 0.1f);
-    }
 
-    void SetVariable()
-    {
-        previousTemperature = temperature;
-    }
+        //setting up input
+        List<InputDevice> devices = new List<InputDevice>();
+        InputDeviceCharacteristics rightControllerCharacteristics = InputDeviceCharacteristics.Right | InputDeviceCharacteristics.Controller;
+        InputDevices.GetDevicesWithCharacteristics(rightControllerCharacteristics, devices);
 
-    void StartTimer()
-    {
-        if (timerIsRunning)
+        if(devices.Count > 0)
         {
-            if (timeRemaining > 0)
-            {
-                timeRemaining -= Time.deltaTime;
-            }
-            else
-            {
-                timeRemaining = 0;
-                timerIsRunning = false;
-            }
+            targetDevice = devices[0];
         }
     }
+
+
     // Update is called once per frame
     void Update()
     {
-        StartTimer();
-        print("Starting Temperature " + StartingTemperature + " Prev Temperature " + previousTemperature + " Temperature " + temperature);
-       
+        targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonValue);
         if (startBreathing)
         {
-            if (temperature != 0)
-            {
-                if (!setOnce)
-                {
-                    StartingTemperature = temperature;
-                    setOnce = true;
-                }
-            }
-            if (temperature != 0 && StartingTemperature != 0)
+            if (primaryButtonValue)
             {
                 if (!decreasing)
                 {
-                    decreasing = false;
-                    if (temperature > StartingTemperature + 1)
-                    {
-                        increasing = true;
-                        startTimer = false;
-                        atStart = false;
-                        if (increasing)
-                        {
-                            progressBar.color = Color.cyan;
-                            currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
-                            if (temperature == previousTemperature)
-                            {
-                                currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
+                    progressBar.color = Color.cyan;
+                    currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
+                }
 
-                            }
-                        }
-                    }
-                    if (temperature > previousTemperature)
-                    {
-                        timeRemaining = 1.3f;
-                    }
-                }
-                if (temperature < previousTemperature)
+            }
+            else
+            {
+                if (progressBar.fillAmount > 0)
                 {
-                    increasing = false;
-                    if (!atStart)
-                    {
-                        startTimer = true;
-                    }
-                    if (startTimer)
-                    {
-                        timerIsRunning = true;
-                        startTimer = false;
-                    }
-                    if (timeRemaining == 0 && !increasing)
-                    {
-                        decreasing = true;
-                        if (!continueDecreasing)
-                        {
-                            stoppedBreathing.SetActive(true);
-                            breatheOut.SetActive(false);
-                        }
-                    }
+                    decreasing = true;
                 }
-                if (decreasing)
+            }
+
+            if (decreasing)
+            {
+                if (currentFillValue >= 0)
                 {
-                    progressBar.color = Color.gray;
-                    if (currentFillValue >= 0)
-                    {
-                        currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
-                    }
-                    if (temperature == previousTemperature)
-                    {
-                        if (currentFillValue >= 0)
-                        {
-                            currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
-                        }
-                    }
-                    if (progressBar.fillAmount <= 0)
-                    {
-                        //added
-                        stoppedBreathing.SetActive(false);
-                        //-----;
-                        breatheOut.SetActive(true);
-                        setOnce = false;
-                        startTimer = false;
-                        decreasing = false;
-                        atStart = true;
-                        timeRemaining = 1.3f;
-                        continueDecreasing = false;
-                    }
+                    currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
                 }
+                progressBar.color = Color.gray;
+                stoppedBreathing.SetActive(true);
+                breatheOut.SetActive(false);
+            }
+
+            if (progressBar.fillAmount <= 0)
+            {
+                stoppedBreathing.SetActive(false);
+                breatheOut.SetActive(true);
+                decreasing = false;
             }
         }
 
         progressBar.fillAmount = currentFillValue / 100;
 
-        if (progressBar.fillAmount <= 0)
-        {
-            atStart = true;
-        }
-
-        if (progressBar.fillAmount >= 0.9)
+        if(progressBar.fillAmount >= 0.9)
         {
             startBreathing = false;
             finishedBreathing = true;

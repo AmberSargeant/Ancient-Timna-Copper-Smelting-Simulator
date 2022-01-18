@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR;
 using UnityEngine.EventSystems;
 using TMPro;
 /**
@@ -34,6 +35,9 @@ public class MessageListener : MonoBehaviour
     public int celciusCounter = 750;
     public bool startBreathing = false;
     public bool birth = false;
+
+    private InputDevice targetDevice;
+
     private int temperature;
     private AudioManager audioManager;
     [SerializeField]
@@ -61,27 +65,6 @@ public class MessageListener : MonoBehaviour
     private IEnumerator startCelciusTimer;
 
 
-    // Invoked when a line of data is received from the serial device.
-
-
-    public void OnMessageArrived(string msg)
-    {
-        string[] msgSplit = msg.Split(' ');
-        temperature = int.Parse(msgSplit[0]);
-    }
-
-    // Invoked when a connect/disconnect event occurs. The parameter 'success'
-    // will be 'true' upon connection, and 'false' upon disconnection or
-    // failure to connect.
-    void OnConnectionEvent(bool success)
-    {
-        if (success)
-            Debug.Log("Connection established");
-        else
-            Debug.Log("Connection attempt failed or disconnection detected");
-    }
-
-
     private void Awake()
     {
         audioManager = FindObjectOfType<AudioManager>();
@@ -89,424 +72,193 @@ public class MessageListener : MonoBehaviour
 
     void Start()
     {
-        flameScale = new Vector3(0.010f, 0.010f, 0.010f);
-        startCelciusTimer = StartCelciusTimer();
-        StartingTemperature = temperature;
-        InvokeRepeating("SetVariable", 0, 0.1f);
-    }
+        //setting up input
+        List<InputDevice> devices = new List<InputDevice>();
+        InputDeviceCharacteristics rightControllerCharacteristics = InputDeviceCharacteristics.Right | InputDeviceCharacteristics.Controller;
+        InputDevices.GetDevicesWithCharacteristics(rightControllerCharacteristics, devices);
 
-    void SetVariable()
-    {
-        previousTemperature = temperature;
-    }
-
-    void StartTimer()
-    {
-        if (timerIsRunning)
+        if (devices.Count > 0)
         {
-            if (timeRemaining > 0)
-            {
-                timeRemaining -= Time.deltaTime;
-            }
-            else
-            {
-                timeRemaining = 0;
-                timerIsRunning = false;
-            }
+            targetDevice = devices[0];
         }
     }
 
-    IEnumerator FlameIncrease()
-    {
-        if (firstCount)
-        {
-            while (furnaceFlame.transform.localScale.x <= 0.3 && furnaceFlame.transform.localScale.y <= 0.3 && furnaceFlame.transform.localScale.z <= 0.3)
-            {
-                yield return new WaitForSeconds(0.3f);
-                furnaceFlame.transform.localScale += flameScale;
-                if (decreasing)
-                {
-                    yield break;
-                }
-            }
-        }
 
-        if (secondCount)
-        {
-            while (furnaceFlame.transform.localScale.x <= 0.4 && furnaceFlame.transform.localScale.y <= 0.4 && furnaceFlame.transform.localScale.z <= 0.4)
-            {
-                yield return new WaitForSeconds(0.3f);
-                furnaceFlame.transform.localScale += flameScale;
-                if (decreasing)
-                {
-                    yield break;
-                }
-            }
-        }
-
-        if (thirdCount)
-        {
-            while (greenFlame.transform.localScale.x <= 0.5 && greenFlame.transform.localScale.y <= 0.5 && greenFlame.transform.localScale.z <= 0.5)
-            {
-                yield return new WaitForSeconds(0.3f);
-                greenFlame.transform.localScale += flameScale;
-                if (decreasing)
-                {
-                    yield break;
-                }
-            }
-        }
-
-        if (fourthCount)
-        {
-            while (greenFlame.transform.localScale.x <= 0.6 && greenFlame.transform.localScale.y <= 0.6 && greenFlame.transform.localScale.z <= 0.6)
-            {
-                yield return new WaitForSeconds(0.3f);
-                greenFlame.transform.localScale += flameScale;
-                if (decreasing)
-                {
-                    yield break;
-                }
-            }
-        }
-
-        if (fifthCount)
-        {
-            while (greenFlame.transform.localScale.x <= 0.7 && greenFlame.transform.localScale.y <= 0.7 && greenFlame.transform.localScale.z <= 0.7)
-            {
-                yield return new WaitForSeconds(0.3f);
-                greenFlame.transform.localScale += flameScale;
-                if (decreasing)
-                {
-                    yield break;
-                }
-            }
-        }
-    }
-
-    void FlameDecrease()
-    {
-        if (firstCount)
-        {
-            if (furnaceFlame.transform.localScale.x >= 0.2 && furnaceFlame.transform.localScale.y >= 0.2 && furnaceFlame.transform.localScale.z >= 0.2)
-            {
-                furnaceFlame.transform.localScale -= flameScale * Time.deltaTime;
-            }
-        }
-
-        if (secondCount)
-        {
-            if (furnaceFlame.transform.localScale.x >= 0.3 && furnaceFlame.transform.localScale.y >= 0.3 && furnaceFlame.transform.localScale.z >= 0.3)
-            {
-                furnaceFlame.transform.localScale -= flameScale * Time.deltaTime;
-            }
-        }
-
-        if (thirdCount)
-        {
-            if (greenFlame.transform.localScale.x >= 0.4 && greenFlame.transform.localScale.y >= 0.4 && greenFlame.transform.localScale.z >= 0.4)
-            {
-                greenFlame.transform.localScale -= flameScale * Time.deltaTime;
-            }
-        }
-
-        if (fourthCount)
-        {
-            if (greenFlame.transform.localScale.x >= 0.5 && greenFlame.transform.localScale.y >= 0.5 && greenFlame.transform.localScale.z >= 0.5)
-            {
-                greenFlame.transform.localScale -= flameScale * Time.deltaTime;
-            }
-        }
-        if (fifthCount)
-        {
-            if (greenFlame.transform.localScale.x >= 0.6 && greenFlame.transform.localScale.y >= 0.6 && greenFlame.transform.localScale.z >= 0.6)
-            {
-                greenFlame.transform.localScale -= flameScale * Time.deltaTime;
-            }
-        }
-    }
-    IEnumerator StartCelciusTimer()
-    {
-        if (firstCount)
-        {
-            while (celciusCounter <= 949)
-            {
-                yield return new WaitForSeconds(0.022f);
-                celciusCounter++;
-                countText.text = celciusCounter + "°F";
-                if (decreasing)
-                {
-                    yield break;
-                }
-            }
-        }
-
-        if (secondCount)
-        {
-            while (celciusCounter <= 1049)
-            {
-                yield return new WaitForSeconds(0.037f);
-                celciusCounter++;
-                countText.text = celciusCounter + "°F";
-                if (decreasing)
-                {
-                    yield break;
-                }
-            }
-        }
-
-        if (thirdCount)
-        {
-            while (celciusCounter <= 1149)
-            {
-                yield return new WaitForSeconds(0.037f);
-                celciusCounter++;
-                countText.text = celciusCounter + "°F";
-                if (decreasing)
-                {
-                    yield break;
-                }
-            }
-        }
-
-        if (fourthCount)
-        {
-            while (celciusCounter <= 1249)
-            {
-                yield return new WaitForSeconds(0.037f);
-                celciusCounter++;
-                countText.text = celciusCounter + "°F";
-                if (decreasing)
-                {
-                    yield break;
-                }
-            }
-        }
-
-        if (fifthCount)
-        {
-            while (celciusCounter <= 1269)
-            {
-                yield return new WaitForSeconds(0.25f);
-                celciusCounter++;
-                countText.text = celciusCounter + "°F";
-                if (decreasing)
-                {
-                    yield break;
-                }
-            }
-        }
-    }
-    void StartDCelciusTimer()
-    {
-        if (firstCount)
-        {
-            if (celciusCounter >= 751)
-            {
-                celciusCounter = (int)(celciusCounter - 1 * Time.deltaTime);
-                countText.text = celciusCounter + "°F";
-                if (celciusCounter == 750)
-                {
-                    isDCelciusTimerStarted = false;
-                }
-            }
-        }
-
-        if (secondCount)
-        {
-            if (celciusCounter >= 951)
-            {
-                celciusCounter = (int)(celciusCounter - 1 * Time.deltaTime);
-                countText.text = celciusCounter + "°F";
-                if (celciusCounter == 950)
-                {
-                    isDCelciusTimerStarted = false;
-                }
-            }
-        }
-
-        if (thirdCount)
-        {
-            if (celciusCounter >= 1051)
-            {
-                celciusCounter = (int)(celciusCounter - 1 * Time.deltaTime);
-                countText.text = celciusCounter + "°F";
-                if (celciusCounter == 1150)
-                {
-                    isDCelciusTimerStarted = false;
-                }
-            }
-        }
-
-        if (fourthCount)
-        {
-            if (celciusCounter >= 1151)
-            {
-                celciusCounter = (int)(celciusCounter - 1 * Time.deltaTime);
-                countText.text = celciusCounter + "°F";
-                if (celciusCounter == 1250)
-                {
-                    isDCelciusTimerStarted = false;
-                }
-            }
-        }
-        if (fifthCount)
-        {
-            if (celciusCounter >= 1251)
-            {
-                celciusCounter = (int)(celciusCounter - 1 * Time.deltaTime);
-                countText.text = celciusCounter + "°F";
-                if (celciusCounter == 1250)
-                {
-                    isDCelciusTimerStarted = false;
-                }
-            }
-        }
-    }
     // Update is called once per frame
     void Update()
     {
-        StartTimer();
-        print("Starting Temperature " + StartingTemperature + " Prev Temperature " + previousTemperature + " Temperature " + temperature);
+        targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonValue);
+
         if (startBreathing)
         {
-            if (fillCounter <= 4)
+            if (primaryButtonValue)
             {
-                if (temperature != 0)
+                if (!continueDecreasing && !decreasing)
                 {
-                    if (!setOnce)
-                    {
-                        StartingTemperature = temperature;
-                        setOnce = true;
-                    }
-                }
-                if (temperature != 0 && StartingTemperature != 0)
-                {
-                    if (!decreasing)
-                    {
-                        decreasing = false;
-                        if (temperature > StartingTemperature + 1)
-                        {
-                            increasing = true;
-                            startTimer = false;
-                            atStart = false;
-                            if (!atStart)
-                            {
-                                if (!isCelciusTimerStarted)
-                                {
-                                    StartCoroutine(StartCelciusTimer());
-                                    StartCoroutine(FlameIncrease());
-                                    isCelciusTimerStarted = true;
-                                }
-                            }
-                            if (increasing)
-                            {
-                                progressBar.color = Color.cyan;
-                                currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
-                                if (temperature == previousTemperature)
-                                {
-                                    currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
+                    progressBar.color = Color.cyan;
+                    currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
 
-                                }
-                            }
-                        }
-                        if (temperature > previousTemperature)
+                    if (firstCount)
+                    {
+                        if (celciusCounter <= 950)
                         {
-                            timeRemaining = 1.3f;
+                            celciusCounter = (int)(celciusCounter + 1 * 90 * Time.deltaTime);
+                            countText.text = celciusCounter + " °F";
                         }
                     }
-                    if (temperature < previousTemperature)
+                    if (secondCount)
                     {
-                        increasing = false;
-                        if (!atStart)
+                        if (celciusCounter <= 1050)
                         {
-                            startTimer = true;
-                        }
-                        if (startTimer)
-                        {
-                            timerIsRunning = true;
-                            startTimer = false;
-                        }
-                        if (timeRemaining == 0 && !increasing)
-                        {
-                            decreasing = true;
-                            if (!continueDecreasing)
-                            {
-                                stoppedBreathing.SetActive(true);
-                                breatheOut.SetActive(false);
-                            }
+                            celciusCounter = (int)(celciusCounter + 1 * 88.8 * Time.deltaTime);
+                            countText.text = celciusCounter + " °F";
                         }
                     }
-                    if (decreasing)
+                    if (thirdCount)
                     {
-                        progressBar.color = Color.gray;
-                        if (isCelciusTimerStarted)
+                        if (celciusCounter <= 1150)
                         {
-                            StopCoroutine(startCelciusTimer);
-                            StopCoroutine(FlameIncrease());
-                            isCelciusTimerStarted = false;
+                            celciusCounter = (int)(celciusCounter + 1 * 88.8 * Time.deltaTime);
+                            countText.text = celciusCounter + " °F";
                         }
-                        if (firstCount)
+                    }
+
+                    if (fourthCount)
+                    {
+                        if (celciusCounter <= 1250)
                         {
-                            FlameDecrease();
-                            StartDCelciusTimer();
+                            celciusCounter = (int)(celciusCounter + 1 * 88.8 * Time.deltaTime);
+                            countText.text = celciusCounter + " °F";
                         }
-                        if (secondCount)
+                    }
+
+                    if (fifthCount)
+                    {
+                        if (celciusCounter <= 1270)
                         {
-                            FlameDecrease();
-                            StartDCelciusTimer();
-                        }
-                        if (thirdCount)
-                        {
-                            FlameDecrease();
-                            StartDCelciusTimer();
-                        }
-                        if (fourthCount)
-                        {
-                            FlameDecrease();
-                            StartDCelciusTimer();
-                        }
-                        if (fifthCount)
-                        {
-                            FlameDecrease();
-                            StartDCelciusTimer();
-                        }
-                        if (currentFillValue >= 0)
-                        {
-                            currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
-                        }
-                        if (temperature == previousTemperature)
-                        {
-                            if (currentFillValue >= 0)
-                            {
-                                currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
-                            }
-                        }
-                        if (progressBar.fillAmount <= 0)
-                        {
-                            //added
-                            stoppedBreathing.SetActive(false);
-                            //-----
-                            breatheIn.SetActive(false);
-                            breatheOut.SetActive(true);
-                            setOnce = false;
-                            startTimer = false;
-                            decreasing = false;
-                            atStart = true;
-                            timeRemaining = 1.3f;
-                            continueDecreasing = false;
+                            celciusCounter = (int)(celciusCounter + 1 * 86.7 * Time.deltaTime);
+                            countText.text = celciusCounter + " °F";
                         }
                     }
                 }
 
             }
+            else
+            {
+                if (progressBar.fillAmount > 0 && !decreasing)
+                {
+                    continueDecreasing = true;
+                }
+            }
 
-            progressBar.fillAmount = currentFillValue / 100;
+            if (continueDecreasing)
+            {
+                if (currentFillValue >= 0)
+                {
+                    currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
+                }
+
+
+                if (firstCount)
+                {
+                    if (celciusCounter >= 751)
+                    {
+                        celciusCounter = (int)(celciusCounter - 1 * 80 * Time.deltaTime);
+                        countText.text = celciusCounter + " °F";
+                    }
+                }
+
+                if (secondCount)
+                {
+                    if (celciusCounter >= 951)
+                    {
+                        celciusCounter = (int)(celciusCounter - 1 * 80 * Time.deltaTime);
+                        countText.text = celciusCounter + " °F";
+                    }
+                }
+
+                if (thirdCount)
+                {
+                    if (celciusCounter >= 1051)
+                    {
+                        celciusCounter = (int)(celciusCounter - 1 * 80 * Time.deltaTime);
+                        countText.text = celciusCounter + " °F";
+                    }
+                }
+
+                if (fourthCount)
+                {
+                    if (celciusCounter >= 1151)
+                    {
+                        celciusCounter = (int)(celciusCounter - 1 * 80 * Time.deltaTime);
+                        countText.text = celciusCounter + " °F";
+                    }
+                }
+
+                if (fifthCount)
+                {
+                    if (celciusCounter >= 1251)
+                    {
+                        celciusCounter = (int)(celciusCounter - 1 * 80 * Time.deltaTime);
+                        countText.text = celciusCounter + " °F";
+                    }
+                }
+                decreasing = false;
+                progressBar.color = Color.gray;
+                breatheOut.SetActive(false);
+                breatheIn.SetActive(false);
+                stoppedBreathing.SetActive(true);
+            }
+
+            if (decreasing)
+            {
+                if (currentFillValue >= 0)
+                {
+                    currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
+                }
+                continueDecreasing = false;
+                progressBar.color = Color.gray;
+                breatheOut.SetActive(false);
+                breatheIn.SetActive(true);
+                stoppedBreathing.SetActive(false);
+            }
 
             if (progressBar.fillAmount <= 0)
             {
-                atStart = true;
+                if (fillCounter == 0)
+                {
+                    celciusCounter = 750;
+                    countText.text = celciusCounter + " °F";
+                }
+                if (fillCounter == 1)
+                {
+                    celciusCounter = 950;
+                    countText.text = celciusCounter + " °F";
+                }
+                if (fillCounter == 2)
+                {
+                    celciusCounter = 1050;
+                    countText.text = celciusCounter + " °F";
+                }
+                if (fillCounter == 3)
+                {
+                    celciusCounter = 1150;
+                    countText.text = celciusCounter + " °F";
+                }
+
+                if (fillCounter == 4)
+                {
+                    celciusCounter = 1250;
+                    countText.text = celciusCounter + " °F";
+                }
+                stoppedBreathing.SetActive(false);
+                breatheOut.SetActive(true);
+                breatheIn.SetActive(false);
+                decreasing = false;
+                continueDecreasing = false;
             }
+
+            progressBar.fillAmount = currentFillValue / 100;
 
             if (progressBar.fillAmount >= 0.9 && fillCounter <= 5)
             {
@@ -514,8 +266,8 @@ public class MessageListener : MonoBehaviour
                 breatheIn.SetActive(true);
                 breatheOut.SetActive(false);
                 decreasing = true;
+                continueDecreasing = false;
                 fillCounter++;
-                continueDecreasing = true;
             }
 
             if (fillCounter == 1)
@@ -523,13 +275,11 @@ public class MessageListener : MonoBehaviour
                 if (firstCount)
                 {
                     audioManager.Play("Prompt sound effect after each step is completed");
-                    celciusCounter = 949;
+                    celciusCounter = 950;
+                    countText.text = celciusCounter + " °F";
                 }
                 firstCount = false;
                 secondCount = true;
-                //changingTemp.SetActive(true);
-                flame1.SetActive(false);
-                flame2.SetActive(true);
 
             }
             if (fillCounter == 2)
@@ -537,20 +287,12 @@ public class MessageListener : MonoBehaviour
                 if (secondCount)
                 {
                     audioManager.Play("Prompt sound effect after each step is completed");
-                    celciusCounter = 1049;
+                    celciusCounter = 1050;
+                    countText.text = celciusCounter + " °F";
                 }
-                furnaceFlame.SetActive(false);
-                greenFlame.SetActive(true);
-                if (!setFlameSize)
-                {
-                    greenFlame.transform.localScale = furnaceFlame.transform.localScale;
-                    setFlameSize = true;
-                }
+
                 secondCount = false;
                 thirdCount = true;
-                //changingTemp.SetActive(false);
-                flame2.SetActive(false);
-                flame3.SetActive(true);
 
             }
             if (fillCounter == 3)
@@ -558,57 +300,36 @@ public class MessageListener : MonoBehaviour
                 if (thirdCount)
                 {
                     audioManager.Play("Prompt sound effect after each step is completed");
-                    celciusCounter = 1149;
+                    celciusCounter = 1150;
+                    countText.text = celciusCounter + " °F";
                 }
                 thirdCount = false;
                 fourthCount = true;
-                flame3.SetActive(false);
-                flame4.SetActive(true);
             }
             if (fillCounter == 4)
             {
                 if (fourthCount)
                 {
                     audioManager.Play("Prompt sound effect after each step is completed");
-                    celciusCounter = 1249;
+                    celciusCounter = 1250;
+                    countText.text = celciusCounter + " °F";
                 }
                 fourthCount = false;
                 fifthCount = true;
-                flame4.SetActive(false);
-                flame5.SetActive(true);
             }
             if (fillCounter == 5)
             {
                 if (fifthCount)
                 {
-                    StartCoroutine(OriginalFlame());
                     audioManager.Play("Prompt sound effect after each step is completed");
-                    celciusCounter = 1269;
+                    celciusCounter = 1270;
+                    countText.text = celciusCounter + " °F";
                     birth = true;
                 }
                 fifthCount = false;
                 bar.SetActive(false);
                 startBreathing = false;
-                CancelInvoke();
-            }
-
-        }
-    }
-
-    IEnumerator OriginalFlame()
-    {
-        greenFlame.SetActive(false);
-        furnaceFlame.SetActive(true);
-        while (furnaceFlame.transform.localScale.x > 0.2 && furnaceFlame.transform.localScale.y >= 0.2 && furnaceFlame.transform.localScale.z >= 0.2)
-        {
-            yield return new WaitForSeconds(0.3f);
-            furnaceFlame.transform.localScale -= flameScale * Time.deltaTime;
-            if (furnaceFlame.transform.localScale.x <= 0.2 && furnaceFlame.transform.localScale.y >= 0.2 && furnaceFlame.transform.localScale.z >= 0.2)
-            {
-                furnaceFlame.SetActive(false);
-                yield break;
             }
         }
     }
-
 }
