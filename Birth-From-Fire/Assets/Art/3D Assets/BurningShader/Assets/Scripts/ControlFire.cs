@@ -97,7 +97,7 @@ public class ControlFire : MonoBehaviour
         }
 
         // events after burning
-        if (timer > StartBurnning + Burning)
+        /*if (timer > StartBurnning + Burning)
         {
             if (activateParticle == false)
             {
@@ -123,7 +123,7 @@ public class ControlFire : MonoBehaviour
         if (timer > StartBurnning + Burning + StopBurning)
         {
             this.enabled = false;
-        }
+        }*/
     }
 
 

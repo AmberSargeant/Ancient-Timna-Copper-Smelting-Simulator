@@ -961,6 +961,7 @@ GameObject:
   - component: {fileID: 143130213473430232}
   - component: {fileID: 114566472902396108}
   - component: {fileID: 195558095618456384}
+  - component: {fileID: 2407325029572312747}
   m_Layer: 0
   m_Name: CopperSnake
   m_TagString: Untagged
@@ -1097,6 +1098,25 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &2407325029572312747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827545206396254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 370635bd712bef942908d7d0ff2a89de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireParticle: {fileID: 0}
+  audioSource: {fileID: 0}
+  StartBurnning: 6
+  Burning: 8
+  StopBurning: 20
+  EmissionsOfParticles: 
+  lights: []
 --- !u!1 &1867499857762258
 GameObject:
   m_ObjectHideFlags: 0
