@@ -24392,7 +24392,7 @@ MonoBehaviour:
   sounds:
   - name: burning fire
     clip: {fileID: 8300000, guid: aec0db1cb7eac564bab32ca7be938d36, type: 3}
-    volume: 1
+    volume: 0.515
     pitch: 1
     source: {fileID: 0}
     loop: 0
@@ -24449,6 +24449,13 @@ MonoBehaviour:
   - name: tutorial smoke
     clip: {fileID: 8300000, guid: 70c0e1304eaa10445924af4be99a8d9d, type: 3}
     volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: 0}
+  - name: Drums
+    clip: {fileID: 8300000, guid: fd48f6c499e44824f8dac2f0152f5cc3, type: 3}
+    volume: 0.901
     pitch: 1
     source: {fileID: 0}
     loop: 0

@@ -29,16 +29,19 @@ public class MessageListener : MonoBehaviour
     public GameObject breatheOut;
     public GameObject stoppedBreathing;
     public GameObject bar;
-    //public GameObject changingTemp;
     public GameObject furnaceFlame;
     public GameObject greenFlame;
+    public GameObject starMap;
+    public GameObject starMapNarrative;
+    public GameObject ibex;
+    public GameObject ibexNarrative;
+    public GameObject lookup;
+    public GameObject lookdown;
+    public Camera cam;
     public int celciusCounter = 750;
     public bool startBreathing = false;
     public bool birth = false;
-
     private InputDevice targetDevice;
-
-    private int temperature;
     private AudioManager audioManager;
     [SerializeField]
     private int fillCounter = 0;
@@ -46,23 +49,15 @@ public class MessageListener : MonoBehaviour
     private bool secondCount, thirdCount, fourthCount, fifthCount;
     private bool decreasing = false;
     private bool continueDecreasing = false;
-    private bool setOnce = false;
-    private bool setFlameSize = false;
-    private bool timerIsRunning = false;
-    private bool startTimer = false;
-    private bool atStart = false;
-    private bool increasing = false;
-    private bool isCelciusTimerStarted = false;
-    private bool isDCelciusTimerStarted = false;
-    private int previousTemperature;
-    private int StartingTemperature;
+    private bool drums = false;
+    private bool starMapEvent = false;
+    private bool startStarMapEvent = false;
     private float currentFillValue;
-    private Vector3 flameScale;
     [SerializeField]
     private float timeRemaining = 1.3f;
     [SerializeField]
     private float speed;
-    private IEnumerator startCelciusTimer;
+
 
 
     private void Awake()
@@ -91,13 +86,19 @@ public class MessageListener : MonoBehaviour
 
         if (startBreathing)
         {
+            if (!drums)
+            {
+                audioManager.Play("Drums");
+                drums = true;
+            }
             if (primaryButtonValue)
             {
                 if (!continueDecreasing && !decreasing)
                 {
+
                     progressBar.color = Color.cyan;
                     currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
-
+                    
                     if (firstCount)
                     {
                         if (celciusCounter <= 950)
@@ -289,6 +290,18 @@ public class MessageListener : MonoBehaviour
                     audioManager.Play("Prompt sound effect after each step is completed");
                     celciusCounter = 1050;
                     countText.text = celciusCounter + " °F";
+                    startStarMapEvent = true;
+                }
+
+                if (startStarMapEvent)
+                {
+                    if(progressBar.fillAmount <=0)
+                    {
+                        //Start First Illusion
+                        StartCoroutine("StartStarMap");
+
+                        startStarMapEvent = false;
+                    }
                 }
 
                 secondCount = false;
@@ -303,6 +316,8 @@ public class MessageListener : MonoBehaviour
                     celciusCounter = 1150;
                     countText.text = celciusCounter + " °F";
                 }
+
+
                 thirdCount = false;
                 fourthCount = true;
             }
@@ -321,6 +336,7 @@ public class MessageListener : MonoBehaviour
             {
                 if (fifthCount)
                 {
+                    audioManager.Stop("Drums");
                     audioManager.Play("Prompt sound effect after each step is completed");
                     celciusCounter = 1270;
                     countText.text = celciusCounter + " °F";
@@ -329,7 +345,67 @@ public class MessageListener : MonoBehaviour
                 fifthCount = false;
                 bar.SetActive(false);
                 startBreathing = false;
+                starMap.SetActive(false);
+                ibex.SetActive(false);
             }
         }
+
+        //illusion events
+
+        if (starMapEvent)
+        {
+            Ray ray = cam.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.transform.name == "Sky")
+                {
+                    StartCoroutine("StarMapNarrative");
+                    starMapEvent = false;
+                }
+            }
+        }
+    }
+
+    //coroutine just in case we need to add extra myth stuff
+    IEnumerator StartStarMap()
+    {
+        lookup.SetActive(true);
+        starMapEvent = true;
+        bar.SetActive(false);
+        startBreathing = false;
+        yield return new WaitForSeconds(6);
+
+    }
+
+    IEnumerator StarMapNarrative()
+    {
+        lookup.SetActive(false);
+        starMap.SetActive(true);
+        ibex.SetActive(true);
+        starMapNarrative.SetActive(true);
+        yield return new WaitForSeconds(6);
+        //insert starmap glow
+        StartCoroutine("StartIbex");
+    }
+
+    IEnumerator StartIbex()
+    {
+        starMapNarrative.SetActive(false);
+        lookdown.SetActive(true);
+        yield return new WaitForSeconds(3);
+        lookdown.SetActive(false);
+        ibexNarrative.SetActive(true);
+        StartCoroutine("EndIllusion");
+    }
+
+    IEnumerator EndIllusion()
+    {
+        yield return new WaitForSeconds(6);
+        ibexNarrative.SetActive(false);
+        bar.SetActive(true);
+        startBreathing = true;
+        drums = false;
     }
 }

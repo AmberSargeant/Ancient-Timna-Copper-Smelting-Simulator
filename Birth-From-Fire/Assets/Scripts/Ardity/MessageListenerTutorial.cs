@@ -21,9 +21,7 @@ public class MessageListenerTutorial : MonoBehaviour
     public GameObject stoppedBreathing;
     public bool finishedBreathing = false;
     public bool startBreathing = false;
-
     private InputDevice targetDevice;
-
     private bool decreasing = false;
     private float currentFillValue;
 

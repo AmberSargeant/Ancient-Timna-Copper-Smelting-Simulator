@@ -47,7 +47,7 @@ MonoBehaviour:
   sounds:
   - name: burning fire
     clip: {fileID: 8300000, guid: aec0db1cb7eac564bab32ca7be938d36, type: 3}
-    volume: 1
+    volume: 0.501
     pitch: 1
     source: {fileID: 0}
     loop: 0
@@ -107,6 +107,13 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
     loop: 0
+    mixerGroup: {fileID: 0}
+  - name: Drums
+    clip: {fileID: 8300000, guid: fd48f6c499e44824f8dac2f0152f5cc3, type: 3}
+    volume: 0.797
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
     mixerGroup: {fileID: 0}
 --- !u!81 &8852186469335444853
 AudioListener:
