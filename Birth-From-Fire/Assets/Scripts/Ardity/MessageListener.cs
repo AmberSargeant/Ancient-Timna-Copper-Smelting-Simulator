@@ -41,6 +41,8 @@ public class MessageListener : MonoBehaviour
     public int celciusCounter = 750;
     public bool startBreathing = false;
     public bool birth = false;
+    public ParticleSystem ps;
+    public GameObject light;
     private InputDevice targetDevice;
     private AudioManager audioManager;
     [SerializeField]
@@ -53,10 +55,20 @@ public class MessageListener : MonoBehaviour
     private bool starMapEvent = false;
     private bool startStarMapEvent = false;
     private float currentFillValue;
+    private float r;
+    private float g;
+    private float b;
+    private float currentR;
+    private float currentG;
     [SerializeField]
     private float timeRemaining = 1.3f;
     [SerializeField]
     private float speed;
+    [SerializeField]
+    private float colorIncSpeed;
+    [SerializeField]
+    private float colorDecSpeed;
+    private Vector3 lightScale;
 
 
 
@@ -67,6 +79,12 @@ public class MessageListener : MonoBehaviour
 
     void Start()
     {
+        //furnace light
+        lightScale = new Vector3(0.10f, 0.10f, 0.10f);
+        //setting up color variables
+        r = ps.main.startColor.color.r;
+        g = ps.main.startColor.color.g;
+        b = ps.main.startColor.color.b;
         //setting up input
         List<InputDevice> devices = new List<InputDevice>();
         InputDeviceCharacteristics rightControllerCharacteristics = InputDeviceCharacteristics.Right | InputDeviceCharacteristics.Controller;
@@ -83,19 +101,17 @@ public class MessageListener : MonoBehaviour
     void Update()
     {
         targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonValue);
-
-        if (startBreathing)
+        var main = ps.main;
+        if (primaryButtonValue)
         {
-            if (!drums)
-            {
-                audioManager.Play("Drums");
-                drums = true;
-            }
+            print("Yeaaaaaah");
+        }
+            if (startBreathing)
+        {
             if (primaryButtonValue)
             {
                 if (!continueDecreasing && !decreasing)
                 {
-
                     progressBar.color = Color.cyan;
                     currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
                     
@@ -109,6 +125,18 @@ public class MessageListener : MonoBehaviour
                     }
                     if (secondCount)
                     {
+                        //change to green
+                        if (r >= 0)
+                        {
+
+                            main.startColor = new Color(r -= 0.1f * colorIncSpeed * Time.deltaTime, g, b);
+                        }
+
+                        if (b >= 0.2)
+                        {
+                            main.startColor = new Color(r, g, b -= 0.1f * colorIncSpeed * Time.deltaTime);
+                        }
+
                         if (celciusCounter <= 1050)
                         {
                             celciusCounter = (int)(celciusCounter + 1 * 88.8 * Time.deltaTime);
@@ -148,6 +176,7 @@ public class MessageListener : MonoBehaviour
             {
                 if (progressBar.fillAmount > 0 && !decreasing)
                 {
+                    
                     continueDecreasing = true;
                 }
             }
@@ -158,7 +187,17 @@ public class MessageListener : MonoBehaviour
                 {
                     currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
                 }
+                //change to red
+                if (r <= 1)
+                {
 
+                    main.startColor = new Color(r += 0.1f * colorDecSpeed * Time.deltaTime, g, b);
+                }
+
+                if (b <= 1)
+                {
+                    main.startColor = new Color(r, g, b += 0.1f * colorDecSpeed * Time.deltaTime);
+                }
 
                 if (firstCount)
                 {
@@ -233,6 +272,9 @@ public class MessageListener : MonoBehaviour
                 }
                 if (fillCounter == 1)
                 {
+                    r = 1;
+                    b = 1;
+                    main.startColor = new Color(1, g, 1);
                     celciusCounter = 950;
                     countText.text = celciusCounter + " °F";
                 }
@@ -269,6 +311,7 @@ public class MessageListener : MonoBehaviour
                 decreasing = true;
                 continueDecreasing = false;
                 fillCounter++;
+                StartCoroutine(IncreaseLight());
             }
 
             if (fillCounter == 1)
@@ -341,6 +384,9 @@ public class MessageListener : MonoBehaviour
                     celciusCounter = 1270;
                     countText.text = celciusCounter + " °F";
                     birth = true;
+                    r = 1;
+                    b = 1;
+                    main.startColor = new Color(1, g, 1);
                 }
                 fifthCount = false;
                 bar.SetActive(false);
@@ -367,7 +413,6 @@ public class MessageListener : MonoBehaviour
             }
         }
     }
-
     //coroutine just in case we need to add extra myth stuff
     IEnumerator StartStarMap()
     {
@@ -407,5 +452,33 @@ public class MessageListener : MonoBehaviour
         bar.SetActive(true);
         startBreathing = true;
         drums = false;
+
+    }
+
+    IEnumerator IncreaseLight()
+    {
+        while (light.transform.localScale.x <= 7 && light.transform.localScale.y <= 7 && light.transform.localScale.z <= 7)
+        {
+            yield return new WaitForSeconds(0.03f);
+            light.transform.localScale += lightScale;
+            if (light.transform.localScale.x >= 7 && light.transform.localScale.y >= 7 && light.transform.localScale.z >= 7)
+            {
+                StartCoroutine(DecreaseLight());
+                yield break;
+            }
+        }
+    }
+
+    IEnumerator DecreaseLight()
+    {
+        while (light.transform.localScale.x > 1 && light.transform.localScale.y > 1 && light.transform.localScale.z > 1)
+        {
+            yield return new WaitForSeconds(0.03f);
+            light.transform.localScale -= lightScale;
+            if (light.transform.localScale.x <= 1f && light.transform.localScale.y <= 1 && light.transform.localScale.z <= 1f)
+            {
+                yield break;
+            }
+        }
     }
 }

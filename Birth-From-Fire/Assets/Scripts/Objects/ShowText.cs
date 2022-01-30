@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShowText : MonoBehaviour
 {
+    private CampfireCollision campfireCollision;
     public GameObject oreGlow;
     public GameObject charcoalGlow;
     public GameObject vCharcoalGlow;
@@ -17,7 +18,7 @@ public class ShowText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        campfireCollision = FindObjectOfType<CampfireCollision>();
     }
 
     // Update is called once per frame
@@ -58,11 +59,6 @@ public class ShowText : MonoBehaviour
     {
         charcoalText.SetActive(false);
     }
-
-    //public void HideVesselText()
-    //{
-    //    vesselText.SetActive(false);
-    //}
 
     public void HideBlowPipeText()
     {
@@ -111,7 +107,10 @@ public class ShowText : MonoBehaviour
 
     public void ShowBlowPipeGlow()
     {
-        blowPipeGlow.SetActive(true);
+        if (!campfireCollision.pipeInFurnace)
+        {
+            blowPipeGlow.SetActive(true);
+        }
     }
 
     public void HideBlowPipeGlow()

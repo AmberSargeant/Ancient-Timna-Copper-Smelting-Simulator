@@ -293,6 +293,7 @@ public class EventManager : MonoBehaviour
     }
     IEnumerator StartInhale()
     {
+        audioManager.Play("Drums");
         messageListener.breatheIn.SetActive(true);
         messageListener.breatheOut.SetActive(false);
         fireUIPrefab.SetActive(true);
