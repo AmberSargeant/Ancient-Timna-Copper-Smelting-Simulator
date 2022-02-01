@@ -115,6 +115,27 @@ MonoBehaviour:
     source: {fileID: 0}
     loop: 1
     mixerGroup: {fileID: 0}
+  - name: sheep sound
+    clip: {fileID: 8300000, guid: 4ed98968f5717e047b08e7e1069653a7, type: 3}
+    volume: 0.848
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: 0}
+  - name: walk sheep
+    clip: {fileID: 8300000, guid: 31abf41515c84c345ac590029457ef2f, type: 3}
+    volume: 0.715
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+    mixerGroup: {fileID: 0}
+  - name: star shining
+    clip: {fileID: 8300000, guid: 7beda80ed30eb2b4cbc9da88cb966922, type: 3}
+    volume: 0.504
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+    mixerGroup: {fileID: 0}
 --- !u!81 &8852186469335444853
 AudioListener:
   m_ObjectHideFlags: 0

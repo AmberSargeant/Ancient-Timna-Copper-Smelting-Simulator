@@ -46,11 +46,7 @@ public class TutorialManager : MonoBehaviour
     public GameObject everythingWell;
     public GameObject scrollScreenDirty;
     public GameObject scrollScreenClean;
-    public GameObject blowpipe;
-    public GameObject blowpipePrefab;
-    public GameObject blowpipeUI;
     public GameObject barPrefab;
-    public GameObject blowPipeDemo;
     public GameObject dust;
     public GameObject thankYou;
     public GameObject smoke;
@@ -198,15 +194,13 @@ public class TutorialManager : MonoBehaviour
                 }
             }
         }
+        //removed references to blowpipe
         if (fifthStagePart2)
         {
             if (rHand.selectTarget == null)
             {
                 audioManager.Play("SFX2 Tutorial");
                 everythingWell.SetActive(false);
-                blowpipe.SetActive(true);
-                blowpipePrefab.SetActive(true);
-                blowpipeUI.SetActive(true);
                 fifthStagePart2 = false;
                 StartCoroutine("BlowPipeEvent");
 
@@ -219,11 +213,9 @@ public class TutorialManager : MonoBehaviour
 
             if(messageListener.finishedBreathing == true)
             {
-                blowPipeDemo.SetActive(false);
                 audioManager.Play("SFX2 Tutorial");
                 audioManager.Play("tutorial smoke");
-                blowpipePrefab.SetActive(false);
-                blowpipe.SetActive(false);
+  ;
                 dust.SetActive(false);
                 barPrefab.SetActive(false);
                 sixthStage = false;
@@ -376,13 +368,11 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator BlowPipeEvent()
     {
-        yield return new WaitForSeconds(5f);
-        blowpipeUI.SetActive(false);
         scrollScreenDirty.SetActive(true);
         dust.SetActive(true);
         barPrefab.SetActive(true);
         sixthStage = true;
-        blowPipeDemo.SetActive(true);
+        yield return new WaitForSeconds(5f);
     }
     IEnumerator DesertScene()
     {
