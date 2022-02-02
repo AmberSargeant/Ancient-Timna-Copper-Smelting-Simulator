@@ -112,177 +112,183 @@ public class MessageListener : MonoBehaviour
         //{
         //    print("Yeaaaaaah");
         //}
-
-        if (primaryButtonValue)
+        if (startBreathing)
         {
-            if (!continueDecreasing && !decreasing)
+            if (primaryButtonValue)
             {
-                progressBar.color = Color.cyan;
-                barTimer += Time.deltaTime;
-                celciusTimer += Time.deltaTime;
-                currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
-
-                if (celciusCounter >= 950 && celciusCounter <= 1050)
+                if (!continueDecreasing && !decreasing)
                 {
-                    //change to green
-                    if (r >= 0)
-                    {
+                    progressBar.color = Color.cyan;
+                    barTimer += Time.deltaTime;
+                    celciusTimer += Time.deltaTime;
+                    currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
 
-                        main.startColor = new Color(r -= 0.1f * colorIncSpeed * Time.deltaTime, g, b);
+                    if (celciusCounter >= 950 && celciusCounter <= 1050)
+                    {
+                        //change to green
+                        if (r >= 0)
+                        {
+
+                            main.startColor = new Color(r -= 0.1f * colorIncSpeed * Time.deltaTime, g, b);
+                        }
+
+                        if (b >= 0.2)
+                        {
+                            main.startColor = new Color(r, g, b -= 0.1f * colorIncSpeed * Time.deltaTime);
+                        }
                     }
-
-                    if (b >= 0.2)
+                    if (barTimer <= barDelayAmount)
                     {
-                        main.startColor = new Color(r, g, b -= 0.1f * colorIncSpeed * Time.deltaTime);
+                        if (celciusTimer >= celciusDelayAmount)
+                        {
+                            celciusTimer = 0f;
+                            celciusCounter = celciusCounter + celciusAmount;
+                            countText.text = celciusCounter + " °F";
+                        }
+                    }
+                    else
+                    {
+                        if (!playOnce)
+                        {
+                            audioManager.Play("Prompt sound effect after each step is completed");
+                            playOnce = true;
+                        }
+                        barTimer = 0f;
+                        celciusTimer = 0f;
+                        stoppedBreathing.SetActive(false);
+                        breatheIn.SetActive(true);
+                        breatheOut.SetActive(false);
+                        decreasing = true;
+                        continueDecreasing = false;
+                        StartCoroutine(IncreaseLight());
                     }
                 }
-                if (barTimer <= barDelayAmount)
+            }
+            else
+            {
+                if (progressBar.fillAmount > 0 && !decreasing)
+                {
+
+                    continueDecreasing = true;
+                }
+            }
+            if (decreasing)
+            {
+                if (currentFillValue >= 0)
+                {
+                    currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
+                }
+            }
+            if (continueDecreasing)
+            {
+                barTimer -= Time.deltaTime;
+                celciusTimer += Time.deltaTime;
+
+                //change to red
+                if (celciusCounter >= 950 && celciusCounter <= 1050)
+                {
+                    if (r <= 1)
+                    {
+
+                        main.startColor = new Color(r += 0.1f * colorDecSpeed * Time.deltaTime, g, b);
+                    }
+
+                    if (b <= 1)
+                    {
+                        main.startColor = new Color(r, g, b += 0.1f * colorDecSpeed * Time.deltaTime);
+                    }
+                }
+
+                if (barTimer > 1)
                 {
                     if (celciusTimer >= celciusDelayAmount)
                     {
                         celciusTimer = 0f;
-                        celciusCounter = celciusCounter + celciusAmount;
+                        celciusCounter = celciusCounter - celciusAmount;
                         countText.text = celciusCounter + " °F";
                     }
                 }
-                else
+
+                if (currentFillValue >= 0)
                 {
-                    if (!playOnce)
-                    {
-                        audioManager.Play("Prompt sound effect after each step is completed");
-                        playOnce = true;
-                    }
-                    barTimer = 0f;
-                    celciusTimer = 0f;
-                    stoppedBreathing.SetActive(false);
-                    breatheIn.SetActive(true);
-                    breatheOut.SetActive(false);
-                    decreasing = true;
-                    continueDecreasing = false;
-                    StartCoroutine(IncreaseLight());
+                    currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
                 }
+                decreasing = false;
+                progressBar.color = Color.gray;
+                breatheOut.SetActive(false);
+                breatheIn.SetActive(false);
+                stoppedBreathing.SetActive(true);
             }
-        }
-        else
-        {
-            if (progressBar.fillAmount > 0 && !decreasing)
-            {
 
-                continueDecreasing = true;
-            }
-        }
-        if (decreasing)
-        {
-            if (currentFillValue >= 0)
+            if (progressBar.fillAmount <= 0)
             {
-                currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
-            }
-        }
-        if (continueDecreasing)
-        {
-            barTimer -= Time.deltaTime;
-            celciusTimer += Time.deltaTime;
-
-            //change to red
-            if (celciusCounter >= 950 && celciusCounter <= 1050)
-            {
-                if (r <= 1)
+                if (celciusCounter == 950)
                 {
-
-                    main.startColor = new Color(r += 0.1f * colorDecSpeed * Time.deltaTime, g, b);
+                    r = 1;
+                    b = 1;
+                    main.startColor = new Color(1, g, 1);
                 }
-
-                if (b <= 1)
+                if (startStarMapEvent)
                 {
-                    main.startColor = new Color(r, g, b += 0.1f * colorDecSpeed * Time.deltaTime);
+                    //Start First Illusion
+                    StartCoroutine("StartStarMap");
+                    startStarMapEvent = false;
                 }
+                playOnce = false;
+                barTimer = 0f;
+                celciusTimer = 0f;
+                stoppedBreathing.SetActive(false);
+                breatheOut.SetActive(true);
+                breatheIn.SetActive(false);
+                decreasing = false;
+                continueDecreasing = false;
             }
-
-            if (barTimer > 1)
-            {
-                if (celciusTimer >= celciusDelayAmount)
-                {
-                    celciusTimer = 0f;
-                    celciusCounter = celciusCounter - celciusAmount;
-                    countText.text = celciusCounter + " °F";
-                }
-            }
-
-            if (currentFillValue >= 0)
-            {
-                currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
-            }
-            decreasing = false;
-            progressBar.color = Color.gray;
-            breatheOut.SetActive(false);
-            breatheIn.SetActive(false);
-            stoppedBreathing.SetActive(true);
-        }
-
-        if (progressBar.fillAmount <= 0)
-        {
+            //event changes
             if (celciusCounter == 950)
             {
-                r = 1;
-                b = 1;
-                main.startColor = new Color(1, g, 1);
+                flame1.SetActive(false);
+                flame2.SetActive(true);
             }
-            if (startStarMapEvent)
+            if (celciusCounter == 1050 && !continueDecreasing)
             {
-                //Start First Illusion
-                StartCoroutine("StartStarMap");
-                startStarMapEvent = false;
+                flame2.SetActive(false);
+                flame3.SetActive(true);
+                startStarMapEvent = true;
             }
-            playOnce = false;
-            barTimer = 0f;
-            celciusTimer = 0f;
-            stoppedBreathing.SetActive(false);
-            breatheOut.SetActive(true);
-            breatheIn.SetActive(false);
-            decreasing = false;
-            continueDecreasing = false;
-        }
-        //event changes
-        if (celciusCounter == 950)
-        {
-            flame1.SetActive(false);
-            flame2.SetActive(true);
-        }
-        if (celciusCounter == 1050)
-        {
-            flame2.SetActive(false);
-            flame3.SetActive(true);
-            startStarMapEvent = true;
-        }
 
-        if (celciusCounter == 1150)
-        {
-            flame3.SetActive(false);
-            flame4.SetActive(true);
-        }
+            if (celciusCounter == 1150)
+            {
+                flame3.SetActive(false);
+                flame4.SetActive(true);
+            }
 
-        if (celciusCounter == 1250)
-        {
-            flame4.SetActive(false);
-            flame5.SetActive(true);
-        }
+            if (celciusCounter == 1250)
+            {
+                flame4.SetActive(false);
+                flame5.SetActive(true);
+            }
 
-        //need to fix
-        if (celciusCounter == 1310)
-        {
-            audioManager.Stop("Drums");
-            audioManager.Stop("walk sheep");
-            audioManager.Stop("star shining");
-            birth = true;
-            r = 1;
-            b = 1;
-            main.startColor = new Color(1, g, 1);
-            bar.SetActive(false);
-            startBreathing = false;
-            starMap.SetActive(false);
-            ibex.SetActive(false);
+            //need to fix
+            if (celciusCounter == 1310)
+            {
+                if (progressBar.fillAmount >= 0.88f)
+                {
+                    audioManager.Stop("Drums");
+                    audioManager.Stop("walk sheep");
+                    audioManager.Stop("star shining");
+                    birth = true;
+                    r = 1;
+                    b = 1;
+                    main.startColor = new Color(1, g, 1);
+                    bar.SetActive(false);
+                    startBreathing = false;
+                    starMap.SetActive(false);
+                    ibex.SetActive(false);
+                }
+            }
+
+            progressBar.fillAmount = currentFillValue / 100;
         }
-        progressBar.fillAmount = currentFillValue / 100;
         //flame stuff
 
         //illusion events
