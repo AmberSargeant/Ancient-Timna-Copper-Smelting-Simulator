@@ -24,6 +24,7 @@ public class EventManager : MonoBehaviour
     public bool checkVesselPosition = false;
     public bool enableVesselCollision = false;
     public bool enableFloorCollision = false;
+    public bool breathPhase1 = false;
     public XRDirectInteractor rHand;
     public List<Image> whiteScreens;
     public List<GameObject> charcoals = new List<GameObject>();
@@ -212,6 +213,7 @@ public class EventManager : MonoBehaviour
             {
                 StartCoroutine("StartInhale");
                 inhale = true;
+                breathPhase1 = true;
             }
             seventhStage = false;
         }

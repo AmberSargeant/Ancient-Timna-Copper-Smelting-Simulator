@@ -44,8 +44,10 @@ public class MessageListener : MonoBehaviour
     public ParticleSystem ps;
     public GameObject light;
     public bool moveIbex = false;
+    public bool breathPhase2;
     private InputDevice targetDevice;
     private AudioManager audioManager;
+    private EventManager eventManager;
     [SerializeField]
     private int fillCounter = 0;
     private bool firstCount = true;
@@ -81,6 +83,7 @@ public class MessageListener : MonoBehaviour
     private void Awake()
     {
         audioManager = FindObjectOfType<AudioManager>();
+        eventManager = FindObjectOfType<EventManager>();
     }
 
     void Start()
@@ -269,7 +272,7 @@ public class MessageListener : MonoBehaviour
             }
 
             //need to fix
-            if (celciusCounter == 1310)
+            if (celciusCounter >= 1310)
             {
                 if (progressBar.fillAmount >= 0.88f)
                 {
@@ -284,6 +287,7 @@ public class MessageListener : MonoBehaviour
                     startBreathing = false;
                     starMap.SetActive(false);
                     ibex.SetActive(false);
+                    breathPhase2 = false;
                 }
             }
 
@@ -346,6 +350,8 @@ public class MessageListener : MonoBehaviour
     IEnumerator EndIllusion()
     {
         yield return new WaitForSeconds(6);
+        eventManager.breathPhase1 = false;
+        breathPhase2 = true;
         ibexNarrative.SetActive(false);
         bar.SetActive(true);
         startBreathing = true;
