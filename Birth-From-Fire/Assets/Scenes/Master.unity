@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.0189469, g: 0.020286577, b: 0.025165781, a: 1}
+  m_IndirectSpecularColor: {r: 0.016903209, g: 0.01792802, b: 0.02225536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2926,7 +2926,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &706273733
 GameObject:
@@ -3452,7 +3452,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1001477838
 PrefabInstance:
@@ -5024,7 +5024,7 @@ PrefabInstance:
     - target: {fileID: 8852186469335444855, guid: 8a91fd8393d7bb14a8c65787e50fc572,
         type: 3}
       propertyPath: m_RootOrder
-      value: 22
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 8852186469335444855, guid: 8a91fd8393d7bb14a8c65787e50fc572,
         type: 3}
@@ -9245,6 +9245,7 @@ MonoBehaviour:
   checkVesselPosition: 0
   enableVesselCollision: 0
   enableFloorCollision: 0
+  breathPhase1: 0
   rHand: {fileID: 548084170}
   whiteScreens:
   - {fileID: 116473788}
@@ -9619,7 +9620,7 @@ PrefabInstance:
     - target: {fileID: 2701014745189789529, guid: 6745af4fbed904a0e88cbdd666e84076,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 2701014745189789529, guid: 6745af4fbed904a0e88cbdd666e84076,
         type: 3}
