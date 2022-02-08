@@ -45,7 +45,6 @@ public class MessageListener : MonoBehaviour
     public bool birth = false;
     public ParticleSystem ps;
     public GameObject light;
-    public bool moveIbex = false;
     public bool breathPhase2;
     public XRDirectInteractor rHand;
     private InputDevice targetDevice;
@@ -409,7 +408,6 @@ public class MessageListener : MonoBehaviour
     //can turn into a regular function
     IEnumerator StartIbex()
     {
-        moveIbex = true;
         starMapNarrative.SetActive(false);
         lookdown.SetActive(true);
         ibexEvent = true;

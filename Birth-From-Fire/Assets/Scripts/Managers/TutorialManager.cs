@@ -368,6 +368,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator BlowPipeEvent()
     {
+        scrollPrefab.SetActive(false);
         scrollScreenDirty.SetActive(true);
         dust.SetActive(true);
         barPrefab.SetActive(true);
