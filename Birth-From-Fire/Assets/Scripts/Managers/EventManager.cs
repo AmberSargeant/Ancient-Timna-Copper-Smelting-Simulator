@@ -26,6 +26,7 @@ public class EventManager : MonoBehaviour
     public bool enableFloorCollision = false;
     public bool breathPhase1 = false;
     public XRDirectInteractor rHand;
+    public XRDirectInteractor tong;
     public List<Image> whiteScreens;
     public List<GameObject> charcoals = new List<GameObject>();
     public List<GameObject> vCharcoals = new List<GameObject>();
@@ -144,6 +145,7 @@ public class EventManager : MonoBehaviour
                 fourthStage = true;
                 thirdStagetext.SetActive(false);
                 thirdStage = false;
+                fullVesselPrefab.GetComponent<Rigidbody>().isKinematic = true;
                 fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
             }
 
@@ -193,18 +195,12 @@ public class EventManager : MonoBehaviour
             }
         }
 
+        //removed placing into the furnace, might need to put
+        //direction text here.
         if (sixthStage)
         {
-            sixthStageText.SetActive(true);
-            if (campfireCollision.pipeInFurnace == true)
-            {
-                //blowpipe glow
-                glows[5].SetActive(false);
-                blowpipePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
-                sixthStageText.SetActive(false);
-                sixthStage = false;
-                seventhStage = true;
-            }
+            sixthStage = false;
+            seventhStage = true;
         }
 
         if (seventhStage)
@@ -231,6 +227,16 @@ public class EventManager : MonoBehaviour
             checkVesselPosition = true;
             tongPrefab.SetActive(true);
             handPrefab.SetActive(false);
+
+            if (tong.selectTarget != null)
+            {
+                if (tong.selectTarget.tag == "Vessel")
+                {
+                    fullVesselPrefab.GetComponent<Rigidbody>().isKinematic = false;
+                }
+            }
+
+
             //org vessel pos glow
             glows[7].SetActive(true);
             fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");

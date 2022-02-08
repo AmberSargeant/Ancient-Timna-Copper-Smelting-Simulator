@@ -140,7 +140,14 @@ public class DataManager : MonoBehaviour
             if (!collectData)
             {
                 totalBreathPhaseAll = totalBreathPhase1 + totalBreathPhase2;
-                freqOfDistractions = totalBreathPhaseAll / totalDistractions;
+                if (totalDistractions != 0)
+                {
+                    freqOfDistractions = totalBreathPhaseAll / totalDistractions;
+                }
+                else
+                {
+                    freqOfDistractions = 0;
+                }
                 string path = Application.dataPath + "/TestLog.txt";
                 if (!File.Exists(path))
                 {
