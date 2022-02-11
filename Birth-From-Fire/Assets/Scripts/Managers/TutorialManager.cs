@@ -20,7 +20,7 @@ public class TutorialManager : MonoBehaviour
     private bool playOnce1, playOnce2, playOnce3, playOnce4, playOnce5, playOnce6;
     public Camera cam;
     public XRDirectInteractor rHand;
-    public GameObject rayPrefab;
+    //public GameObject rayPrefab;
     public GameObject wakeUp;
     public GameObject timna;
     public GameObject moveBody;
@@ -30,6 +30,7 @@ public class TutorialManager : MonoBehaviour
     public List<GameObject> tasks = new List<GameObject>();
     public GameObject well;
     public GameObject rightHand;
+    public GameObject blowPipe;
     public GameObject lightSpot;
     public List<GameObject> lightSpots = new List<GameObject>();
     public GameObject better;
@@ -60,7 +61,7 @@ public class TutorialManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rayPrefab.SetActive(false);
+        //rayPrefab.SetActive(false);
         audioManager.Play("tutorial background");
         messageListener = FindObjectOfType<MessageListenerTutorial>();
         StartCoroutine("WakeUpScene");
@@ -124,14 +125,6 @@ public class TutorialManager : MonoBehaviour
                     StartCoroutine("EndSecondScene");
                 }
             }
-
-
-            //if (Physics.Raycast(ray, out hit))
-            //{
-            //    print("I'm looking at " + hit.transform.name);
-            //}
-            //else
-            //    print("I'm looking at nothing!");
         }
         if (thirdStage)
         {
@@ -163,6 +156,7 @@ public class TutorialManager : MonoBehaviour
 
         }
 
+        //removed references to ray
         if (fourthStagePart2)
         {
             if(rHand.selectTarget == null)
@@ -170,41 +164,25 @@ public class TutorialManager : MonoBehaviour
                 audioManager.Play("SFX2 Tutorial");
                 leafletPrefab.SetActive(false);
                 putDown.SetActive(false);
-                rays.SetActive(true);
                 fourthStagePart2 = false;
                 StartCoroutine("RayShootingEvent");
             }
         }
 
+        //removed references to ray
         if (fifthStage)
         {
-            controllerDemo.SetActive(true);
-            rayPrefab.SetActive(true);
-            if (rHand.selectTarget != null)
-            {
-                if (rHand.selectTarget.tag == "Scroll")
-                {
-                    controllerDemo.SetActive(false);
-                    rays.SetActive(false);
-                    rayShooting.SetActive(false);
-                    rayScroll.SetActive(false);
-                    everythingWell.SetActive(true);
-                    fifthStage = false;
-                    fifthStagePart2 = true;
-                }
-            }
+            everythingWell.SetActive(true);
+            fifthStage = false;
+            fifthStagePart2 = true;
         }
         //removed references to blowpipe
+        //removed references to ray
         if (fifthStagePart2)
         {
-            if (rHand.selectTarget == null)
-            {
-                audioManager.Play("SFX2 Tutorial");
-                everythingWell.SetActive(false);
-                fifthStagePart2 = false;
-                StartCoroutine("BlowPipeEvent");
-
-            }
+            everythingWell.SetActive(false);
+            fifthStagePart2 = false;
+            StartCoroutine("BlowPipeEvent");
         }
 
         if (sixthStage)
@@ -351,24 +329,25 @@ public class TutorialManager : MonoBehaviour
         putDown.SetActive(true);
     }
 
+    //removed ray shooting event
     IEnumerator RayShootingEvent()
     {
-        yield return new WaitForSeconds(5f);
-        rayShooting.SetActive(true);
-        rayScroll.SetActive(true);
-        scrollPrefab.SetActive(true);
         StartCoroutine("RayScrollEvent");
+        yield return new WaitForSeconds(5f);
     }
-
+    //removed ray scroll event
     IEnumerator RayScrollEvent()
     {
-        yield return new WaitForSeconds(5f);
         fifthStage = true;
+        yield return new WaitForSeconds(5f);
     }
 
+    //removed references to blowpipe
     IEnumerator BlowPipeEvent()
     {
         scrollPrefab.SetActive(false);
+        rightHand.SetActive(false);
+        blowPipe.SetActive(true);
         scrollScreenDirty.SetActive(true);
         dust.SetActive(true);
         barPrefab.SetActive(true);

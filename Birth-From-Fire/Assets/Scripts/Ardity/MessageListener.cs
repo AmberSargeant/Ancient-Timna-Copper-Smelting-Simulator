@@ -117,11 +117,6 @@ public class MessageListener : MonoBehaviour
     {
         targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonValue);
         var main = ps.main;
-        if (primaryButtonValue)
-        {
-            print("yeaaah");
-        }
-
 
         if (startBreathing)
         {

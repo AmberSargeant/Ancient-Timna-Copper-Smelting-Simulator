@@ -18,12 +18,17 @@ public class MessageListenerTutorial : MonoBehaviour
 {
     public Image progressBar;
     public GameObject breatheOut;
+    public GameObject breatheIn;
+    public GameObject breathOutTut;
     public GameObject stoppedBreathing;
     public bool finishedBreathing = false;
     public bool startBreathing = false;
     private InputDevice targetDevice;
+    private bool continueDecreasing = false;
     private bool decreasing = false;
+    private bool countOnce = false;
     private float currentFillValue;
+    private int count = 0;
 
     [SerializeField]
     private float speed;
@@ -49,22 +54,27 @@ public class MessageListenerTutorial : MonoBehaviour
     void Update()
     {
         targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonValue);
+
         if (startBreathing)
         {
-            if (primaryButtonValue)
+            if (primaryButtonValue && !continueDecreasing && !decreasing)
             {
-                if (!decreasing)
+                progressBar.color = Color.cyan;
+                if (progressBar.fillAmount <= 0.88f)
                 {
-                    progressBar.color = Color.cyan;
                     currentFillValue = currentFillValue + 1 * speed * Time.deltaTime;
                 }
 
             }
             else
             {
-                if (progressBar.fillAmount > 0)
+                if (progressBar.fillAmount >= 0.88f && !continueDecreasing)
                 {
                     decreasing = true;
+                }
+                else if (progressBar.fillAmount > 0 && progressBar.fillAmount < 0.88 && !decreasing)
+                {
+                    continueDecreasing = true;
                 }
             }
 
@@ -75,24 +85,68 @@ public class MessageListenerTutorial : MonoBehaviour
                     currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
                 }
                 progressBar.color = Color.gray;
+                stoppedBreathing.SetActive(false);
+                breatheIn.SetActive(true);
+                breathOutTut.SetActive(false);
+                breatheOut.SetActive(false);
+                continueDecreasing = false;
+            }
+
+            if (continueDecreasing)
+            {
+                if (currentFillValue >= 0)
+                {
+                    currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
+                }
+                decreasing = false;
+                progressBar.color = Color.gray;
                 stoppedBreathing.SetActive(true);
                 breatheOut.SetActive(false);
+                breathOutTut.SetActive(false);
+                breatheIn.SetActive(false);
             }
 
             if (progressBar.fillAmount <= 0)
             {
+                countOnce = false;
                 stoppedBreathing.SetActive(false);
-                breatheOut.SetActive(true);
                 decreasing = false;
+                continueDecreasing = false;
+                if (count == 0)
+                {
+                    breathOutTut.SetActive(true);
+                    breatheOut.SetActive(false);
+                    breatheIn.SetActive(false);
+                }
+                else if (count > 0)
+                {
+                    breatheIn.SetActive(false);
+                    breatheOut.SetActive(true);
+                    breathOutTut.SetActive(false);
+                }
+                continueDecreasing = false;
             }
-        }
 
-        progressBar.fillAmount = currentFillValue / 100;
 
-        if(progressBar.fillAmount >= 0.9)
-        {
-            startBreathing = false;
-            finishedBreathing = true;
+            progressBar.fillAmount = currentFillValue / 100;
+
+            if (progressBar.fillAmount >= 0.88)
+            {
+                if (!countOnce)
+                {
+                    count++;
+                    countOnce = true;
+                }
+            }
+
+            if (count >= 2)
+            {
+                if (progressBar.fillAmount <= 0)
+                {
+                    startBreathing = false;
+                    finishedBreathing = true;
+                }
+            }
         }
     }
 }
