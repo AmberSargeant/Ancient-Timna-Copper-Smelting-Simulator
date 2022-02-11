@@ -3510,7 +3510,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763118605}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -9.084, y: -0.467, z: 2.991}
+  m_LocalPosition: {x: -9.084, y: -0.01, z: 3.246}
   m_LocalScale: {x: 0.012, y: 0.012, z: 1}
   m_Children: []
   m_Father: {fileID: 1907478274818612239}
@@ -3533,7 +3533,7 @@ TextMesh:
   m_Anchor: 0
   m_Alignment: 0
   m_TabSize: 4
-  m_FontSize: 75
+  m_FontSize: 104
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
@@ -9780,7 +9780,7 @@ PrefabInstance:
     - target: {fileID: 8620896660503215540, guid: ce21a090bd9184c07b8bedc1b1e8ee02,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8620896660503215540, guid: ce21a090bd9184c07b8bedc1b1e8ee02,
         type: 3}
@@ -9892,19 +9892,6 @@ MonoBehaviour:
   pipeInFurnace: 0
   vCharcoalInFurnace: 0
   countCharcoal: 0
---- !u!65 &2594672595393920954
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2594672595393920948}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.6441578, y: 0.8763468, z: 1.3616878}
-  m_Center: {x: -0.11726288, y: 0.3772764, z: -0.01146573}
 --- !u!1 &2717530668800025185
 GameObject:
   m_ObjectHideFlags: 0
@@ -10807,7 +10794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &7194131719665096155
 MonoBehaviour:
   m_ObjectHideFlags: 0

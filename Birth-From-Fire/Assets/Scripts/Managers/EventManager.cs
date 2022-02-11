@@ -161,6 +161,7 @@ public class EventManager : MonoBehaviour
                 fourthStage = true;
                 furnaceText.SetActive(false);
                 thirdStage = false;
+                fullVesselPrefab.transform.localPosition = new Vector3(1.776f, -0.934f, -4.055f);
                 fullVesselPrefab.GetComponent<Rigidbody>().isKinematic = true;
                 fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
             }
