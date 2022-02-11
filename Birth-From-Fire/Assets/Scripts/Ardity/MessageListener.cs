@@ -299,7 +299,6 @@ public class MessageListener : MonoBehaviour
                 if (progressBar.fillAmount <= 0)
                 {
                     audioManager.Stop("Drums");
-                    audioManager.Stop("walk sheep");
                     audioManager.Stop("star shining");
                     birth = true;
                     r = 1;
@@ -308,7 +307,6 @@ public class MessageListener : MonoBehaviour
                     bar.SetActive(false);
                     startBreathing = false;
                     starMap.SetActive(false);
-                    ibex.SetActive(false);
                     breathPhase2 = false;
                 }
             }
@@ -412,6 +410,8 @@ public class MessageListener : MonoBehaviour
     IEnumerator Leaving()
     {
         leaving.SetActive(true);
+        ibex.SetActive(false);
+        audioManager.Stop("walk sheep");
         yield return new WaitForSeconds(6);
         leaving.SetActive(false);
         StartCoroutine("ComeBack");
@@ -422,6 +422,7 @@ public class MessageListener : MonoBehaviour
         comeBack.SetActive(true);
         yield return new WaitForSeconds(6);
         comeBack.SetActive(false);
+        StartCoroutine("GoodSign");
     }
 
     IEnumerator GoodSign()

@@ -34,6 +34,7 @@ public class IbexMovement : MonoBehaviour
             ibexAnimator.SetBool("move", false);
             playOnce = false;
             move = false;
+            audioManager.Stop("walk sheep");
         }
         else
         {
