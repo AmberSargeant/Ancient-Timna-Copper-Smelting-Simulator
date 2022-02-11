@@ -13,7 +13,15 @@ public class EventManager : MonoBehaviour
     private FloorCollision floorCollision;
     private MessageListener messageListener;
     private bool firstStage = false;
-    private bool secondStage, thirdStage, fourthStage, fifthStage, sixthStage, seventhStage, eigthStage, ninthStage, tenthStage = false;
+    private bool secondStage = false;
+    private bool thirdStage = false;
+    private bool fourthStage = false;
+    private bool fifthStage = false;
+    private bool sixthStage = false;
+    private bool seventhStage = false;
+    private bool eigthStage = false;
+    private bool ninthStage = false;
+    private bool tenthStage = false;
     private bool playOnce1;
     private bool enough = false;
     private bool inhale = false;
@@ -34,6 +42,7 @@ public class EventManager : MonoBehaviour
     public List<GameObject> glows = new List<GameObject>();
     public GameObject tongPrefab;
     public GameObject handPrefab;
+    public GameObject blowPipeHoldPrefab;
     public GameObject charcoalPiece;
     public GameObject rHandPrefab;
     public GameObject smallOrePrefab;
@@ -42,16 +51,23 @@ public class EventManager : MonoBehaviour
     public GameObject blowpipePrefab;
     public GameObject fireUIPrefab;
     public GameObject titleText;
-    public GameObject firstStagetext;
-    public GameObject secondStagetext;
-    public GameObject thirdStagetext;
-    public GameObject fourthStageText;
+    public GameObject negevDesertText;
+    public GameObject archeologistsText;
+    public GameObject blessingText;
+    public GameObject hathorText;
+    public GameObject patronessText;
+    public GameObject strengthText;
+    public GameObject chooseOreText;
+    public GameObject placeOreText;
+    public GameObject furnaceText;
+    public GameObject charcoalText;
     public GameObject enoughText;
-    public GameObject fifthStageText;
-    public GameObject sixthStageText;
-    public GameObject seventhStageText;
-    public GameObject eigthStageText;
-    public GameObject tenthStageText;
+    public GameObject drumText;
+    public GameObject blowPipeText;
+    public GameObject insertBlowPipeText;
+    public GameObject removeVesselText;
+    public GameObject birthText;
+    public GameObject celebrationText;
 
     private void Awake()
     {
@@ -94,7 +110,7 @@ public class EventManager : MonoBehaviour
             {
                 if (rHand.selectTarget.tag == "Small Ore")
                 {
-                    firstStagetext.SetActive(false);
+                    chooseOreText.SetActive(false);
                     //need to refactor
                     firstStage = false;
                     secondStage = true;
@@ -106,7 +122,7 @@ public class EventManager : MonoBehaviour
         if (secondStage)
         {
             //need to refactor
-            secondStagetext.SetActive(true);
+            placeOreText.SetActive(true);
             enableVesselCollision = true;
             //First vessel Glow
             glows[6].SetActive(true);
@@ -123,7 +139,7 @@ public class EventManager : MonoBehaviour
                 //need to refactor
                 secondStage = false;
                 thirdStage = true;
-                secondStagetext.SetActive(false);
+                placeOreText.SetActive(false);
             }
         }
 
@@ -137,13 +153,13 @@ public class EventManager : MonoBehaviour
                 vesselGlow = true;
             }
             //need to refactor
-            thirdStagetext.SetActive(true);
+            furnaceText.SetActive(true);
 
             if (campfireCollision.inFurnace == true)
             {
                 charcoalPiece.SetActive(true);
                 fourthStage = true;
-                thirdStagetext.SetActive(false);
+                furnaceText.SetActive(false);
                 thirdStage = false;
                 fullVesselPrefab.GetComponent<Rigidbody>().isKinematic = true;
                 fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
@@ -163,7 +179,7 @@ public class EventManager : MonoBehaviour
                 charcoalGlow = true;
             }
             //need to refactor
-            fourthStageText.SetActive(true);
+            charcoalText.SetActive(true);
             foreach (GameObject c in charcoals)
             {
                 c.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
@@ -171,7 +187,7 @@ public class EventManager : MonoBehaviour
 
             if (campfireCollision.countCharcoal == 1)
             {
-                fourthStageText.SetActive(false);
+                charcoalText.SetActive(false);
                 fourthStage = false;
                 fifthStage = true;
             }
@@ -183,15 +199,6 @@ public class EventManager : MonoBehaviour
             {
                 StartCoroutine("StartEnough");
                 enough = true;
-            }
-            if (rHand.selectTarget != null)
-            {
-                if (rHand.selectTarget.tag == "BlowPipe")
-                {
-                    fifthStageText.SetActive(false);
-                    sixthStage = true;
-                    fifthStage = false;
-                }
             }
         }
 
@@ -207,6 +214,8 @@ public class EventManager : MonoBehaviour
         {
             if (!inhale)
             {
+                blowPipeHoldPrefab.SetActive(true);
+                blowpipePrefab.SetActive(false);
                 StartCoroutine("StartInhale");
                 inhale = true;
                 breathPhase1 = true;
@@ -223,9 +232,9 @@ public class EventManager : MonoBehaviour
 
         if (eigthStage)
         {
-            blowpipePrefab.SetActive(false);
             checkVesselPosition = true;
             tongPrefab.SetActive(true);
+            blowPipeHoldPrefab.SetActive(false);
             handPrefab.SetActive(false);
 
             if (tong.selectTarget != null)
@@ -235,8 +244,6 @@ public class EventManager : MonoBehaviour
                     fullVesselPrefab.GetComponent<Rigidbody>().isKinematic = false;
                 }
             }
-
-
             //org vessel pos glow
             glows[7].SetActive(true);
             fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
@@ -256,8 +263,6 @@ public class EventManager : MonoBehaviour
                     c.GetComponent<MeshCollider>().enabled = true;
                     c.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
                 }
-                //v charcoal glow
-                glows[4].SetActive(true);
                 eigthStage = false;
                 ninthStage = true;
             }
@@ -265,20 +270,14 @@ public class EventManager : MonoBehaviour
 
         if (ninthStage)
         {
-            enableFloorCollision = true;
-            if (floorCollision.charcoalOnFloor || campfireCollision.vCharcoalInFurnace)
-            {
-                //v charcoal glow
-                glows[4].SetActive(false);
-                seventhStageText.SetActive(false);
-                ninthStage = false;
-                tenthStage = true;
-            }
+            removeVesselText.SetActive(false);
+            ninthStage = false;
+            tenthStage = true;
         }
 
         if (tenthStage)
         {
-            tenthStageText.SetActive(true);
+            celebrationText.SetActive(true);
             tenthStage = false;
         }
     }
@@ -286,27 +285,73 @@ public class EventManager : MonoBehaviour
     {
         yield return new WaitForSeconds(8);
         titleText.SetActive(false);
-        firstStagetext.SetActive(true);
+        StartCoroutine("NegevDesert");
+    }
+
+    IEnumerator NegevDesert()
+    {
+        negevDesertText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        negevDesertText.SetActive(false);
+        StartCoroutine("Archeologists");
+    }
+
+    IEnumerator Archeologists()
+    {
+        archeologistsText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        archeologistsText.SetActive(false);
+        StartCoroutine("Blessing");
+    }
+    IEnumerator Blessing()
+    {
+        blessingText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        blessingText.SetActive(false);
+        StartCoroutine("Hathor");
+    }
+    IEnumerator Hathor()
+    {
+        hathorText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        hathorText.SetActive(false);
+        StartCoroutine("Patroness");
+    }
+    IEnumerator Patroness()
+    {
+        patronessText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        patronessText.SetActive(false);
+        StartCoroutine("Strength");
+    }
+
+    IEnumerator Strength()
+    {
+        strengthText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        strengthText.SetActive(false);
+        chooseOreText.SetActive(true);
         firstStage = true;
     }
+
+    //removed blowpipe grabability and directly added it to hand
     IEnumerator StartEnough()
     {
         enoughText.SetActive(true);
         yield return new WaitForSeconds(5);
-        blowpipePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
         enoughText.SetActive(false);
-        fifthStageText.SetActive(true);
-        //blowpipe glow
-        glows[5].SetActive(true);
+        sixthStage = true;
     }
     IEnumerator StartInhale()
     {
         audioManager.Play("Drums");
+        drumText.SetActive(true);
         messageListener.breatheIn.SetActive(true);
         messageListener.breatheOut.SetActive(false);
         fireUIPrefab.SetActive(true);
         messageListener.celciusCounter = 750;
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(8);
+        drumText.SetActive(false);
         messageListener.breatheIn.SetActive(false);
         messageListener.breatheOut.SetActive(true);
         messageListener.startBreathing = true;
@@ -314,10 +359,10 @@ public class EventManager : MonoBehaviour
 
     IEnumerator Birth()
     {
-        eigthStageText.SetActive(true);
+        birthText.SetActive(true);
         yield return new WaitForSeconds(6);
-        eigthStageText.SetActive(false);
-        seventhStageText.SetActive(true);
+        birthText.SetActive(false);
+        removeVesselText.SetActive(true);
         //vessel pos glow
         glows[3].SetActive(true);
         //vessel glow

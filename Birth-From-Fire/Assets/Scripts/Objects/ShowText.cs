@@ -27,48 +27,48 @@ public class ShowText : MonoBehaviour
         
     }
 
-    public void ShowSmallOreText()
-    {
-        smallOreText.SetActive(true);
-    }
+    //public void ShowSmallOreText()
+    //{
+    //    smallOreText.SetActive(true);
+    //}
 
-    public void ShowCharcoalText()
-    {
-        charcoalText.SetActive(true);
-    }
+    //public void ShowCharcoalText()
+    //{
+    //    charcoalText.SetActive(true);
+    //}
     //public void ShowVesselText()
     //{
     //    vesselText.SetActive(true);
     //}
 
-    public void ShowBlowPipeText()
-    {
-        blowPipeText.SetActive(true);
-    }
+    //public void ShowBlowPipeText()
+    //{
+    //    blowPipeText.SetActive(true);
+    //}
 
-    public void ShowFurnaceText()
-    {
-        furnaceText.SetActive(true);
-    }
-    public void HideSmallOreText()
-    {
-        smallOreText.SetActive(false);
-    }
+    //public void ShowFurnaceText()
+    //{
+    //    furnaceText.SetActive(true);
+    //}
+    //public void HideSmallOreText()
+    //{
+    //    smallOreText.SetActive(false);
+    //}
 
-    public void HideCharcoalText()
-    {
-        charcoalText.SetActive(false);
-    }
+    //public void HideCharcoalText()
+    //{
+    //    charcoalText.SetActive(false);
+    //}
 
-    public void HideBlowPipeText()
-    {
-        blowPipeText.SetActive(false);
-    }
+    //public void HideBlowPipeText()
+    //{
+    //    blowPipeText.SetActive(false);
+    //}
 
-    public void HideFurnaceText()
-    {
-        furnaceText.SetActive(false);
-    }
+    //public void HideFurnaceText()
+    //{
+    //    furnaceText.SetActive(false);
+    //}
 
     public void ShowOreGlow()
     {
