@@ -57,6 +57,7 @@ public class MessageListener : MonoBehaviour
     private bool continueDecreasing = false;
     private bool starMapEvent = false;
     private bool startStarMapEvent = false;
+    private bool startOnce = false;
     private bool ibexEvent = false;
     private float currentFillValue;
     private float r;
@@ -267,7 +268,11 @@ public class MessageListener : MonoBehaviour
                 }
                 flame2.SetActive(false);
                 flame3.SetActive(true);
-                startStarMapEvent = true;
+                if (!startOnce)
+                {
+                    startStarMapEvent = true;
+                    startOnce = true;
+                }
             }
 
             if (celciusCounter == 1150)
