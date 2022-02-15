@@ -37,17 +37,16 @@ public class EventManager : MonoBehaviour
     public XRDirectInteractor tong;
     public List<Image> whiteScreens;
     public List<GameObject> charcoals = new List<GameObject>();
-    public List<GameObject> vCharcoals = new List<GameObject>();
     public List<GameObject> vessels = new List<GameObject>();
     public List<GameObject> glows = new List<GameObject>();
     public GameObject tongPrefab;
     public GameObject handPrefab;
     public GameObject blowPipeHoldPrefab;
-    public GameObject charcoalPiece;
     public GameObject rHandPrefab;
     public GameObject smallOrePrefab;
     public GameObject vesselPrefab;
     public GameObject fullVesselPrefab;
+    public GameObject vesselSlagPrefab;
     public GameObject blowpipePrefab;
     public GameObject fireUIPrefab;
     public GameObject titleText;
@@ -125,7 +124,7 @@ public class EventManager : MonoBehaviour
             placeOreText.SetActive(true);
             enableVesselCollision = true;
             //First vessel Glow
-            glows[6].SetActive(true);
+            glows[4].SetActive(true);
             if (countOre == 1)
             {
                 if (!playOnce1)
@@ -157,13 +156,14 @@ public class EventManager : MonoBehaviour
 
             if (campfireCollision.inFurnace == true)
             {
-                charcoalPiece.SetActive(true);
+                //change to slag vessel here
+       
                 fourthStage = true;
                 furnaceText.SetActive(false);
                 thirdStage = false;
-                fullVesselPrefab.transform.localPosition = new Vector3(1.776f, -0.934f, -4.055f);
-                fullVesselPrefab.GetComponent<Rigidbody>().isKinematic = true;
-                fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
+                fullVesselPrefab.SetActive(false);
+                vesselSlagPrefab.SetActive(true);
+                vesselSlagPrefab.transform.localPosition = new Vector3(1.7566f, -0.8999999f, -4.055f);
             }
 
         }
@@ -238,49 +238,40 @@ public class EventManager : MonoBehaviour
             blowPipeHoldPrefab.SetActive(false);
             handPrefab.SetActive(false);
 
-            if (tong.selectTarget != null)
-            {
-                if (tong.selectTarget.tag == "Vessel")
-                {
-                    fullVesselPrefab.GetComponent<Rigidbody>().isKinematic = false;
-                }
-            }
-            //org vessel pos glow
-            glows[7].SetActive(true);
-            fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
-            if (!finalVesselCollision.vesselGrabbable)
-            {
-                charcoalPiece.SetActive(false);
-                fullVesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
-                //vessel pos glow
-                glows[3].SetActive(false);
-                //vessel glow
-                glows[1].SetActive(false);
-                //org vessel position glow
-                glows[7].SetActive(false);
-                foreach (GameObject c in vCharcoals)
-                {
-                    c.SetActive(true);
-                    c.GetComponent<MeshCollider>().enabled = true;
-                    c.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
-                }
-                eigthStage = false;
-                ninthStage = true;
-            }
+            //**if vessel is palced back to original position*****
+            ////org vessel pos glow
+            //glows[5].SetActive(true);
+
+            
+
+            //vesselSlagPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
+            //if (!finalVesselCollision.vesselGrabbable)
+            //{
+            //    vesselSlagPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
+            //    //vessel pos glow
+            //    glows[3].SetActive(false);
+            //    //vessel glow
+            //    glows[1].SetActive(false);
+            //    //org vessel position glow
+            //    glows[5].SetActive(false);
+            //    eigthStage = false;
+            //    ninthStage = true;
+            //}
         }
 
-        if (ninthStage)
-        {
-            removeVesselText.SetActive(false);
-            ninthStage = false;
-            tenthStage = true;
-        }
+        //if (ninthStage)
+        //{
+        //    removeVesselText.SetActive(false);
+        //    ninthStage = false;
+        //    tenthStage = true;
+        //}
 
-        if (tenthStage)
-        {
-            celebrationText.SetActive(true);
-            tenthStage = false;
-        }
+        //celebration stage;
+        //if (tenthStage)
+        //{
+        //    celebrationText.SetActive(true);
+        //    tenthStage = false;
+        //}
     }
     IEnumerator Intro()
     {
