@@ -22,20 +22,23 @@ public class EventManager : MonoBehaviour
     private bool eigthStage = false;
     private bool ninthStage = false;
     private bool tenthStage = false;
+    private bool eleventhStage = false;
     private bool playOnce1;
     private bool enough = false;
     private bool inhale = false;
     private bool oreGlow, charcoalGlow, vesselGlow;
+    private bool startSnakeEvent = false;
     public VesselCollision finalVesselCollision;
     public Vector3 vesselTransform;
     public int countOre = 0;
+    private float dirtTimer = 0;
+    private int dirtDelay = 5;
     public bool checkVesselPosition = false;
     public bool enableVesselCollision = false;
     public bool enableFloorCollision = false;
     public bool breathPhase1 = false;
     public XRDirectInteractor rHand;
     public XRDirectInteractor tong;
-    public List<Image> whiteScreens;
     public List<GameObject> charcoals = new List<GameObject>();
     public List<GameObject> vessels = new List<GameObject>();
     public List<GameObject> glows = new List<GameObject>();
@@ -47,8 +50,16 @@ public class EventManager : MonoBehaviour
     public GameObject vesselPrefab;
     public GameObject fullVesselPrefab;
     public GameObject vesselSlagPrefab;
+    public GameObject vesselLiquid;
+    public GameObject vesselSlag;
+    public GameObject vesselLight;
     public GameObject blowpipePrefab;
     public GameObject fireUIPrefab;
+    public GameObject redFlamePrefab;
+    public GameObject lavaDownLPrefab;
+    public GameObject lavaDownRPrefab;
+    public GameObject dirtLavaPrefab;
+    public GameObject snakePrefab;
     public GameObject titleText;
     public GameObject negevDesertText;
     public GameObject archeologistsText;
@@ -65,7 +76,10 @@ public class EventManager : MonoBehaviour
     public GameObject blowPipeText;
     public GameObject insertBlowPipeText;
     public GameObject removeVesselText;
+    public GameObject dirtPileText;
+    public GameObject orgPositionText;
     public GameObject birthText;
+    public GameObject snakeText;
     public GameObject celebrationText;
 
     private void Awake()
@@ -90,11 +104,14 @@ public class EventManager : MonoBehaviour
     }
     void Update()
     {
-        //crossfade alpha
-        foreach (Image w in whiteScreens)
+
+        if (dirtTimer >= 5)
         {
-            w.CrossFadeAlpha(0, 3, false);
+            dirtLavaPrefab.SetActive(true);
+            ninthStage = false;
+            tenthStage = true;
         }
+
         //need to refactor
         if (firstStage)
         {
@@ -105,7 +122,7 @@ public class EventManager : MonoBehaviour
                 glows[0].SetActive(true);
                 oreGlow = true;
             }
-                if (rHand.selectTarget != null)
+            if (rHand.selectTarget != null)
             {
                 if (rHand.selectTarget.tag == "Small Ore")
                 {
@@ -124,7 +141,7 @@ public class EventManager : MonoBehaviour
             placeOreText.SetActive(true);
             enableVesselCollision = true;
             //First vessel Glow
-            glows[4].SetActive(true);
+            glows[3].SetActive(true);
             if (countOre == 1)
             {
                 if (!playOnce1)
@@ -157,12 +174,13 @@ public class EventManager : MonoBehaviour
             if (campfireCollision.inFurnace == true)
             {
                 //change to slag vessel here
-       
+
                 fourthStage = true;
                 furnaceText.SetActive(false);
                 thirdStage = false;
                 fullVesselPrefab.SetActive(false);
                 vesselSlagPrefab.SetActive(true);
+                vesselSlagPrefab.GetComponent<Rigidbody>().isKinematic = true;
                 vesselSlagPrefab.transform.localPosition = new Vector3(1.7566f, -0.8999999f, -4.055f);
             }
 
@@ -171,6 +189,7 @@ public class EventManager : MonoBehaviour
         //need to refactor
         if (fourthStage)
         {
+
             //vessel glow
             glows[1].SetActive(false);
             //charcoal glow
@@ -188,6 +207,7 @@ public class EventManager : MonoBehaviour
 
             if (campfireCollision.countCharcoal == 1)
             {
+                redFlamePrefab.SetActive(true);
                 charcoalText.SetActive(false);
                 fourthStage = false;
                 fifthStage = true;
@@ -227,51 +247,129 @@ public class EventManager : MonoBehaviour
         if (messageListener.birth)
         {
             StartCoroutine(Birth());
-            eigthStage = true;
             messageListener.birth = false;
         }
 
         if (eigthStage)
         {
-            checkVesselPosition = true;
             tongPrefab.SetActive(true);
             blowPipeHoldPrefab.SetActive(false);
             handPrefab.SetActive(false);
 
-            //**if vessel is palced back to original position*****
-            ////org vessel pos glow
-            //glows[5].SetActive(true);
 
-            
+            vesselSlagPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
 
-            //vesselSlagPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Grabbable");
-            //if (!finalVesselCollision.vesselGrabbable)
-            //{
-            //    vesselSlagPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
-            //    //vessel pos glow
-            //    glows[3].SetActive(false);
-            //    //vessel glow
-            //    glows[1].SetActive(false);
-            //    //org vessel position glow
-            //    glows[5].SetActive(false);
-            //    eigthStage = false;
-            //    ninthStage = true;
-            //}
+            //might be a floating bug if the player puts back vessel in the furnace
+            if (tong.selectTarget != null)
+            {
+                if (tong.selectTarget.tag == "Vessel")
+                {
+                    campfireCollision.inFurnace = false;
+                    ninthStage = true;
+                    eigthStage = false;
+                }
+            }
         }
 
-        //if (ninthStage)
-        //{
-        //    removeVesselText.SetActive(false);
-        //    ninthStage = false;
-        //    tenthStage = true;
-        //}
+        if (ninthStage)
+        {
+            if (tong.selectTarget != null)
+            {
+                if (tong.selectTarget.tag == "Vessel")
+                {
+                    campfireCollision.inFurnace = false;
+                }
+            }
 
-        //celebration stage;
-        //if (tenthStage)
-        //{
-        //    celebrationText.SetActive(true);
-        //    tenthStage = false;
-        //}
+            //dirt glow
+            glows[5].SetActive(true);
+            removeVesselText.SetActive(false);
+            dirtPileText.SetActive(true);
+
+            //pouring slag
+            if (rHand.selectTarget != null)
+            {
+                if (rHand.selectTarget.tag == "Vessel")
+                {
+                    //pouring slag
+                    if (rHand.selectTarget.transform.localRotation.z >= 0.50)
+                    {
+
+                        lavaDownLPrefab.SetActive(true);
+                        dirtTimer += Time.deltaTime;
+                    }
+                    else if (rHand.selectTarget.transform.localRotation.z <= -0.50)
+                    {
+                        lavaDownRPrefab.SetActive(true);
+                        dirtTimer += Time.deltaTime;
+                    }
+                    else
+                    {
+                        lavaDownLPrefab.SetActive(false);
+                        lavaDownRPrefab.SetActive(false);
+                    }
+                }
+            }
+
+            if (dirtTimer >= 5)
+            {
+                dirtLavaPrefab.SetActive(true);
+                vesselLight.SetActive(false);
+                vesselLiquid.SetActive(false);
+                vesselSlag.SetActive(false);
+                ninthStage = false;
+                tenthStage = true;
+            }
+        }
+
+        if (tenthStage)
+        {
+
+            if (tong.selectTarget != null)
+            {
+                if (tong.selectTarget.tag == "Vessel")
+                {
+                    campfireCollision.inFurnace = false;
+                }
+            }
+
+            glows[5].SetActive(false);
+            dirtPileText.SetActive(false);
+            orgPositionText.SetActive(true);
+
+
+            checkVesselPosition = true;
+            orgPositionText.SetActive(true);
+            //org vessel pos glow
+            glows[4].SetActive(true);
+            if (!finalVesselCollision.vesselGrabbable)
+            {
+                vesselSlagPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
+                //vessel glow
+                glows[1].SetActive(false);
+                //org vessel position glow
+                glows[4].SetActive(false);
+                tenthStage = false;
+                eleventhStage = true;
+            }
+        }
+
+        if (eleventhStage)
+        {
+            if (!startSnakeEvent)
+            {
+                StartCoroutine("SnakeEvent");
+                startSnakeEvent = true;
+               
+            }
+
+            //celebration stage;
+            //if (tenthStage)
+            //{
+            //    celebrationText.SetActive(true);
+            //    tenthStage = false;
+            //}
+        }
     }
     IEnumerator Intro()
     {
@@ -353,11 +451,17 @@ public class EventManager : MonoBehaviour
     {
         birthText.SetActive(true);
         yield return new WaitForSeconds(6);
+        eigthStage = true;
         birthText.SetActive(false);
         removeVesselText.SetActive(true);
-        //vessel pos glow
-        glows[3].SetActive(true);
-        //vessel glow
         glows[1].SetActive(true);
+    }
+
+    IEnumerator SnakeEvent()
+    {
+        snakePrefab.SetActive(true);
+        snakeText.SetActive(true);
+        yield return new WaitForSeconds(6);
+        snakeText.SetActive(false);
     }
 }

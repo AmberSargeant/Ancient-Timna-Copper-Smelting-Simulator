@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class ToggleGravity : MonoBehaviour
 {
+    private CampfireCollision campfireCollision;
     // Start is called before the first frame update
     void Start()
     {
-        
+        campfireCollision = FindObjectOfType<CampfireCollision>();
     }
 
     // Update is called once per frame
@@ -21,6 +22,14 @@ public class ToggleGravity : MonoBehaviour
         this.GetComponent<Rigidbody>().useGravity = true;
     }
 
+    public void enableVesselGravity()
+    {
+        if (!campfireCollision.inFurnace)
+        {
+            this.GetComponent<Rigidbody>().isKinematic = false;
+            this.GetComponent<Rigidbody>().useGravity = true;
+        }
+    }
     //public void disableGravity()
     //{
     //    this.GetComponent<Rigidbody>().isKinematic = true;
