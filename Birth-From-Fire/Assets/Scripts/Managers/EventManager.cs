@@ -10,7 +10,7 @@ public class EventManager : MonoBehaviour
 {
     private AudioManager audioManager;
     private CampfireCollision campfireCollision;
-    private FloorCollision floorCollision;
+    public LightSpotMovement lightSpotMovement;
     private MessageListener messageListener;
     private bool firstStage = false;
     private bool secondStage = false;
@@ -23,6 +23,9 @@ public class EventManager : MonoBehaviour
     private bool ninthStage = false;
     private bool tenthStage = false;
     private bool eleventhStage = false;
+    private bool twelvethStage = false;
+    private bool thirteenthStage = false;
+    private bool fourteenthStage = false;
     private bool playOnce1;
     private bool enough = false;
     private bool inhale = false;
@@ -60,6 +63,9 @@ public class EventManager : MonoBehaviour
     public GameObject lavaDownRPrefab;
     public GameObject dirtLavaPrefab;
     public GameObject snakePrefab;
+    public GameObject finishedCopperPrefab;
+    public GameObject finalLightSpotPrefab;
+    public GameObject mirrorPrefab;
     public GameObject titleText;
     public GameObject negevDesertText;
     public GameObject archeologistsText;
@@ -80,7 +86,12 @@ public class EventManager : MonoBehaviour
     public GameObject orgPositionText;
     public GameObject birthText;
     public GameObject snakeText;
+    public GameObject getCopperText;
+    public GameObject placeCopperText;
     public GameObject celebrationText;
+    public Material dawn;
+    public Animator childAnimator;
+    public Animator oldManAnimator;
 
     private void Awake()
     {
@@ -93,7 +104,6 @@ public class EventManager : MonoBehaviour
         vesselTransform = vesselPrefab.transform.position;
         messageListener = FindObjectOfType<MessageListener>();
         campfireCollision = FindObjectOfType<CampfireCollision>();
-        floorCollision = FindObjectOfType<FloorCollision>();
         smallOrePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
         vesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
         blowpipePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
@@ -104,14 +114,6 @@ public class EventManager : MonoBehaviour
     }
     void Update()
     {
-
-        if (dirtTimer >= 5)
-        {
-            dirtLavaPrefab.SetActive(true);
-            ninthStage = false;
-            tenthStage = true;
-        }
-
         //need to refactor
         if (firstStage)
         {
@@ -287,33 +289,32 @@ public class EventManager : MonoBehaviour
             dirtPileText.SetActive(true);
 
             //pouring slag
-            if (rHand.selectTarget != null)
+            if (tong.selectTarget != null)
             {
-                if (rHand.selectTarget.tag == "Vessel")
+                //pouring slag
+                if (tong.selectTarget.transform.localRotation.z >= 0.50)
                 {
-                    //pouring slag
-                    if (rHand.selectTarget.transform.localRotation.z >= 0.50)
-                    {
 
-                        lavaDownLPrefab.SetActive(true);
-                        dirtTimer += Time.deltaTime;
-                    }
-                    else if (rHand.selectTarget.transform.localRotation.z <= -0.50)
-                    {
-                        lavaDownRPrefab.SetActive(true);
-                        dirtTimer += Time.deltaTime;
-                    }
-                    else
-                    {
-                        lavaDownLPrefab.SetActive(false);
-                        lavaDownRPrefab.SetActive(false);
-                    }
+                    lavaDownLPrefab.SetActive(true);
+                    dirtTimer += Time.deltaTime;
+                }
+                else if (tong.selectTarget.transform.localRotation.z <= -0.50)
+                {
+                    lavaDownRPrefab.SetActive(true);
+                    dirtTimer += Time.deltaTime;
+                }
+                else
+                {
+                    lavaDownLPrefab.SetActive(false);
+                    lavaDownRPrefab.SetActive(false);
                 }
             }
 
             if (dirtTimer >= 5)
             {
                 dirtLavaPrefab.SetActive(true);
+                lavaDownLPrefab.SetActive(false);
+                lavaDownRPrefab.SetActive(false);
                 vesselLight.SetActive(false);
                 vesselLiquid.SetActive(false);
                 vesselSlag.SetActive(false);
@@ -339,11 +340,11 @@ public class EventManager : MonoBehaviour
 
 
             checkVesselPosition = true;
-            orgPositionText.SetActive(true);
             //org vessel pos glow
             glows[4].SetActive(true);
             if (!finalVesselCollision.vesselGrabbable)
             {
+                orgPositionText.SetActive(false);
                 vesselSlagPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
                 //vessel glow
                 glows[1].SetActive(false);
@@ -360,16 +361,61 @@ public class EventManager : MonoBehaviour
             {
                 StartCoroutine("SnakeEvent");
                 startSnakeEvent = true;
-               
+            }
+            eleventhStage = false;
+        }
+
+        if (twelvethStage)
+        {
+            if(tong.selectTarget != null)
+            {
+                if(tong.selectTarget.tag == "Copper")
+                {
+                    getCopperText.SetActive(false);
+                    twelvethStage = false;
+                    thirteenthStage = true;
+                }
+            }
+        }
+
+        if (thirteenthStage)
+        {
+            placeCopperText.SetActive(true);
+            //slag vessel glow
+            glows[1].SetActive(true);
+            if (finalVesselCollision.celebration)
+            {
+                finishedCopperPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
+                //finished copper glow
+                glows[6].SetActive(false);
+
+                //slag vessel glow
+                glows[1].SetActive(false);
+                placeCopperText.SetActive(false);
+                thirteenthStage = false;
+                fourteenthStage = true;
             }
 
-            //celebration stage;
-            //if (tenthStage)
-            //{
-            //    celebrationText.SetActive(true);
-            //    tenthStage = false;
-            //}
         }
+
+        if (fourteenthStage)
+        {
+            snakePrefab.SetActive(false);
+            finalLightSpotPrefab.SetActive(true);
+            if (lightSpotMovement.mirror)
+            {
+                finalLightSpotPrefab.SetActive(false);
+                mirrorPrefab.SetActive(true);
+                celebrationText.SetActive(true);
+                audioManager.Play("celebration");
+                RenderSettings.skybox = dawn;
+                childAnimator.SetBool("Celebration", true);
+                oldManAnimator.SetBool("Celebration", true);
+                fourteenthStage = false;
+            }
+
+        }
+
     }
     IEnumerator Intro()
     {
@@ -461,7 +507,11 @@ public class EventManager : MonoBehaviour
     {
         snakePrefab.SetActive(true);
         snakeText.SetActive(true);
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(10);
+        finishedCopperPrefab.SetActive(true);
+        dirtLavaPrefab.SetActive(false);
         snakeText.SetActive(false);
+        getCopperText.SetActive(true);
+        twelvethStage = true;
     }
 }
