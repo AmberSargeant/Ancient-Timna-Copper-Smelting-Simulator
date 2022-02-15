@@ -65,6 +65,7 @@ public class TutorialManager : MonoBehaviour
         audioManager.Play("tutorial background");
         messageListener = FindObjectOfType<MessageListenerTutorial>();
         StartCoroutine("WakeUpScene");
+        audioManager.Play("wake up");
     }
 
     // Update is called once per frame
@@ -248,7 +249,8 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator WakeUpScene()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(7);
+        audioManager.Play("discovery hall");
         timna.SetActive(true);
         StartCoroutine("TimnaScene");
 
@@ -256,22 +258,25 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator TimnaScene()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(7);
+        audioManager.Play("confused");
         moveBody.SetActive(true);
         StartCoroutine("EndFirstScene");
     }
     IEnumerator EndFirstScene()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(7);
         wakeUp.SetActive(false);
         timna.SetActive(false);
         moveBody.SetActive(false);
         changePerspective.SetActive(true);
+        audioManager.Play("move your head");
         StartCoroutine("CompleteContentScene");
     }
     IEnumerator CompleteContentScene()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(7);
+        audioManager.Play("complete content");
         completeContent.SetActive(true);
         tasksPrefab.SetActive(true);
         secondStage = true;
@@ -280,15 +285,18 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator EndSecondScene()
     {
-        yield return new WaitForSeconds(5);
+        audioManager.Play("well");
+        yield return new WaitForSeconds(7);
         well.SetActive(false);
         rightHand.SetActive(true);
+        audioManager.Play("hand");
         StartCoroutine("LightSpotScene");
     }
 
     IEnumerator LightSpotScene()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(7);
+        audioManager.Play("use hand");
         lightSpot.SetActive(true);
         foreach (GameObject l in lightSpots)
         {
@@ -300,15 +308,18 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator EndThirdScene()
     {
-        yield return new WaitForSeconds(5);
+        audioManager.Play("better");
+        yield return new WaitForSeconds(7);
         better.SetActive(false);
+        audioManager.Play("grab");
         grab.SetActive(true);
         StartCoroutine("LeafletEvent");
     }
 
     IEnumerator LeafletEvent()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(7);
+        audioManager.Play("leaflet");
         leaflet.SetActive(true);
         leafletPrefab.SetActive(true);
         fourthStage = true;
@@ -323,9 +334,10 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator EndFourthStagePart2()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(7f);
         flyer.SetActive(false);
         fourthStagePart2 = true;
+        audioManager.Play("put down leaflet");
         putDown.SetActive(true);
     }
 
@@ -333,13 +345,13 @@ public class TutorialManager : MonoBehaviour
     IEnumerator RayShootingEvent()
     {
         StartCoroutine("RayScrollEvent");
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(7f);
     }
     //removed ray scroll event
     IEnumerator RayScrollEvent()
     {
         fifthStage = true;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(7f);
     }
 
     //removed references to blowpipe
@@ -351,11 +363,13 @@ public class TutorialManager : MonoBehaviour
         scrollScreenDirty.SetActive(true);
         dust.SetActive(true);
         barPrefab.SetActive(true);
+        audioManager.Play("dust");
         sixthStage = true;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(7f);
     }
     IEnumerator DesertScene()
     {
+        audioManager.Play("soul");
         yield return new WaitForSeconds(10f);
         audioManager.Stop("tutorial background");
         GM.MainGame();
