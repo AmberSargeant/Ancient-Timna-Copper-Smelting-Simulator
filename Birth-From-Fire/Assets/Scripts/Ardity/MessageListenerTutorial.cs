@@ -141,11 +141,9 @@ public class MessageListenerTutorial : MonoBehaviour
 
             if (count >= 2)
             {
-                if (progressBar.fillAmount <= 0)
-                {
-                    startBreathing = false;
-                    finishedBreathing = true;
-                }
+                startBreathing = false;
+                finishedBreathing = true;
+
             }
         }
     }

@@ -301,7 +301,7 @@ public class MessageListener : MonoBehaviour
 
             if (celciusCounter >= 1250)
             {
-                if (progressBar.fillAmount <= 0 && breathPhase2)
+                if (progressBar.fillAmount >= 0.88f && breathPhase2)
                 {
                     audioManager.Stop("Drums");
                     audioManager.Stop("star shining");
