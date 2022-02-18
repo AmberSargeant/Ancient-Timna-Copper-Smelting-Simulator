@@ -8,8 +8,8 @@ public class CampfireCollision : MonoBehaviour
     private Vector3 lightScale;
     public GameObject flame;
     public GameObject light;
-    public bool inFurnace;
-    public bool pipeInFurnace;
+    public bool inFurnace = false;
+    public bool pipeInFurnace = false;
     public bool vCharcoalInFurnace = false;
     [SerializeField]
     public int countCharcoal;
@@ -47,6 +47,11 @@ public class CampfireCollision : MonoBehaviour
             flame.SetActive(true);
             vCharcoalInFurnace = true;
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        pipeInFurnace = false;
     }
 
     IEnumerator IncreaseLight()
