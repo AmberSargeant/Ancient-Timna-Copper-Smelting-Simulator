@@ -36,6 +36,9 @@ public class MessageListener : MonoBehaviour
     public GameObject starMapNarrative;
     public GameObject ibex;
     public GameObject ibexNarrative;
+    public GameObject canaanties;
+    public GameObject eyes;
+    public GameObject cont;
     public GameObject lookAhead;
     public GameObject wishes;
     public GameObject leaving;
@@ -390,44 +393,46 @@ public class MessageListener : MonoBehaviour
         starMapNarrative.SetActive(true);
         audioManager.Play("star shining");
         yield return new WaitForSeconds(6);
+        starMapNarrative.SetActive(false);
         //insert starmap glow
         StartCoroutine("StartIbex");
     }
 
-    //can turn into a regular function
     IEnumerator StartIbex()
     {
-        starMapNarrative.SetActive(false);
-        lookdown.SetActive(true);
-        ibexEvent = true;
-        yield return new WaitForSeconds(3);
+        //starMapNarrative.SetActive(false);
+        //lookdown.SetActive(true);
+        //ibexEvent = true;
+        ibexNarrative.SetActive(true);
+        yield return new WaitForSeconds(6);
+        ibexNarrative.SetActive(false);
+        StartCoroutine("Canaanites");
     }
 
+    IEnumerator Canaanites()
+    {
+        canaanties.SetActive(true);
+        yield return new WaitForSeconds(6);
+        canaanties.SetActive(false);
+        StartCoroutine("LookDown");
+    }
+
+    //can make into regular function
+    IEnumerator LookDown()
+    {
+        lookdown.SetActive(true);
+        ibexEvent = true;
+        yield return new WaitForSeconds(1);
+    }
     IEnumerator EndIllusion()
     {
         audioManager.Play("sheep sound");
         lookdown.SetActive(false);
-        ibexNarrative.SetActive(true);
-        yield return new WaitForSeconds(6);
-        StartCoroutine("LookAhead");
-        ibexNarrative.SetActive(false);
-
-    }
-
-    IEnumerator LookAhead()
-    {
-        lookAhead.SetActive(true);
-        yield return new WaitForSeconds(6);
-        lookAhead.SetActive(false);
-        StartCoroutine("Wishes");
-    }
-
-    IEnumerator Wishes()
-    {
         wishes.SetActive(true);
         yield return new WaitForSeconds(6);
         wishes.SetActive(false);
         StartCoroutine("Leaving");
+
     }
 
     IEnumerator Leaving()
@@ -453,11 +458,30 @@ public class MessageListener : MonoBehaviour
         goodSign.SetActive(true);
         yield return new WaitForSeconds(6);
         goodSign.SetActive(false);
+        StartCoroutine("Eyes");
+    }
+
+    IEnumerator Eyes()
+    {
+        eyes.SetActive(true);
+        yield return new WaitForSeconds(6);
+        eyes.SetActive(false);
+        StartCoroutine("Cont");
+    }
+
+    IEnumerator Cont()
+    {
+        cont.SetActive(true);
+        yield return new WaitForSeconds(6);
+        cont.SetActive(false);
         eventManager.breathPhase1 = false;
         breathPhase2 = true;
         bar.SetActive(true);
         startBreathing = true;
     }
+
+
+
     IEnumerator IncreaseLight()
     {
         while (light.transform.localScale.x <= 7 && light.transform.localScale.y <= 7 && light.transform.localScale.z <= 7)

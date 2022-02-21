@@ -10,6 +10,7 @@ public class EventManager : MonoBehaviour
 {
     private AudioManager audioManager;
     private CampfireCollision campfireCollision;
+    private CampfireAndBlowPipeCollision campfireAndBlowPipeCollision;
     public LightSpotMovement lightSpotMovement;
     private MessageListener messageListener;
     private bool firstStage = false;
@@ -73,21 +74,53 @@ public class EventManager : MonoBehaviour
     public GameObject hathorText;
     public GameObject patronessText;
     public GameObject strengthText;
+    public GameObject secretText;
+    public GameObject promiseText;
+    public GameObject saltText;
+    public GameObject ruahText;
+    public GameObject technologyText;
+    public GameObject egyptiansText;
+    public GameObject traditionalText;
+    public GameObject shamansText;
+    public GameObject magiciansText;
+    public GameObject metalsmithText;
     public GameObject chooseOreText;
     public GameObject placeOreText;
     public GameObject furnaceText;
     public GameObject charcoalText;
     public GameObject enoughText;
-    public GameObject drumText;
-    public GameObject blowPipeText;
     public GameObject insertBlowPipeText;
+    public GameObject drumText;
+    public GameObject flameText;
+    public GameObject magicalText;
+    public GameObject bellyText;
+    public GameObject spaceText;
+    public GameObject countsText;
+    public GameObject lengthText;
+    public GameObject fallText;
+    public GameObject birthdayText;
+    public GameObject guideText;
+    public GameObject readyText;
+    public GameObject insertFurnaceText;
+    public GameObject rawText;
+    public GameObject newbornText;
     public GameObject removeVesselText;
     public GameObject dirtPileText;
     public GameObject orgPositionText;
     public GameObject birthText;
-    public GameObject snakeText;
+    public GameObject seeText;
+    public GameObject divineText;
+    public GameObject lifeForceText;
+    public GameObject cooledText;
+    //public GameObject snakeText;
     public GameObject getCopperText;
     public GameObject placeCopperText;
+    public GameObject copperMirrorText;
+    public GameObject hathorBlessedText;
+    public GameObject thankYouText;
+    public GameObject memoryText;
+    public GameObject ancestorsText;
+    public GameObject enjoyText;
     public GameObject celebrationText;
     public Material dawn;
     public Animator childAnimator;
@@ -104,6 +137,7 @@ public class EventManager : MonoBehaviour
         vesselTransform = vesselPrefab.transform.position;
         messageListener = FindObjectOfType<MessageListener>();
         campfireCollision = FindObjectOfType<CampfireCollision>();
+        campfireAndBlowPipeCollision = FindObjectOfType<CampfireAndBlowPipeCollision>();
         smallOrePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
         vesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
         blowpipePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
@@ -225,23 +259,23 @@ public class EventManager : MonoBehaviour
             }
         }
 
-        //removed placing into the furnace, might need to put
-        //direction text here.
+        //added place blowpipe in furnace
         if (sixthStage)
         {
-            sixthStage = false;
-            seventhStage = true;
+            if (campfireAndBlowPipeCollision.pipeInFurnace)
+            {
+                insertBlowPipeText.SetActive(false);
+                sixthStage = false;
+                seventhStage = true;
+            }
         }
 
         if (seventhStage)
         {
             if (!inhale)
             {
-                blowPipeHoldPrefab.SetActive(true);
-                blowpipePrefab.SetActive(false);
-                StartCoroutine("StartInhale");
+                StartCoroutine("Drums");
                 inhale = true;
-                breathPhase1 = true;
             }
             seventhStage = false;
         }
@@ -393,7 +427,8 @@ public class EventManager : MonoBehaviour
                 glows[1].SetActive(false);
                 placeCopperText.SetActive(false);
                 thirteenthStage = false;
-                fourteenthStage = true;
+                StartCoroutine("CopperMirror");
+                //fourteenthStage = true;
             }
 
         }
@@ -404,13 +439,7 @@ public class EventManager : MonoBehaviour
             finalLightSpotPrefab.SetActive(true);
             if (lightSpotMovement.mirror)
             {
-                finalLightSpotPrefab.SetActive(false);
-                mirrorPrefab.SetActive(true);
-                celebrationText.SetActive(true);
-                audioManager.Play("celebration");
-                RenderSettings.skybox = dawn;
-                childAnimator.SetBool("Celebration", true);
-                oldManAnimator.SetBool("Celebration", true);
+                StartCoroutine("Blessed");
                 fourteenthStage = false;
             }
 
@@ -466,39 +495,223 @@ public class EventManager : MonoBehaviour
         strengthText.SetActive(true);
         yield return new WaitForSeconds(5);
         strengthText.SetActive(false);
+        StartCoroutine("Secret");
+    }
+
+    IEnumerator Secret()
+    {
+        secretText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        secretText.SetActive(false);
+        StartCoroutine("Promise");
+    }
+
+    IEnumerator Promise()
+    {
+        promiseText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        promiseText.SetActive(false);
+        StartCoroutine("Salt");
+    }
+
+    IEnumerator Salt()
+    {
+        saltText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        saltText.SetActive(false);
+        StartCoroutine("Ruah");
+    }
+
+    IEnumerator Ruah()
+    {
+        ruahText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        ruahText.SetActive(false);
+        StartCoroutine("Technology");
+    }
+
+    IEnumerator Technology()
+    {
+        technologyText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        technologyText.SetActive(false);
+        StartCoroutine("Egyptians");
+    }
+
+    IEnumerator Egyptians()
+    {
+        egyptiansText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        egyptiansText.SetActive(false);
+        StartCoroutine("Traditional");
+    }
+
+    IEnumerator Traditional()
+    {
+        traditionalText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        traditionalText.SetActive(false);
+        StartCoroutine("Shamans");
+    }
+
+    IEnumerator Shamans()
+    {
+        shamansText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        shamansText.SetActive(false);
+        StartCoroutine("Magicians");
+    }
+
+    IEnumerator Magicians()
+    {
+        magiciansText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        magiciansText.SetActive(false);
+        //start choose ore pile scene
         chooseOreText.SetActive(true);
         firstStage = true;
     }
-
-    //removed blowpipe grabability and directly added it to hand
+    //added place blowpipe functionality
     IEnumerator StartEnough()
     {
         enoughText.SetActive(true);
         yield return new WaitForSeconds(5);
         enoughText.SetActive(false);
+        insertBlowPipeText.SetActive(true);
+        blowPipeHoldPrefab.SetActive(true);
+        blowpipePrefab.SetActive(false);
         sixthStage = true;
     }
-    IEnumerator StartInhale()
+    IEnumerator Drums()
     {
         audioManager.Play("Drums");
         drumText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        drumText.SetActive(false);
+        StartCoroutine("Flame");
+    }
+
+    IEnumerator Flame()
+    {
+        flameText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        flameText.SetActive(false);
+        StartCoroutine("Magical");
+    }
+    IEnumerator Magical()
+    {
+        magicalText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        magicalText.SetActive(false);
+        StartCoroutine("Belly");
+    }
+
+    IEnumerator Belly()
+    {
+        bellyText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        bellyText.SetActive(false);
+        StartCoroutine("Space");
+    }
+
+    IEnumerator Space()
+    {
+        spaceText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        spaceText.SetActive(false);
+        StartCoroutine("Counts");
+    }
+
+    IEnumerator Counts()
+    {
+        countsText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        countsText.SetActive(false);
+        StartCoroutine("Length");
+    }
+
+    IEnumerator Length()
+    {
+        lengthText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        lengthText.SetActive(false);
+        StartCoroutine("Fall");
+    }
+
+    IEnumerator Fall()
+    {
+        fallText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        fallText.SetActive(false);
+        StartCoroutine("Birthday");
+    }
+
+    IEnumerator Birthday()
+    {
+        birthdayText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        birthdayText.SetActive(false);
+        StartCoroutine("Guide");
+    }
+
+    IEnumerator Guide()
+    {
+        guideText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        guideText.SetActive(false);
+        StartCoroutine("Ready");
+    }
+
+    IEnumerator Ready()
+    {
+        readyText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        readyText.SetActive(false);
+        StartCoroutine("InsertFurnace");
+    }
+
+    IEnumerator InsertFurnace()
+    {
+        insertFurnaceText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        insertFurnaceText.SetActive(false);
+        StartCoroutine("Raw");
+    }
+
+    IEnumerator Raw()
+    {
+        rawText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        rawText.SetActive(false);
+        StartCoroutine("StartInhale");
+    }
+
+    IEnumerator StartInhale()
+    {
+        breathPhase1 = true;
         messageListener.breatheIn.SetActive(true);
         messageListener.breatheOut.SetActive(false);
         fireUIPrefab.SetActive(true);
         messageListener.celciusCounter = 750;
-        yield return new WaitForSeconds(8);
-        drumText.SetActive(false);
+        yield return new WaitForSeconds(6);
         messageListener.breatheIn.SetActive(false);
         messageListener.breatheOut.SetActive(true);
         messageListener.startBreathing = true;
     }
-
     IEnumerator Birth()
     {
         birthText.SetActive(true);
         yield return new WaitForSeconds(6);
-        eigthStage = true;
         birthText.SetActive(false);
+        StartCoroutine("Newborn");
+    }
+
+    IEnumerator Newborn()
+    {
+        newbornText.SetActive(true);
+        yield return new WaitForSeconds(6);
+        newbornText.SetActive(false);
+        eigthStage = true;
         removeVesselText.SetActive(true);
         glows[1].SetActive(true);
     }
@@ -506,12 +719,102 @@ public class EventManager : MonoBehaviour
     IEnumerator SnakeEvent()
     {
         snakePrefab.SetActive(true);
-        snakeText.SetActive(true);
-        yield return new WaitForSeconds(10);
+        seeText.SetActive(true);
+        yield return new WaitForSeconds(6);
+        seeText.SetActive(false);
+        StartCoroutine("Divine");
+    }
+
+    IEnumerator Divine()
+    {
+        divineText.SetActive(true);
+        yield return new WaitForSeconds(6);
+        divineText.SetActive(false);
+        StartCoroutine("LifeForce");
+    }
+    IEnumerator LifeForce()
+    {
+        lifeForceText.SetActive(true);
+        yield return new WaitForSeconds(6);
+        lifeForceText.SetActive(false);
+        StartCoroutine("Cooled");
+    }
+
+    IEnumerator Cooled()
+    {
+        cooledText.SetActive(true);
+        yield return new WaitForSeconds(6);
+        cooledText.SetActive(false);
         finishedCopperPrefab.SetActive(true);
-        dirtLavaPrefab.SetActive(false);
-        snakeText.SetActive(false);
+        dirtLavaPrefab.SetActive(false); ;
         getCopperText.SetActive(true);
         twelvethStage = true;
     }
+
+    IEnumerator CopperMirror()
+    {
+        copperMirrorText.SetActive(true);
+        yield return new WaitForSeconds(6);
+        copperMirrorText.SetActive(false);
+        fourteenthStage = true;
+    }
+
+    IEnumerator Blessed()
+    {
+        hathorBlessedText.SetActive(true);
+        finishedCopperPrefab.SetActive(false);
+        finalLightSpotPrefab.SetActive(false);
+        mirrorPrefab.SetActive(true);
+        yield return new WaitForSeconds(6);
+        hathorBlessedText.SetActive(false);
+        StartCoroutine("ThankYou");
+    }
+
+    IEnumerator ThankYou()
+    {
+        thankYouText.SetActive(true);
+        yield return new WaitForSeconds(6);
+        thankYouText.SetActive(false);
+        StartCoroutine("Memory");
+    }
+
+    IEnumerator Memory()
+    {
+        memoryText.SetActive(true);
+        yield return new WaitForSeconds(6);
+        memoryText.SetActive(false);
+        StartCoroutine("Ancestors");
+    }
+
+    IEnumerator Ancestors()
+    {
+        ancestorsText.SetActive(true);
+        yield return new WaitForSeconds(6);
+        ancestorsText.SetActive(false);
+        StartCoroutine("Enjoy");
+    }
+
+    IEnumerator Enjoy()
+    {
+        enjoyText.SetActive(true);
+        yield return new WaitForSeconds(6);
+        enjoyText.SetActive(false);
+        StartCoroutine("Celebration");
+    }
+    
+    //can turn into normal function
+    IEnumerator Celebration()
+    {
+        enjoyText.SetActive(true);
+        celebrationText.SetActive(true);
+        audioManager.Play("celebration");
+        RenderSettings.skybox = dawn;
+        childAnimator.SetBool("Celebration", true);
+        oldManAnimator.SetBool("Celebration", true);
+        tongPrefab.SetActive(false);
+        handPrefab.SetActive(true);
+        yield return new WaitForSeconds(1);
+
+    }
+
 }
