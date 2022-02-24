@@ -196,6 +196,7 @@ public class TutorialManager : MonoBehaviour
         {
             if(rHand.selectTarget == null)
             {
+                audioManager.Stop("put down leaflet");
                 fourthStagePart2 = false;
                 StartCoroutine("RayShootingEvent");
             }
