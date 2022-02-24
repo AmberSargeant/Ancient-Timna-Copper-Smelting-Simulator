@@ -29,6 +29,7 @@ public class MessageListenerTutorial : MonoBehaviour
     private bool countOnce = false;
     private float currentFillValue;
     private int count = 0;
+    private bool debugOff = false;
 
     [SerializeField]
     private float speed;
@@ -54,9 +55,19 @@ public class MessageListenerTutorial : MonoBehaviour
     void Update()
     {
         targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonValue);
+        targetDevice.TryGetFeatureValue(CommonUsages.secondaryButton, out bool secondaryButtonValue);
+        targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool primary2DAxisClickValue);
 
         if (startBreathing)
         {
+            //debug
+            if (secondaryButtonValue && primaryButtonValue && !debugOff && primary2DAxisClickValue)
+            {
+                decreasing = false;
+                continueDecreasing = false;
+                debugOff = true;
+                print("reached");
+            }
             if (primaryButtonValue && !continueDecreasing && !decreasing)
             {
                 progressBar.color = Color.cyan;

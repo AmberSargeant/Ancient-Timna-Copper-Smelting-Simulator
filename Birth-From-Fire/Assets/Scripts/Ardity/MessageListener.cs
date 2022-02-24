@@ -81,6 +81,7 @@ public class MessageListener : MonoBehaviour
     private bool playOnce3 = false;
     private bool playOnce4 = false;
     private int celciusAmount = 10;
+    private bool debugOff = false;
     [SerializeField]
     private float barTimer = 0f;
     [SerializeField]
@@ -118,10 +119,22 @@ public class MessageListener : MonoBehaviour
     void Update()
     {
         targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonValue);
+        targetDevice.TryGetFeatureValue(CommonUsages.secondaryButton, out bool secondaryButtonValue);
+        targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool primary2DAxisClickValue);
         var main = ps.main;
-
+        
         if (startBreathing)
         {
+            //debug
+            if (secondaryButtonValue && primaryButtonValue && !debugOff && primary2DAxisClickValue)
+            {
+                decreasing = false;
+                continueDecreasing = false;
+                debugOff = true;
+                print("reached");
+            }
+
+
             if (campfireAndBlowPipeCollision.pipeInFurnace)
             {
                 inFurnace = true;
@@ -139,6 +152,7 @@ public class MessageListener : MonoBehaviour
             {
                 if (primaryButtonValue)
                 {
+
                     if (!continueDecreasing && !decreasing)
                     {
                         progressBar.color = Color.cyan;
