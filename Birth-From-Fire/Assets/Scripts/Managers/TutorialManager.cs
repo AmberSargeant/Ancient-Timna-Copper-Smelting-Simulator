@@ -18,6 +18,11 @@ public class TutorialManager : MonoBehaviour
     private bool sixthStage = false;
     private bool lspot1, lspot2, lspot3;
     private bool playOnce1, playOnce2, playOnce3, playOnce4, playOnce5, playOnce6;
+    private bool completeCeiling = false;
+    private bool completeSculpture = false;
+    private bool completePainting = false;
+    private bool completeFloor = false;
+    private bool floorBuffer = false;
     public Camera cam;
     public XRDirectInteractor rHand;
     //public GameObject rayPrefab;
@@ -80,43 +85,62 @@ public class TutorialManager : MonoBehaviour
             {
                 if (hit.transform.name == "Floor_Bottom_01")
                 {
-                    if (!playOnce1)
+                    if (floorBuffer)
                     {
-                        audioManager.Play("SFX2 Tutorial");
-                        playOnce1 = true;
+                        if (!playOnce1)
+                        {
+                            audioManager.Play("SFX2 Tutorial");
+                            audioManager.Play("ceiling");
+                            audioManager.Stop("ground");
+                            playOnce1 = true;
+                        }
+
+                        tasks[0].SetActive(false);
+                        tasks[1].SetActive(true);
+                        completeFloor = true;
                     }
-                    tasks[0].SetActive(false);
-           
                 }
                 if (hit.transform.name == "Floor_Top_01")
                 {
                     if (!playOnce2)
                     {
                         audioManager.Play("SFX2 Tutorial");
+                        audioManager.Play("sculpture");
+                        audioManager.Stop("ceiling");
                         playOnce2 = true;
                     }
+
                     tasks[1].SetActive(false);
+                    tasks[2].SetActive(true);
+                    completeCeiling = true;
                 }
                 if (hit.transform.name == "Task Sculpture")
                 {
                     if (!playOnce3)
                     {
                         audioManager.Play("SFX2 Tutorial");
+                        audioManager.Play("painting");
+                        audioManager.Stop("sculpture");
                         playOnce3 = true;
                     }
                     tasks[2].SetActive(false);
+                    tasks[3].SetActive(true);
+                    completeSculpture = true;
                 }
                 if (hit.transform.name == "Task Painting")
                 {
                     if (!playOnce4)
                     {
+                        audioManager.Stop("painting");
                         audioManager.Play("SFX2 Tutorial");
                         playOnce4 = true;
                     }
                     tasks[3].SetActive(false);
+                    completePainting = true;
+
                 }
 
-                if (tasks[0].activeSelf == false && tasks[1].activeSelf == false && tasks[2].activeSelf == false && tasks[3].activeSelf == false)
+                if (completeFloor == true && completeCeiling == true && completePainting == true && completeSculpture == true)
                 {
 
                     changePerspective.SetActive(false);
@@ -278,11 +302,23 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSeconds(7);
         audioManager.Play("complete content");
         completeContent.SetActive(true);
-        tasksPrefab.SetActive(true);
-        secondStage = true;
+        StartCoroutine("EnableFloorTask");
         
     }
+    IEnumerator EnableFloorTask()
+    {
+        yield return new WaitForSeconds(5);
+        secondStage = true;
+        tasks[0].SetActive(true);
+        audioManager.Play("ground");
+        StartCoroutine("FloorBuffer");
+    }
 
+    IEnumerator FloorBuffer()
+    {
+        yield return new WaitForSeconds(3);
+        floorBuffer = true;
+    }
     IEnumerator EndSecondScene()
     {
         audioManager.Play("well");
