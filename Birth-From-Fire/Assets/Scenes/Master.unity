@@ -1743,7 +1743,7 @@ Transform:
   m_LocalScale: {x: 0.012, y: 0.012, z: 1}
   m_Children: []
   m_Father: {fileID: 1907478274818612239}
-  m_RootOrder: 32
+  m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!102 &180695907
 TextMesh:
@@ -3687,7 +3687,7 @@ Transform:
   m_LocalScale: {x: 0.012, y: 0.012, z: 1}
   m_Children: []
   m_Father: {fileID: 1907478274818612239}
-  m_RootOrder: 33
+  m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!102 &377465881
 TextMesh:
@@ -5241,7 +5241,7 @@ Transform:
   m_LocalScale: {x: 0.012, y: 0.012, z: 1}
   m_Children: []
   m_Father: {fileID: 1907478274818612239}
-  m_RootOrder: 34
+  m_RootOrder: 35
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!102 &629925246
 TextMesh:
@@ -6598,7 +6598,7 @@ Transform:
   m_LocalScale: {x: 0.012, y: 0.012, z: 1}
   m_Children: []
   m_Father: {fileID: 1907478274818612239}
-  m_RootOrder: 35
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!102 &880440226
 TextMesh:
@@ -7115,7 +7115,6 @@ GameObject:
   - component: {fileID: 1032225158}
   - component: {fileID: 1032225157}
   - component: {fileID: 1032225160}
-  - component: {fileID: 1032225159}
   m_Layer: 0
   m_Name: Negev Desert
   m_TagString: Untagged
@@ -7171,7 +7170,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1032225155}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -7203,35 +7202,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &1032225159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1032225155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1032225160
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11671,7 +11641,7 @@ Transform:
   m_LocalScale: {x: 0.012, y: 0.012, z: 1}
   m_Children: []
   m_Father: {fileID: 1907478274818612239}
-  m_RootOrder: 31
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!102 &1769017345
 TextMesh:
@@ -14694,11 +14664,11 @@ Transform:
   - {fileID: 1161885990}
   - {fileID: 230350054}
   - {fileID: 1189045349}
+  - {fileID: 880440225}
   - {fileID: 1769017344}
   - {fileID: 180695906}
   - {fileID: 377465880}
   - {fileID: 629925245}
-  - {fileID: 880440225}
   - {fileID: 2056817189}
   - {fileID: 1452099668}
   - {fileID: 538574178}
