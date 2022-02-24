@@ -155,9 +155,9 @@ public class DataManager : MonoBehaviour
                 }
 
                 string content = "Focusing Time: " + focusingTime + "\n"
-                + "Frequency of Distractions: " + freqOfDistractions + "\n"
                 + "Total Time for 1st Breath Phase: " + totalBreathPhase1 + "\n"
                 + "Total Time for 2st Breath Phase: " + totalBreathPhase2 + "\n"
+                + "Frequency of Distractions: " + freqOfDistractions + "\n"
                 + "Total Amount of Distractions: " + totalDistractions + "\n";
 
                 File.AppendAllText(path, content);
