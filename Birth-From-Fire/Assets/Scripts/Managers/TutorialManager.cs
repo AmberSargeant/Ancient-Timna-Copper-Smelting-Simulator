@@ -25,10 +25,10 @@ public class TutorialManager : MonoBehaviour
     private bool floorBuffer = false;
     public Camera cam;
     public XRDirectInteractor rHand;
-    //public GameObject rayPrefab;
     public GameObject wakeUp;
     public GameObject timna;
-    public GameObject moveBody;
+    public GameObject confused;
+    public GameObject spirits;
     public GameObject changePerspective;
     public GameObject completeContent;
     public GameObject tasksPrefab;
@@ -43,17 +43,16 @@ public class TutorialManager : MonoBehaviour
     public GameObject controllerDemo;
     public GameObject leaflet;
     public GameObject leafletPrefab;
-    public GameObject flyer;
+    public GameObject picking;
+    //public GameObject flyer;
     public GameObject putDown;
-    public GameObject rays;
-    public GameObject rayShooting;
-    public GameObject rayScroll;
-    public GameObject scrollPrefab;
-    public GameObject everythingWell;
     public GameObject scrollScreenDirty;
     public GameObject scrollScreenClean;
     public GameObject barPrefab;
     public GameObject dust;
+    //public GameObject blow;
+    public GameObject inhale;
+    public GameObject exhale;
     public GameObject thankYou;
     public GameObject smoke;
     private GameManager GM;
@@ -83,69 +82,87 @@ public class TutorialManager : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.transform.name == "Floor_Bottom_01")
+                if (!completeFloor)
                 {
-                    if (floorBuffer)
+                    if (hit.transform.name == "Floor_Bottom_01")
                     {
-                        if (!playOnce1)
+                        if (floorBuffer)
                         {
-                            audioManager.Play("SFX2 Tutorial");
-                            audioManager.Play("ceiling");
-                            audioManager.Stop("ground");
-                            playOnce1 = true;
+                            if (!playOnce1)
+                            {
+                                audioManager.Play("SFX2 Tutorial");
+                                audioManager.Play("ceiling");
+                                audioManager.Stop("ground");
+                                playOnce1 = true;
+                            }
+
+                            tasks[0].SetActive(false);
+                            tasks[1].SetActive(true);
+                            completeFloor = true;
+                        }
+                    }
+                }
+                if (!completeCeiling)
+                {
+                    if (hit.transform.name == "Floor_Top_01")
+                    {
+                        if (completeFloor)
+                        {
+                            if (!playOnce2)
+                            {
+                                audioManager.Play("SFX2 Tutorial");
+                                audioManager.Play("sculpture");
+                                audioManager.Stop("ceiling");
+                                playOnce2 = true;
+                            }
+
+                            tasks[1].SetActive(false);
+                            tasks[2].SetActive(true);
+                            completeCeiling = true;
+                        }
+                    }
+                }
+                if (!completeSculpture)
+                {
+                    if (hit.transform.name == "Task Sculpture")
+                    {
+                        if (completeCeiling)
+                        {
+                            if (!playOnce3)
+                            {
+                                audioManager.Play("SFX2 Tutorial");
+                                audioManager.Play("painting");
+                                audioManager.Stop("sculpture");
+                                playOnce3 = true;
+                            }
+                            tasks[2].SetActive(false);
+                            tasks[3].SetActive(true);
+                            completeSculpture = true;
+                        }
+                    }
+                }
+
+                if (!completePainting)
+                {
+                    if (hit.transform.name == "Task Painting")
+                    {
+                        if (completeSculpture)
+                        {
+                            if (!playOnce4)
+                            {
+                                audioManager.Stop("painting");
+                                audioManager.Play("SFX2 Tutorial");
+                                playOnce4 = true;
+                            }
+                            tasks[3].SetActive(false);
+                            completePainting = true;
                         }
 
-                        tasks[0].SetActive(false);
-                        tasks[1].SetActive(true);
-                        completeFloor = true;
                     }
-                }
-                if (hit.transform.name == "Floor_Top_01")
-                {
-                    if (!playOnce2)
-                    {
-                        audioManager.Play("SFX2 Tutorial");
-                        audioManager.Play("sculpture");
-                        audioManager.Stop("ceiling");
-                        playOnce2 = true;
-                    }
-
-                    tasks[1].SetActive(false);
-                    tasks[2].SetActive(true);
-                    completeCeiling = true;
-                }
-                if (hit.transform.name == "Task Sculpture")
-                {
-                    if (!playOnce3)
-                    {
-                        audioManager.Play("SFX2 Tutorial");
-                        audioManager.Play("painting");
-                        audioManager.Stop("sculpture");
-                        playOnce3 = true;
-                    }
-                    tasks[2].SetActive(false);
-                    tasks[3].SetActive(true);
-                    completeSculpture = true;
-                }
-                if (hit.transform.name == "Task Painting")
-                {
-                    if (!playOnce4)
-                    {
-                        audioManager.Stop("painting");
-                        audioManager.Play("SFX2 Tutorial");
-                        playOnce4 = true;
-                    }
-                    tasks[3].SetActive(false);
-                    completePainting = true;
-
                 }
 
                 if (completeFloor == true && completeCeiling == true && completePainting == true && completeSculpture == true)
                 {
-
-                    changePerspective.SetActive(false);
-                    completeContent.SetActive(false);
-                    well.SetActive(true);
                     secondStage = false;
                     StartCoroutine("EndSecondScene");
                 }
@@ -156,9 +173,6 @@ public class TutorialManager : MonoBehaviour
             if (lspot1 && lspot2 && lspot3)
             {
                 StartCoroutine("EndThirdScene");
-                rightHand.SetActive(false);
-                lightSpot.SetActive(false);
-                better.SetActive(true);
                 thirdStage = false;
             }
         }
@@ -170,10 +184,6 @@ public class TutorialManager : MonoBehaviour
             {
                 if (rHand.selectTarget.tag == "Leaflet")
                 {
-                    controllerDemo.SetActive(false);
-                    audioManager.Play("tutorial leaflet");
-                    grab.SetActive(false);
-                    leaflet.SetActive(false);
                     fourthStage = false;
                     StartCoroutine("EndFourthStage");
                 }
@@ -186,9 +196,6 @@ public class TutorialManager : MonoBehaviour
         {
             if(rHand.selectTarget == null)
             {
-                audioManager.Play("SFX2 Tutorial");
-                leafletPrefab.SetActive(false);
-                putDown.SetActive(false);
                 fourthStagePart2 = false;
                 StartCoroutine("RayShootingEvent");
             }
@@ -197,7 +204,7 @@ public class TutorialManager : MonoBehaviour
         //removed references to ray
         if (fifthStage)
         {
-            everythingWell.SetActive(true);
+            //everythingWell.SetActive(true);
             fifthStage = false;
             fifthStagePart2 = true;
         }
@@ -205,7 +212,7 @@ public class TutorialManager : MonoBehaviour
         //removed references to ray
         if (fifthStagePart2)
         {
-            everythingWell.SetActive(false);
+            //everythingWell.SetActive(false);
             fifthStagePart2 = false;
             StartCoroutine("BlowPipeEvent");
         }
@@ -215,17 +222,8 @@ public class TutorialManager : MonoBehaviour
             messageListener.startBreathing = true;
 
             if(messageListener.finishedBreathing == true)
-            {
-                audioManager.Play("SFX2 Tutorial");
-                audioManager.Play("tutorial smoke");
-  ;
-                dust.SetActive(false);
-                barPrefab.SetActive(false);
+            { 
                 sixthStage = false;
-                scrollScreenDirty.SetActive(false);
-                scrollScreenClean.SetActive(true);
-                thankYou.SetActive(true);
-                smoke.SetActive(true);
                 scrollScreenClean.GetComponent<Image>().CrossFadeAlpha(0, 8, false);
                 StartCoroutine("DesertScene");
             }
@@ -275,6 +273,7 @@ public class TutorialManager : MonoBehaviour
     {
         yield return new WaitForSeconds(7);
         audioManager.Play("discovery hall");
+        wakeUp.SetActive(false);
         timna.SetActive(true);
         StartCoroutine("TimnaScene");
 
@@ -284,15 +283,22 @@ public class TutorialManager : MonoBehaviour
     {
         yield return new WaitForSeconds(7);
         audioManager.Play("confused");
-        moveBody.SetActive(true);
+        timna.SetActive(false);
+        confused.SetActive(true);
+        StartCoroutine("Spirits");
+    }
+
+    IEnumerator Spirits()
+    {
+        yield return new WaitForSeconds(2);
+        confused.SetActive(false);
+        spirits.SetActive(true);
         StartCoroutine("EndFirstScene");
     }
     IEnumerator EndFirstScene()
     {
         yield return new WaitForSeconds(7);
-        wakeUp.SetActive(false);
-        timna.SetActive(false);
-        moveBody.SetActive(false);
+        spirits.SetActive(false);
         changePerspective.SetActive(true);
         audioManager.Play("move your head");
         StartCoroutine("CompleteContentScene");
@@ -301,6 +307,7 @@ public class TutorialManager : MonoBehaviour
     {
         yield return new WaitForSeconds(7);
         audioManager.Play("complete content");
+        changePerspective.SetActive(false);
         completeContent.SetActive(true);
         StartCoroutine("EnableFloorTask");
         
@@ -309,6 +316,7 @@ public class TutorialManager : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         secondStage = true;
+        completeContent.SetActive(false);
         tasks[0].SetActive(true);
         audioManager.Play("ground");
         StartCoroutine("FloorBuffer");
@@ -321,6 +329,7 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator EndSecondScene()
     {
+        well.SetActive(true);
         audioManager.Play("well");
         yield return new WaitForSeconds(7);
         well.SetActive(false);
@@ -333,6 +342,7 @@ public class TutorialManager : MonoBehaviour
     {
         yield return new WaitForSeconds(7);
         audioManager.Play("use hand");
+        rightHand.SetActive(false);
         lightSpot.SetActive(true);
         foreach (GameObject l in lightSpots)
         {
@@ -345,6 +355,8 @@ public class TutorialManager : MonoBehaviour
     IEnumerator EndThirdScene()
     {
         audioManager.Play("better");
+        lightSpot.SetActive(false);
+        better.SetActive(true);
         yield return new WaitForSeconds(7);
         better.SetActive(false);
         audioManager.Play("grab");
@@ -356,34 +368,47 @@ public class TutorialManager : MonoBehaviour
     {
         yield return new WaitForSeconds(7);
         audioManager.Play("leaflet");
+        grab.SetActive(false);
         leaflet.SetActive(true);
+        StartCoroutine("Picking");
+    }
+    IEnumerator Picking()
+    {
+        yield return new WaitForSeconds(3);
+        leaflet.SetActive(false);
+        picking.SetActive(true);
         leafletPrefab.SetActive(true);
         fourthStage = true;
     }
-
     IEnumerator EndFourthStage()
     {
+        audioManager.Play("tutorial leaflet");
+        controllerDemo.SetActive(false);
+        picking.SetActive(false);
         yield return new WaitForSeconds(0.5f);
-        flyer.SetActive(true);
+        //flyer.SetActive(true);
         StartCoroutine("EndFourthStagePart2");
     }
 
     IEnumerator EndFourthStagePart2()
     {
         yield return new WaitForSeconds(7f);
-        flyer.SetActive(false);
+        //flyer.SetActive(false);
         fourthStagePart2 = true;
         audioManager.Play("put down leaflet");
         putDown.SetActive(true);
     }
 
-    //removed ray shooting event
+    //removed ray shooting event can make regular function
     IEnumerator RayShootingEvent()
     {
+        audioManager.Play("SFX2 Tutorial");
+        leafletPrefab.SetActive(false);
+        putDown.SetActive(false);
         StartCoroutine("RayScrollEvent");
         yield return new WaitForSeconds(7f);
     }
-    //removed ray scroll event
+    //removed ray scroll event can make into regular function
     IEnumerator RayScrollEvent()
     {
         fifthStage = true;
@@ -393,19 +418,41 @@ public class TutorialManager : MonoBehaviour
     //removed references to blowpipe
     IEnumerator BlowPipeEvent()
     {
-        scrollPrefab.SetActive(false);
+        
         rightHand.SetActive(false);
         blowPipe.SetActive(true);
         scrollScreenDirty.SetActive(true);
         dust.SetActive(true);
-        barPrefab.SetActive(true);
         audioManager.Play("dust");
+        yield return new WaitForSeconds(3f);
+        StartCoroutine("Blow");
+
+    }
+
+    //can make into regular function
+    IEnumerator Blow()
+    {
         sixthStage = true;
-        yield return new WaitForSeconds(7f);
+        barPrefab.SetActive(true);
+        inhale.SetActive(true);
+        exhale.SetActive(true);
+        dust.SetActive(false);
+        //blow.SetActive(true);
+        yield return new WaitForSeconds(5);
     }
     IEnumerator DesertScene()
     {
         audioManager.Play("soul");
+        inhale.SetActive(false);
+        exhale.SetActive(false);
+        audioManager.Play("SFX2 Tutorial");
+        audioManager.Play("tutorial smoke");
+        scrollScreenDirty.SetActive(false);
+        scrollScreenClean.SetActive(true);
+        thankYou.SetActive(true);
+        smoke.SetActive(true);
+        dust.SetActive(false);
+        barPrefab.SetActive(false);
         yield return new WaitForSeconds(10f);
         audioManager.Stop("tutorial background");
         GM.MainGame();

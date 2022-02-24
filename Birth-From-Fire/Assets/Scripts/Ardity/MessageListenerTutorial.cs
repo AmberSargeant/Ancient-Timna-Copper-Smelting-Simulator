@@ -127,6 +127,16 @@ public class MessageListenerTutorial : MonoBehaviour
                 continueDecreasing = false;
             }
 
+            if(progressBar.fillAmount > 0 && progressBar.fillAmount <0.88f)
+            {
+                if(count == 0 &&!continueDecreasing)
+                {
+                    breathOutTut.SetActive(false);
+                    breatheOut.SetActive(true);
+                    breatheIn.SetActive(false);
+                }
+            }
+
 
             progressBar.fillAmount = currentFillValue / 100;
 
