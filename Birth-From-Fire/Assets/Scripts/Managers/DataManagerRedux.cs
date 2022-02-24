@@ -41,25 +41,29 @@ public class DataManagerRedux : MonoBehaviour
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
         RaycastHit hit;
 
-        //first data
-        if (Physics.Raycast(ray, out hit))
+        if (messageListener.startBreathing)
         {
-            dataTimer1 += Time.deltaTime;
-            if (dataTimer1 >= data1TimerDelayAmount)
+            //first data
+            if (Physics.Raycast(ray, out hit))
             {
-                string path = Application.dataPath + "/TestLogFocusingTime.txt";
-                if (!File.Exists(path))
+                dataTimer1 += Time.deltaTime;
+                if (dataTimer1 >= data1TimerDelayAmount)
                 {
-                    File.WriteAllText(path, "Test Log \n \n");
+                    print("reached");
+                    string path = Application.dataPath + "/TestLogFocusingTime.txt";
+                    if (!File.Exists(path))
+                    {
+                        File.WriteAllText(path, "Test Log \n \n");
+                    }
+
+                    string content = "TimeStamp " + System.DateTime.Now
+                    + " Looking At: " + hit.transform.name + "\n";
+
+                    File.AppendAllText(path, content);
+
+                    dataTimer1 = 0;
+
                 }
-
-                string content = "TimeStamp " + System.DateTime.Now
-                + " Looking At: " + hit.transform.name + "\n";
-
-                File.AppendAllText(path, content);
-
-                dataTimer1 = 0;
-
             }
         }
     }
