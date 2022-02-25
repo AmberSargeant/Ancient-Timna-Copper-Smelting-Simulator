@@ -56,16 +56,16 @@ public class MessageListenerTutorial : MonoBehaviour
     {
         targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonValue);
         targetDevice.TryGetFeatureValue(CommonUsages.secondaryButton, out bool secondaryButtonValue);
-        targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool primary2DAxisClickValue);
+        targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool gripValue);
 
         //debug
-        if (secondaryButtonValue && primaryButtonValue && !debugOff && primary2DAxisClickValue)
+        if (secondaryButtonValue && primaryButtonValue && !debugOff && gripValue)
         {
             decreasing = false;
             continueDecreasing = false;
             startBreathing = true;
             debugOff = true;
-
+            print("reached");
         }
 
 

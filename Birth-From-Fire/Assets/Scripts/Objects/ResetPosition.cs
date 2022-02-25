@@ -6,14 +6,15 @@ public class ResetPosition : MonoBehaviour
 {
     // Start is called before the first frame update
     Vector3 startPos;
+    public bool resetPosition = false;
     void Start()
     {
         startPos = transform.position;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void Update()
     {
-        if(other.tag == "Floor")
+        if (resetPosition)
         {
             transform.position = startPos;
         }
