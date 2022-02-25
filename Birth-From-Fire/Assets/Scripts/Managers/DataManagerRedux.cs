@@ -42,24 +42,27 @@ public class DataManagerRedux : MonoBehaviour
         RaycastHit hit;
 
         //first data
-        if (Physics.Raycast(ray, out hit))
+        if (messageListener.startBreathing)
         {
-            dataTimer1 += Time.deltaTime;
-            if (dataTimer1 >= data1TimerDelayAmount)
+            if (Physics.Raycast(ray, out hit))
             {
-                string path = Application.dataPath + "/TestLogFocusingTime.txt";
-                if (!File.Exists(path))
+                dataTimer1 += Time.deltaTime;
+                if (dataTimer1 >= data1TimerDelayAmount)
                 {
-                    File.WriteAllText(path, "Test Log \n \n");
+                    string path = Application.dataPath + "/TestLogFocusingTime.txt";
+                    if (!File.Exists(path))
+                    {
+                        File.WriteAllText(path, "Test Log \n \n");
+                    }
+
+                    string content = "TimeStamp " + System.DateTime.Now
+                    + " Looking At: " + hit.transform.name + "\n";
+
+                    File.AppendAllText(path, content);
+
+                    dataTimer1 = 0;
+
                 }
-
-                string content = "TimeStamp " + System.DateTime.Now
-                + " Looking At: " + hit.transform.name + "\n";
-
-                File.AppendAllText(path, content);
-
-                dataTimer1 = 0;
-
             }
         }
     }

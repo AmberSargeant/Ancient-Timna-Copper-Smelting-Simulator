@@ -122,18 +122,18 @@ public class MessageListener : MonoBehaviour
         targetDevice.TryGetFeatureValue(CommonUsages.secondaryButton, out bool secondaryButtonValue);
         targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool primary2DAxisClickValue);
         var main = ps.main;
-        
+        //debug
+        if (secondaryButtonValue && primaryButtonValue && !debugOff && primary2DAxisClickValue)
+        {
+            decreasing = false;
+            continueDecreasing = false;
+            startBreathing = true;
+            debugOff = true;
+
+        }
+
         if (startBreathing)
         {
-            //debug
-            if (secondaryButtonValue && primaryButtonValue && !debugOff && primary2DAxisClickValue)
-            {
-                decreasing = false;
-                continueDecreasing = false;
-                debugOff = true;
-                print("reached");
-            }
-
 
             if (campfireAndBlowPipeCollision.pipeInFurnace)
             {

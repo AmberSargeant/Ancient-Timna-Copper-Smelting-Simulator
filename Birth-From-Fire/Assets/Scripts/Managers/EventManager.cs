@@ -806,7 +806,6 @@ public class EventManager : MonoBehaviour
     IEnumerator Celebration()
     {
         enjoyText.SetActive(true);
-        celebrationText.SetActive(true);
         audioManager.Play("celebration");
         RenderSettings.skybox = dawn;
         childAnimator.SetBool("Celebration", true);
@@ -814,7 +813,8 @@ public class EventManager : MonoBehaviour
         tongPrefab.SetActive(false);
         handPrefab.SetActive(true);
         yield return new WaitForSeconds(1);
-
+        enjoyText.SetActive(false);
+        celebrationText.SetActive(true);
     }
 
 }
