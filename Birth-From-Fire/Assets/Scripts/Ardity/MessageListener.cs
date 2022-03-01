@@ -43,6 +43,7 @@ public class MessageListener : MonoBehaviour
     public GameObject wishes;
     public GameObject leaving;
     public GameObject comeBack;
+    public GameObject goddess;
     public GameObject lookup;
     public GameObject lookdown;
     public GameObject goodSign;
@@ -87,6 +88,8 @@ public class MessageListener : MonoBehaviour
     [SerializeField]
     private float celciusTimer = 0f;
     private float celciusDelayAmount = 1f;
+    private bool inhale = false;
+    private bool exhale = true;
 
     private void Awake()
     {
@@ -156,6 +159,7 @@ public class MessageListener : MonoBehaviour
 
                     if (!continueDecreasing && !decreasing)
                     {
+                        
                         progressBar.color = Color.cyan;
                         barTimer += Time.deltaTime;
                         celciusTimer += Time.deltaTime;
@@ -209,6 +213,7 @@ public class MessageListener : MonoBehaviour
                         currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
                     }
 
+                    exhale = false;
                     progressBar.color = Color.gray;
                     barTimer = 0f;
                     celciusTimer = 0f;
@@ -216,6 +221,11 @@ public class MessageListener : MonoBehaviour
                     breatheIn.SetActive(true);
                     breatheOut.SetActive(false);
                     continueDecreasing = false;
+                    if (!inhale)
+                    {
+                        audioManager.Play("inhale");
+                        inhale = true;
+                    }
                 }
                 if (continueDecreasing)
                 {
@@ -251,11 +261,13 @@ public class MessageListener : MonoBehaviour
                     {
                         currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
                     }
+                    exhale = false;
                     decreasing = false;
                     progressBar.color = Color.gray;
                     breatheOut.SetActive(false);
                     breatheIn.SetActive(false);
                     stoppedBreathing.SetActive(true);
+                    audioManager.Stop("exhale");
                 }
 
                 if (progressBar.fillAmount <= 0)
@@ -266,12 +278,6 @@ public class MessageListener : MonoBehaviour
                         b = 1;
                         main.startColor = new Color(1, g, 1);
                     }
-                    if (startStarMapEvent)
-                    {
-                        //Start First Illusion
-                        StartCoroutine("StartStarMap");
-                        startStarMapEvent = false;
-                    }
                     barTimer = 0f;
                     celciusTimer = 0f;
                     stoppedBreathing.SetActive(false);
@@ -279,6 +285,12 @@ public class MessageListener : MonoBehaviour
                     breatheIn.SetActive(false);
                     decreasing = false;
                     continueDecreasing = false;
+                    inhale = false;
+                    if (!exhale)
+                    {
+                        audioManager.Play("exhale");
+                        exhale = true;
+                    }
                 }
                 //event changes
                 if (celciusCounter == 950)
@@ -351,6 +363,16 @@ public class MessageListener : MonoBehaviour
                         placeBlowpipe.SetActive(false);
                     }
                 }
+
+                if (progressBar.fillAmount >= 0.88f)
+                {
+                    if (startStarMapEvent)
+                    {
+                        //Start First Illusion
+                        StartCoroutine("StartStarMap");
+                        startStarMapEvent = false;
+                    }
+                }
             }
 
             progressBar.fillAmount = currentFillValue / 100;
@@ -367,6 +389,7 @@ public class MessageListener : MonoBehaviour
             {
                 if (hit.transform.name == "Sky")
                 {
+                    audioManager.Stop("lookup");
                     StartCoroutine("StarMapNarrative");
                     starMapEvent = false;
                 }
@@ -381,6 +404,7 @@ public class MessageListener : MonoBehaviour
             {
                 if(hit.transform.name == "Front" || hit.transform.name == "Back" || hit.transform.name == "Left" || hit.transform.name == "Right")
                 {
+                    audioManager.Stop("look down");
                     StartCoroutine("EndIllusion");
                     ibexEvent = false;
                 }
@@ -392,12 +416,21 @@ public class MessageListener : MonoBehaviour
     //coroutine just in case we need to add extra myth stuff
     IEnumerator StartStarMap()
     {
-        lookup.SetActive(true);
-        starMapEvent = true;
+        audioManager.Play("goddess");
+        goddess.SetActive(true);
         bar.SetActive(false);
         startBreathing = false;
         yield return new WaitForSeconds(6);
+        StartCoroutine("LookUp");
+    }
 
+    IEnumerator LookUp()
+    {
+        starMapEvent = true;
+        goddess.SetActive(false);
+        lookup.SetActive(true);
+        audioManager.Play("lookup");
+        yield return new WaitForSeconds(6);
     }
 
     IEnumerator StarMapNarrative()
@@ -407,27 +440,29 @@ public class MessageListener : MonoBehaviour
         ibex.SetActive(true);
         starMapNarrative.SetActive(true);
         audioManager.Play("star shining");
-        yield return new WaitForSeconds(6);
+        audioManager.Play("starmap narrative");
+        yield return new WaitForSeconds(15);
         starMapNarrative.SetActive(false);
         //insert starmap glow
-        StartCoroutine("StartIbex");
-    }
-
-    IEnumerator StartIbex()
-    {
-        //starMapNarrative.SetActive(false);
-        //lookdown.SetActive(true);
-        //ibexEvent = true;
-        ibexNarrative.SetActive(true);
-        yield return new WaitForSeconds(6);
-        ibexNarrative.SetActive(false);
         StartCoroutine("Canaanites");
     }
 
+    //IEnumerator StartIbex()
+    //{
+    //    //starMapNarrative.SetActive(false);
+    //    //lookdown.SetActive(true);
+    //    //ibexEvent = true;
+    //    ibexNarrative.SetActive(true);
+    //    yield return new WaitForSeconds(6);
+    //    ibexNarrative.SetActive(false);
+    //    StartCoroutine("Canaanites");
+    //}
+
     IEnumerator Canaanites()
     {
+        audioManager.Play("canaanite");
         canaanties.SetActive(true);
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(9);
         canaanties.SetActive(false);
         StartCoroutine("LookDown");
     }
@@ -435,16 +470,18 @@ public class MessageListener : MonoBehaviour
     //can make into regular function
     IEnumerator LookDown()
     {
+        audioManager.Play("look down");
         lookdown.SetActive(true);
         ibexEvent = true;
         yield return new WaitForSeconds(1);
     }
     IEnumerator EndIllusion()
     {
+        audioManager.Play("wishes");
         audioManager.Play("sheep sound");
         lookdown.SetActive(false);
         wishes.SetActive(true);
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(8);
         wishes.SetActive(false);
         StartCoroutine("Leaving");
 
@@ -452,32 +489,36 @@ public class MessageListener : MonoBehaviour
 
     IEnumerator Leaving()
     {
+        audioManager.Play("leaving");
         leaving.SetActive(true);
         ibex.SetActive(false);
         audioManager.Stop("walk sheep");
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(4);
         leaving.SetActive(false);
         StartCoroutine("ComeBack");
     }
 
     IEnumerator ComeBack()
     {
+        audioManager.Play("come back");
         comeBack.SetActive(true);
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(4);
         comeBack.SetActive(false);
         StartCoroutine("GoodSign");
     }
 
     IEnumerator GoodSign()
     {
+        audioManager.Play("good sign");
         goodSign.SetActive(true);
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(8);
         goodSign.SetActive(false);
         StartCoroutine("Eyes");
     }
 
     IEnumerator Eyes()
     {
+        audioManager.Play("eyes");
         eyes.SetActive(true);
         yield return new WaitForSeconds(6);
         eyes.SetActive(false);
@@ -486,8 +527,9 @@ public class MessageListener : MonoBehaviour
 
     IEnumerator Cont()
     {
+        audioManager.Play("continue");
         cont.SetActive(true);
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(4);
         cont.SetActive(false);
         eventManager.breathPhase1 = false;
         breathPhase2 = true;

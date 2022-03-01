@@ -32,6 +32,7 @@ public class EventManager : MonoBehaviour
     private bool inhale = false;
     private bool oreGlow, charcoalGlow, vesselGlow;
     private bool startSnakeEvent = false;
+    private bool placeOreVoice = false;
     public VesselCollision finalVesselCollision;
     public Vector3 vesselTransform;
     public int countOre = 0;
@@ -163,6 +164,7 @@ public class EventManager : MonoBehaviour
                 if (rHand.selectTarget.tag == "Small Ore")
                 {
                     chooseOreText.SetActive(false);
+                    StartCoroutine("PlaceOreVoice");
                     //need to refactor
                     firstStage = false;
                     secondStage = true;
@@ -192,12 +194,16 @@ public class EventManager : MonoBehaviour
                 secondStage = false;
                 thirdStage = true;
                 placeOreText.SetActive(false);
+                audioManager.Stop("place ore");
+                audioManager.Stop("crucible");
+                audioManager.Play("furnace");
             }
         }
 
         //need to refactor
         if (thirdStage)
         {
+            audioManager.Stop("crucible");
             //vessel glow
             if (!vesselGlow)
             {
@@ -218,6 +224,8 @@ public class EventManager : MonoBehaviour
                 vesselSlagPrefab.SetActive(true);
                 vesselSlagPrefab.GetComponent<Rigidbody>().isKinematic = true;
                 vesselSlagPrefab.transform.localPosition = new Vector3(1.7566f, -0.8999999f, -4.055f);
+                audioManager.Stop("furnace");
+                StartCoroutine("CharcoalVoice");
             }
 
         }
@@ -243,6 +251,8 @@ public class EventManager : MonoBehaviour
 
             if (campfireCollision.countCharcoal == 1)
             {
+                audioManager.Stop("charcoal");
+                audioManager.Stop("nourishment");
                 redFlamePrefab.SetActive(true);
                 charcoalText.SetActive(false);
                 fourthStage = false;
@@ -254,6 +264,7 @@ public class EventManager : MonoBehaviour
         {
             if (!enough)
             {
+                audioManager.Stop("nourishment");
                 StartCoroutine("StartEnough");
                 enough = true;
             }
@@ -267,6 +278,7 @@ public class EventManager : MonoBehaviour
                 insertBlowPipeText.SetActive(false);
                 sixthStage = false;
                 seventhStage = true;
+                audioManager.Stop("insert blowpipe");
             }
         }
 
@@ -300,9 +312,11 @@ public class EventManager : MonoBehaviour
             {
                 if (tong.selectTarget.tag == "Vessel")
                 {
+                    audioManager.Stop("remove vessel");
                     campfireCollision.inFurnace = false;
                     ninthStage = true;
                     eigthStage = false;
+                    StartCoroutine("DirtPileVoice");
                 }
             }
         }
@@ -344,7 +358,7 @@ public class EventManager : MonoBehaviour
                 }
             }
 
-            if (dirtTimer >= 5)
+            if (dirtTimer >= 1)
             {
                 dirtLavaPrefab.SetActive(true);
                 lavaDownLPrefab.SetActive(false);
@@ -354,12 +368,18 @@ public class EventManager : MonoBehaviour
                 vesselSlag.SetActive(false);
                 ninthStage = false;
                 tenthStage = true;
+                audioManager.Stop("separate");
+                audioManager.Stop("liquified");
+                audioManager.Stop("dirt pile");
+                audioManager.Play("original position");
             }
         }
 
         if (tenthStage)
         {
-
+            audioManager.Stop("separate");
+            audioManager.Stop("liquified");
+            audioManager.Stop("dirt pile");
             if (tong.selectTarget != null)
             {
                 if (tong.selectTarget.tag == "Vessel")
@@ -419,6 +439,8 @@ public class EventManager : MonoBehaviour
             glows[1].SetActive(true);
             if (finalVesselCollision.celebration)
             {
+                audioManager.Stop("get copper");
+                audioManager.Stop("born");
                 finishedCopperPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
                 //finished copper glow
                 glows[6].SetActive(false);
@@ -436,6 +458,7 @@ public class EventManager : MonoBehaviour
         if (fourteenthStage)
         {
             snakePrefab.SetActive(false);
+            audioManager.Stop("born");
             finalLightSpotPrefab.SetActive(true);
             if (lightSpotMovement.mirror)
             {
@@ -451,41 +474,45 @@ public class EventManager : MonoBehaviour
         yield return new WaitForSeconds(8);
         titleText.SetActive(false);
         StartCoroutine("NegevDesert");
+
     }
 
     IEnumerator NegevDesert()
     {
+        audioManager.Play("negev");
         negevDesertText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(6);
         negevDesertText.SetActive(false);
-        StartCoroutine("Archeologists");
-    }
-
-    IEnumerator Archeologists()
-    {
-        archeologistsText.SetActive(true);
-        yield return new WaitForSeconds(5);
-        archeologistsText.SetActive(false);
         StartCoroutine("Blessing");
     }
+
+    //IEnumerator Archeologists()
+    //{
+    //    archeologistsText.SetActive(true);
+    //    yield return new WaitForSeconds(5);
+    //    archeologistsText.SetActive(false);
+    //    StartCoroutine("Blessing");
+    //}
     IEnumerator Blessing()
     {
+        audioManager.Play("blessing");
         blessingText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(7);
         blessingText.SetActive(false);
         StartCoroutine("Hathor");
     }
     IEnumerator Hathor()
     {
+        audioManager.Play("hathor");
         hathorText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(4);
         hathorText.SetActive(false);
         StartCoroutine("Patroness");
     }
     IEnumerator Patroness()
     {
         patronessText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(6);
         patronessText.SetActive(false);
         StartCoroutine("Strength");
     }
@@ -493,13 +520,14 @@ public class EventManager : MonoBehaviour
     IEnumerator Strength()
     {
         strengthText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(8);
         strengthText.SetActive(false);
         StartCoroutine("Secret");
     }
 
     IEnumerator Secret()
     {
+        audioManager.Play("secret");
         secretText.SetActive(true);
         yield return new WaitForSeconds(5);
         secretText.SetActive(false);
@@ -509,29 +537,32 @@ public class EventManager : MonoBehaviour
     IEnumerator Promise()
     {
         promiseText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(7);
         promiseText.SetActive(false);
         StartCoroutine("Salt");
     }
 
     IEnumerator Salt()
     {
+        audioManager.Play("salt");
         saltText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(9);
         saltText.SetActive(false);
         StartCoroutine("Ruah");
     }
 
     IEnumerator Ruah()
     {
+        audioManager.Play("ruah");
         ruahText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(9);
         ruahText.SetActive(false);
         StartCoroutine("Technology");
     }
 
     IEnumerator Technology()
     {
+        audioManager.Play("technology");
         technologyText.SetActive(true);
         yield return new WaitForSeconds(5);
         technologyText.SetActive(false);
@@ -540,22 +571,25 @@ public class EventManager : MonoBehaviour
 
     IEnumerator Egyptians()
     {
+        audioManager.Play("egyptians");
         egyptiansText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(10);
         egyptiansText.SetActive(false);
         StartCoroutine("Traditional");
     }
 
     IEnumerator Traditional()
     {
+        audioManager.Play("traditional");
         traditionalText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(6);
         traditionalText.SetActive(false);
         StartCoroutine("Shamans");
     }
 
     IEnumerator Shamans()
     {
+        audioManager.Play("shamans");
         shamansText.SetActive(true);
         yield return new WaitForSeconds(5);
         shamansText.SetActive(false);
@@ -565,28 +599,41 @@ public class EventManager : MonoBehaviour
     IEnumerator Magicians()
     {
         magiciansText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(6);
         magiciansText.SetActive(false);
+        StartCoroutine("MetalSmith");
+    }
+
+    IEnumerator MetalSmith()
+    {
+        audioManager.Play("metalsmith");
+        metalsmithText.SetActive(true);
+        yield return new WaitForSeconds(6);
+        metalsmithText.SetActive(false);
         //start choose ore pile scene
+        audioManager.Play("choose ore");
         chooseOreText.SetActive(true);
         firstStage = true;
     }
     //added place blowpipe functionality
     IEnumerator StartEnough()
     {
+        audioManager.Play("enough");
         enoughText.SetActive(true);
         yield return new WaitForSeconds(5);
         enoughText.SetActive(false);
         insertBlowPipeText.SetActive(true);
         blowPipeHoldPrefab.SetActive(true);
         blowpipePrefab.SetActive(false);
+        audioManager.Play("insert blowpipe");
         sixthStage = true;
     }
     IEnumerator Drums()
     {
         audioManager.Play("Drums");
+        audioManager.Play("drum");
         drumText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(6);
         drumText.SetActive(false);
         StartCoroutine("Flame");
     }
@@ -594,44 +641,50 @@ public class EventManager : MonoBehaviour
     IEnumerator Flame()
     {
         flameText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        audioManager.Play("flame");
+        yield return new WaitForSeconds(4);
         flameText.SetActive(false);
         StartCoroutine("Magical");
     }
     IEnumerator Magical()
     {
+        audioManager.Play("magical");
         magicalText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(9);
         magicalText.SetActive(false);
         StartCoroutine("Belly");
     }
 
     IEnumerator Belly()
     {
+        audioManager.Play("belly");
         bellyText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(7);
         bellyText.SetActive(false);
         StartCoroutine("Space");
     }
 
     IEnumerator Space()
     {
+        audioManager.Play("space");
         spaceText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(6);
         spaceText.SetActive(false);
         StartCoroutine("Counts");
     }
 
     IEnumerator Counts()
     {
+        audioManager.Play("counts");
         countsText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(13);
         countsText.SetActive(false);
         StartCoroutine("Length");
     }
 
     IEnumerator Length()
     {
+        audioManager.Play("length");
         lengthText.SetActive(true);
         yield return new WaitForSeconds(5);
         lengthText.SetActive(false);
@@ -640,14 +693,16 @@ public class EventManager : MonoBehaviour
 
     IEnumerator Fall()
     {
+        audioManager.Play("fall");
         fallText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(6);
         fallText.SetActive(false);
         StartCoroutine("Birthday");
     }
 
     IEnumerator Birthday()
     {
+        audioManager.Play("birthday");
         birthdayText.SetActive(true);
         yield return new WaitForSeconds(5);
         birthdayText.SetActive(false);
@@ -656,6 +711,7 @@ public class EventManager : MonoBehaviour
 
     IEnumerator Guide()
     {
+        audioManager.Play("guide");
         guideText.SetActive(true);
         yield return new WaitForSeconds(5);
         guideText.SetActive(false);
@@ -664,14 +720,16 @@ public class EventManager : MonoBehaviour
 
     IEnumerator Ready()
     {
+        audioManager.Play("ready");
         readyText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(4);
         readyText.SetActive(false);
         StartCoroutine("InsertFurnace");
     }
 
     IEnumerator InsertFurnace()
     {
+        audioManager.Play("insert into furnace");
         insertFurnaceText.SetActive(true);
         yield return new WaitForSeconds(5);
         insertFurnaceText.SetActive(false);
@@ -680,14 +738,16 @@ public class EventManager : MonoBehaviour
 
     IEnumerator Raw()
     {
+        audioManager.Play("raw");
         rawText.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(8);
         rawText.SetActive(false);
         StartCoroutine("StartInhale");
     }
 
     IEnumerator StartInhale()
     {
+        audioManager.Play("inhale");
         breathPhase1 = true;
         messageListener.breatheIn.SetActive(true);
         messageListener.breatheOut.SetActive(false);
@@ -697,19 +757,29 @@ public class EventManager : MonoBehaviour
         messageListener.breatheIn.SetActive(false);
         messageListener.breatheOut.SetActive(true);
         messageListener.startBreathing = true;
+        audioManager.Play("exhale");
     }
     IEnumerator Birth()
     {
+        audioManager.Play("see");
         birthText.SetActive(true);
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(4);
+        StartCoroutine("Saw");
+    }
+
+    IEnumerator Saw()
+    {
+        audioManager.Play("saw");
+        yield return new WaitForSeconds(3);
         birthText.SetActive(false);
         StartCoroutine("Newborn");
     }
-
     IEnumerator Newborn()
     {
+        audioManager.Play("newborn");
         newbornText.SetActive(true);
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(5);
+        audioManager.Play("remove vessel");
         newbornText.SetActive(false);
         eigthStage = true;
         removeVesselText.SetActive(true);
@@ -718,15 +788,17 @@ public class EventManager : MonoBehaviour
 
     IEnumerator SnakeEvent()
     {
+        audioManager.Play("see2");
         snakePrefab.SetActive(true);
         seeText.SetActive(true);
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(4);
         seeText.SetActive(false);
         StartCoroutine("Divine");
     }
 
     IEnumerator Divine()
     {
+        audioManager.Play("divine");
         divineText.SetActive(true);
         yield return new WaitForSeconds(6);
         divineText.SetActive(false);
@@ -734,16 +806,19 @@ public class EventManager : MonoBehaviour
     }
     IEnumerator LifeForce()
     {
+        audioManager.Play("life force");
         lifeForceText.SetActive(true);
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(5);
         lifeForceText.SetActive(false);
         StartCoroutine("Cooled");
     }
 
     IEnumerator Cooled()
     {
+        audioManager.Play("cooled");
         cooledText.SetActive(true);
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(4);
+        StartCoroutine("GetCopperVoice");
         cooledText.SetActive(false);
         finishedCopperPrefab.SetActive(true);
         dirtLavaPrefab.SetActive(false); ;
@@ -753,33 +828,37 @@ public class EventManager : MonoBehaviour
 
     IEnumerator CopperMirror()
     {
+        audioManager.Play("copper mirror");
         copperMirrorText.SetActive(true);
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(10);
         copperMirrorText.SetActive(false);
         fourteenthStage = true;
     }
 
     IEnumerator Blessed()
     {
+        audioManager.Play("blessed");
         hathorBlessedText.SetActive(true);
         finishedCopperPrefab.SetActive(false);
         finalLightSpotPrefab.SetActive(false);
         mirrorPrefab.SetActive(true);
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(4);
         hathorBlessedText.SetActive(false);
         StartCoroutine("ThankYou");
     }
 
     IEnumerator ThankYou()
     {
+        audioManager.Play("thank you");
         thankYouText.SetActive(true);
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(4);
         thankYouText.SetActive(false);
         StartCoroutine("Memory");
     }
 
     IEnumerator Memory()
     {
+        audioManager.Play("memory");
         memoryText.SetActive(true);
         yield return new WaitForSeconds(6);
         memoryText.SetActive(false);
@@ -788,14 +867,16 @@ public class EventManager : MonoBehaviour
 
     IEnumerator Ancestors()
     {
+        audioManager.Play("ancestors");
         ancestorsText.SetActive(true);
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(8);
         ancestorsText.SetActive(false);
         StartCoroutine("Enjoy");
     }
 
     IEnumerator Enjoy()
     {
+        audioManager.Play("enjoy");
         enjoyText.SetActive(true);
         yield return new WaitForSeconds(6);
         enjoyText.SetActive(false);
@@ -805,16 +886,64 @@ public class EventManager : MonoBehaviour
     //can turn into normal function
     IEnumerator Celebration()
     {
-        enjoyText.SetActive(true);
+        //enjoyText.SetActive(true);
         audioManager.Play("celebration");
         RenderSettings.skybox = dawn;
         childAnimator.SetBool("Celebration", true);
         oldManAnimator.SetBool("Celebration", true);
         tongPrefab.SetActive(false);
         handPrefab.SetActive(true);
-        yield return new WaitForSeconds(1);
-        enjoyText.SetActive(false);
         celebrationText.SetActive(true);
+        yield return new WaitForSeconds(1);
+    }
+
+    IEnumerator PlaceOreVoice()
+    {
+        audioManager.Play("place ore");
+        yield return new WaitForSeconds(4);
+        if (secondStage)
+        {
+            audioManager.Play("crucible");
+        }
+    }
+    IEnumerator CharcoalVoice()
+    {
+        audioManager.Play("charcoal");
+        yield return new WaitForSeconds(5);
+        if (fourthStage)
+        {
+            audioManager.Play("nourishment");
+        }
+    }
+
+    IEnumerator DirtPileVoice()
+    {
+        audioManager.Play("separate");
+        yield return new WaitForSeconds(3);
+        StartCoroutine("DirtPileVoice2");
+    }
+
+    IEnumerator DirtPileVoice2()
+    {
+        if (ninthStage)
+        {
+            audioManager.Play("liquified");
+        }
+        yield return new WaitForSeconds(6);
+        if (ninthStage)
+        {
+            audioManager.Play("dirt pile");
+        }
+    }
+
+    IEnumerator GetCopperVoice()
+    {
+        audioManager.Play("get copper");
+        yield return new WaitForSeconds(6);
+        if (twelvethStage || thirteenthStage)
+        {
+            audioManager.Play("born");
+        }
     }
 
 }
