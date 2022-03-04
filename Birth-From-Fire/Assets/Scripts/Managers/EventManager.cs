@@ -58,13 +58,13 @@ public class EventManager : MonoBehaviour
     public GameObject vesselLiquid;
     public GameObject vesselSlag;
     public GameObject vesselLight;
-    public GameObject blowpipePrefab;
     public GameObject fireUIPrefab;
     public GameObject redFlamePrefab;
-    public GameObject lavaDownLPrefab;
-    public GameObject lavaDownRPrefab;
     public GameObject dirtLavaPrefab;
     public GameObject snakePrefab;
+    public GameObject snakePrefab2;
+    public GameObject snakePrefab3;
+    public GameObject snakePrefab4;
     public GameObject finishedCopperPrefab;
     public GameObject finalLightSpotPrefab;
     public GameObject mirrorPrefab;
@@ -141,7 +141,6 @@ public class EventManager : MonoBehaviour
         campfireAndBlowPipeCollision = FindObjectOfType<CampfireAndBlowPipeCollision>();
         smallOrePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
         vesselPrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
-        blowpipePrefab.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
         foreach (GameObject c in charcoals)
         {
             c.GetComponent<XRGrabInteractable>().interactionLayerMask = LayerMask.GetMask("Nothing");
@@ -343,26 +342,18 @@ public class EventManager : MonoBehaviour
                 if (tong.selectTarget.transform.localRotation.z >= 0.50)
                 {
 
-                    lavaDownLPrefab.SetActive(true);
+                    
                     dirtTimer += Time.deltaTime;
                 }
                 else if (tong.selectTarget.transform.localRotation.z <= -0.50)
                 {
-                    lavaDownRPrefab.SetActive(true);
                     dirtTimer += Time.deltaTime;
-                }
-                else
-                {
-                    lavaDownLPrefab.SetActive(false);
-                    lavaDownRPrefab.SetActive(false);
                 }
             }
 
-            if (dirtTimer >= 1)
+            if (dirtTimer >= 0.5)
             {
                 dirtLavaPrefab.SetActive(true);
-                lavaDownLPrefab.SetActive(false);
-                lavaDownRPrefab.SetActive(false);
                 vesselLight.SetActive(false);
                 vesselLiquid.SetActive(false);
                 vesselSlag.SetActive(false);
@@ -458,6 +449,9 @@ public class EventManager : MonoBehaviour
         if (fourteenthStage)
         {
             snakePrefab.SetActive(false);
+            snakePrefab2.SetActive(false);
+            snakePrefab3.SetActive(false);
+            snakePrefab4.SetActive(false);
             audioManager.Stop("born");
             finalLightSpotPrefab.SetActive(true);
             if (lightSpotMovement.mirror)
@@ -624,7 +618,6 @@ public class EventManager : MonoBehaviour
         enoughText.SetActive(false);
         insertBlowPipeText.SetActive(true);
         blowPipeHoldPrefab.SetActive(true);
-        blowpipePrefab.SetActive(false);
         audioManager.Play("insert blowpipe");
         sixthStage = true;
     }
@@ -790,6 +783,9 @@ public class EventManager : MonoBehaviour
     {
         audioManager.Play("see2");
         snakePrefab.SetActive(true);
+        snakePrefab2.SetActive(true);
+        snakePrefab3.SetActive(true);
+        snakePrefab4.SetActive(true);
         seeText.SetActive(true);
         yield return new WaitForSeconds(4);
         seeText.SetActive(false);
@@ -849,6 +845,7 @@ public class EventManager : MonoBehaviour
 
     IEnumerator ThankYou()
     {
+        audioManager.Play("celebration");
         audioManager.Play("thank you");
         thankYouText.SetActive(true);
         yield return new WaitForSeconds(4);
@@ -887,7 +884,6 @@ public class EventManager : MonoBehaviour
     IEnumerator Celebration()
     {
         //enjoyText.SetActive(true);
-        audioManager.Play("celebration");
         RenderSettings.skybox = dawn;
         childAnimator.SetBool("Celebration", true);
         oldManAnimator.SetBool("Celebration", true);

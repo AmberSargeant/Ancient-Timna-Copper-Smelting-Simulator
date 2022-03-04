@@ -19,7 +19,6 @@ public class MessageListenerTutorial : MonoBehaviour
     public Image progressBar;
     public GameObject breatheOut;
     public GameObject breatheIn;
-    public GameObject breathOutTut;
     public GameObject stoppedBreathing;
     public bool finishedBreathing = false;
     public bool startBreathing = false;
@@ -30,6 +29,10 @@ public class MessageListenerTutorial : MonoBehaviour
     private float currentFillValue;
     private int count = 0;
     private bool debugOff = false;
+    private AudioManager audioManager;
+    private bool sfx = false;
+    private bool inhale = false;
+    private bool exhale = false;
 
     [SerializeField]
     private float speed;
@@ -43,8 +46,8 @@ public class MessageListenerTutorial : MonoBehaviour
         List<InputDevice> devices = new List<InputDevice>();
         InputDeviceCharacteristics rightControllerCharacteristics = InputDeviceCharacteristics.Right | InputDeviceCharacteristics.Controller;
         InputDevices.GetDevicesWithCharacteristics(rightControllerCharacteristics, devices);
-
-        if(devices.Count > 0)
+        audioManager = FindObjectOfType<AudioManager>();
+        if (devices.Count > 0)
         {
             targetDevice = devices[0];
         }
@@ -54,6 +57,7 @@ public class MessageListenerTutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        targetDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool triggerButtonValue);
         targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonValue);
         targetDevice.TryGetFeatureValue(CommonUsages.secondaryButton, out bool secondaryButtonValue);
         targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool gripValue);
@@ -65,13 +69,14 @@ public class MessageListenerTutorial : MonoBehaviour
             continueDecreasing = false;
             startBreathing = true;
             debugOff = true;
+            progressBar.fillAmount = 0;
             print("reached");
         }
 
 
         if (startBreathing)
         {
-            if (primaryButtonValue && !continueDecreasing && !decreasing)
+            if (triggerButtonValue && !continueDecreasing && !decreasing)
             {
                 progressBar.color = Color.cyan;
                 if (progressBar.fillAmount <= 0.88f)
@@ -100,10 +105,9 @@ public class MessageListenerTutorial : MonoBehaviour
                 }
                 progressBar.color = Color.gray;
                 stoppedBreathing.SetActive(false);
-                breatheIn.SetActive(true);
-                breathOutTut.SetActive(false);
                 breatheOut.SetActive(false);
                 continueDecreasing = false;
+                exhale = false;
             }
 
             if (continueDecreasing)
@@ -112,50 +116,49 @@ public class MessageListenerTutorial : MonoBehaviour
                 {
                     currentFillValue = currentFillValue - 1 * speed * Time.deltaTime;
                 }
+                exhale = false;
                 decreasing = false;
                 progressBar.color = Color.gray;
                 stoppedBreathing.SetActive(true);
                 breatheOut.SetActive(false);
-                breathOutTut.SetActive(false);
                 breatheIn.SetActive(false);
+                audioManager.Stop("exhale");
             }
 
             if (progressBar.fillAmount <= 0)
             {
+                if (!exhale)
+                {
+                    audioManager.Play("exhale");
+                    exhale = true;
+                }
+                inhale = false;
+                sfx = false;
                 countOnce = false;
                 stoppedBreathing.SetActive(false);
                 decreasing = false;
                 continueDecreasing = false;
-                if (count == 0)
-                {
-                    breathOutTut.SetActive(true);
-                    breatheOut.SetActive(false);
-                    breatheIn.SetActive(false);
-                }
-                else if (count > 0)
-                {
-                    breatheIn.SetActive(false);
-                    breatheOut.SetActive(true);
-                    breathOutTut.SetActive(false);
-                }
+                breatheIn.SetActive(false);
+                breatheOut.SetActive(true);
                 continueDecreasing = false;
             }
-
-            if(progressBar.fillAmount > 0 && progressBar.fillAmount <0.88f)
-            {
-                if(count == 0 &&!continueDecreasing)
-                {
-                    breathOutTut.SetActive(false);
-                    breatheOut.SetActive(true);
-                    breatheIn.SetActive(false);
-                }
-            }
-
 
             progressBar.fillAmount = currentFillValue / 100;
 
             if (progressBar.fillAmount >= 0.88)
             {
+                if (!inhale)
+                {
+                    audioManager.Play("inhale");
+                    inhale = true;
+                }
+                breatheIn.SetActive(true);
+                breatheOut.SetActive(false);
+                if (!sfx)
+                {
+                    audioManager.Play("SFX2 Tutorial");
+                    sfx = true;
+                }
                 if (!countOnce)
                 {
                     count++;

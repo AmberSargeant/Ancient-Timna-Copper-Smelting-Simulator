@@ -89,7 +89,8 @@ public class MessageListener : MonoBehaviour
     private float celciusTimer = 0f;
     private float celciusDelayAmount = 1f;
     private bool inhale = false;
-    private bool exhale = true;
+    private bool exhale = false;
+    private bool sfx2 = false;
 
     private void Awake()
     {
@@ -121,6 +122,7 @@ public class MessageListener : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        targetDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool triggerButtonValue);
         targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonValue);
         targetDevice.TryGetFeatureValue(CommonUsages.secondaryButton, out bool secondaryButtonValue);
         targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool gripValue);
@@ -132,6 +134,7 @@ public class MessageListener : MonoBehaviour
             continueDecreasing = false;
             startBreathing = true;
             debugOff = true;
+            progressBar.fillAmount = 0;
             print("reached");
 
         }
@@ -154,12 +157,12 @@ public class MessageListener : MonoBehaviour
 
             if (inFurnace)
             {
-                if (primaryButtonValue)
+                if (triggerButtonValue)
                 {
 
                     if (!continueDecreasing && !decreasing)
                     {
-                        
+
                         progressBar.color = Color.cyan;
                         barTimer += Time.deltaTime;
                         celciusTimer += Time.deltaTime;
@@ -184,7 +187,7 @@ public class MessageListener : MonoBehaviour
                         }
 
                         //change if want limit here.
-                        if (barTimer > 0)
+                        if (barTimer <= 10)
                         {
                             if (celciusTimer >= celciusDelayAmount)
                             {
@@ -218,14 +221,8 @@ public class MessageListener : MonoBehaviour
                     barTimer = 0f;
                     celciusTimer = 0f;
                     stoppedBreathing.SetActive(false);
-                    breatheIn.SetActive(true);
                     breatheOut.SetActive(false);
                     continueDecreasing = false;
-                    if (!inhale)
-                    {
-                        audioManager.Play("inhale");
-                        inhale = true;
-                    }
                 }
                 if (continueDecreasing)
                 {
@@ -272,6 +269,11 @@ public class MessageListener : MonoBehaviour
 
                 if (progressBar.fillAmount <= 0)
                 {
+                    if (!exhale)
+                    {
+                        audioManager.Play("exhale");
+                        exhale = true;
+                    }
                     if (celciusCounter == 950)
                     {
                         r = 1;
@@ -286,20 +288,13 @@ public class MessageListener : MonoBehaviour
                     decreasing = false;
                     continueDecreasing = false;
                     inhale = false;
-                    if (!exhale)
-                    {
-                        audioManager.Play("exhale");
-                        exhale = true;
-                    }
                 }
                 //event changes
                 if (celciusCounter == 950)
                 {
                     if (!playOnce1)
                     {
-                        audioManager.Play("Prompt sound effect after each step is completed");
                         StartCoroutine(IncreaseLight());
-                        playOnce1 = true;
                     }
 
                     flame1.SetActive(false);
@@ -309,9 +304,7 @@ public class MessageListener : MonoBehaviour
                 {
                     if (!playOnce2)
                     {
-                        audioManager.Play("Prompt sound effect after each step is completed");
                         StartCoroutine(IncreaseLight());
-                        playOnce2 = true;
                     }
                     flame2.SetActive(false);
                     flame3.SetActive(true);
@@ -326,9 +319,7 @@ public class MessageListener : MonoBehaviour
                 {
                     if (!playOnce3)
                     {
-                        audioManager.Play("Prompt sound effect after each step is completed");
                         StartCoroutine(IncreaseLight());
-                        playOnce3 = true;
                     }
                     flame3.SetActive(false);
                     flame4.SetActive(true);
@@ -338,9 +329,7 @@ public class MessageListener : MonoBehaviour
                 {
                     if (!playOnce4)
                     {
-                        audioManager.Play("Prompt sound effect after each step is completed");
                         StartCoroutine(IncreaseLight());
-                        playOnce4 = true;
                     }
                     flame4.SetActive(false);
                     flame5.SetActive(true);
@@ -366,6 +355,19 @@ public class MessageListener : MonoBehaviour
 
                 if (progressBar.fillAmount >= 0.88f)
                 {
+                    if (!sfx2)
+                    {
+                        audioManager.Play("SFX2 Tutorial");
+                        sfx2 = true;
+                    }
+                    stoppedBreathing.SetActive(false);
+                    breatheOut.SetActive(false);
+                    breatheIn.SetActive(true);
+                    if (!inhale)
+                    {
+                        audioManager.Play("inhale");
+                        inhale = true;
+                    }
                     if (startStarMapEvent)
                     {
                         //Start First Illusion
