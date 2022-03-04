@@ -126,6 +126,7 @@ public class EventManager : MonoBehaviour
     public Material dawn;
     public Animator childAnimator;
     public Animator oldManAnimator;
+    public Animator manAnimator;
 
     private void Awake()
     {
@@ -623,6 +624,7 @@ public class EventManager : MonoBehaviour
     }
     IEnumerator Drums()
     {
+        manAnimator.SetBool("Drum", true);
         audioManager.Play("Drums");
         audioManager.Play("drum");
         drumText.SetActive(true);
@@ -754,6 +756,7 @@ public class EventManager : MonoBehaviour
     }
     IEnumerator Birth()
     {
+        manAnimator.SetBool("Drum", false);
         audioManager.Play("see");
         birthText.SetActive(true);
         yield return new WaitForSeconds(4);
@@ -887,6 +890,7 @@ public class EventManager : MonoBehaviour
         RenderSettings.skybox = dawn;
         childAnimator.SetBool("Celebration", true);
         oldManAnimator.SetBool("Celebration", true);
+        manAnimator.SetBool("Celebration", true);
         tongPrefab.SetActive(false);
         handPrefab.SetActive(true);
         celebrationText.SetActive(true);

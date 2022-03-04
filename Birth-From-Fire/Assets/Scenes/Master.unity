@@ -5481,6 +5481,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e79ab417445bd4e4c830bd18c43ad064, type: 3}
+--- !u!95 &548971379 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7658508947791408683, guid: e79ab417445bd4e4c830bd18c43ad064,
+    type: 3}
+  m_PrefabInstance: {fileID: 548971378}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &552976348
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12724,12 +12730,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8f56b557dd1c4e3d82c599753e512cc, type: 3}
---- !u!1 &1763592891 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3016555162504089340, guid: d37ac53dab74d4817a272695a0c8b342,
-    type: 3}
-  m_PrefabInstance: {fileID: 277907758}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1765276445
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18247,11 +18247,8 @@ MonoBehaviour:
   vesselLiquid: {fileID: 277907768}
   vesselSlag: {fileID: 277907767}
   vesselLight: {fileID: 277907766}
-  blowpipePrefab: {fileID: 919132147571501931}
   fireUIPrefab: {fileID: 7013885195877397651}
   redFlamePrefab: {fileID: 1853549733}
-  lavaDownLPrefab: {fileID: 1763592891}
-  lavaDownRPrefab: {fileID: 2114182133}
   dirtLavaPrefab: {fileID: 1157720656}
   snakePrefab: {fileID: 1362915910}
   snakePrefab2: {fileID: 539769212}
@@ -18317,6 +18314,7 @@ MonoBehaviour:
   dawn: {fileID: 2100000, guid: 0f8efb016d7e7704a96ffe296261f74d, type: 2}
   childAnimator: {fileID: 489576025}
   oldManAnimator: {fileID: 1873346194}
+  manAnimator: {fileID: 548971379}
 --- !u!114 &7740768369058608395
 MonoBehaviour:
   m_ObjectHideFlags: 0
