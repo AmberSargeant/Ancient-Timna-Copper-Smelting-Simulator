@@ -1760,7 +1760,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &179381961
 Transform:
   m_ObjectHideFlags: 0
@@ -4741,7 +4741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1827545206396254, guid: d1b394efe4dbeb14f8a20e2e04bf1d80, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4034091967114682, guid: d1b394efe4dbeb14f8a20e2e04bf1d80, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8279,7 +8279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1827545206396254, guid: d1b394efe4dbeb14f8a20e2e04bf1d80, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4034091967114682, guid: d1b394efe4dbeb14f8a20e2e04bf1d80, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9812,7 +9812,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1827545206396254, guid: d1b394efe4dbeb14f8a20e2e04bf1d80, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4034091967114682, guid: d1b394efe4dbeb14f8a20e2e04bf1d80, type: 3}
       propertyPath: m_LocalRotation.w
@@ -13483,7 +13483,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1827545206396254, guid: d1b394efe4dbeb14f8a20e2e04bf1d80, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4034091967114682, guid: d1b394efe4dbeb14f8a20e2e04bf1d80, type: 3}
       propertyPath: m_LocalRotation.w
@@ -18250,10 +18250,7 @@ MonoBehaviour:
   fireUIPrefab: {fileID: 7013885195877397651}
   redFlamePrefab: {fileID: 1853549733}
   dirtLavaPrefab: {fileID: 1157720656}
-  snakePrefab: {fileID: 1362915910}
-  snakePrefab2: {fileID: 539769212}
-  snakePrefab3: {fileID: 67458570}
-  snakePrefab4: {fileID: 1133054411}
+  snakePrefab: {fileID: 179381960}
   finishedCopperPrefab: {fileID: 701151130}
   finalLightSpotPrefab: {fileID: 476237415}
   mirrorPrefab: {fileID: 1246281736348501923}
