@@ -58,10 +58,8 @@ public class TutorialManager : MonoBehaviour
     public GameObject exhale;
     public GameObject thankYou;
     public GameObject smoke;
-    public GameObject inhaleTimerPrefab;
     public GameObject exhalePrefab;
     public GameObject inhalePrefab;
-    public TMP_Text inhaleTimerText;
     private float inhaleTimer = 10;
     private bool startInhaleTimer = false;
     private GameManager GM;
@@ -203,7 +201,7 @@ public class TutorialManager : MonoBehaviour
         //removed references to ray
         if (fourthStagePart2)
         {
-            if(rHand.selectTarget == null)
+            if (rHand.selectTarget == null)
             {
                 audioManager.Stop("put down leaflet");
                 fourthStagePart2 = false;
@@ -220,6 +218,7 @@ public class TutorialManager : MonoBehaviour
                 if (rHand.selectTarget.tag == "Scroll")
                 {
                     audioManager.Stop("again");
+                    audioManager.Stop("scroll");
                     audioManager.Play("great");
                     fifthStage = false;
                     fifthStagePart2 = true;
@@ -232,10 +231,12 @@ public class TutorialManager : MonoBehaviour
         //removed references to ray
         if (fifthStagePart2)
         {
+            audioManager.Stop("scroll");
             //everythingWell.SetActive(false);
             if (rHand.selectTarget == null)
             {
                 audioManager.Stop("great");
+                scrollPrefab.SetActive(false);
                 great.SetActive(false);
                 fifthStagePart2 = false;
                 StartCoroutine("BlowPipeEvent");
@@ -247,19 +248,17 @@ public class TutorialManager : MonoBehaviour
             if (startInhaleTimer)
             {
                 inhaleTimer -= Time.deltaTime;
-                inhaleTimerText.text = inhaleTimer + "";
-                if(inhaleTimer >= 10)
+                if (inhaleTimer >= 6)
                 {
                     messageListener.startBreathing = true;
-                    inhaleTimerPrefab.SetActive(false);
                     inhalePrefab.SetActive(false);
                     exhalePrefab.SetActive(true);
                     startInhaleTimer = false;
                 }
             }
 
-            if(messageListener.finishedBreathing == true)
-            { 
+            if (messageListener.finishedBreathing == true)
+            {
                 sixthStage = false;
                 scrollScreenClean.GetComponent<Image>().CrossFadeAlpha(0, 8, false);
                 StartCoroutine("DesertScene");
@@ -347,7 +346,7 @@ public class TutorialManager : MonoBehaviour
         changePerspective.SetActive(false);
         completeContent.SetActive(true);
         StartCoroutine("EnableFloorTask");
-        
+
     }
     IEnumerator EnableFloorTask()
     {
@@ -452,9 +451,17 @@ public class TutorialManager : MonoBehaviour
         again.SetActive(true);
         scrollPrefab.SetActive(true);
         fifthStage = true;
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(2f);
+        StartCoroutine("GrabScroll");
     }
-
+    IEnumerator GrabScroll()
+    {
+        if (fifthStage)
+        {
+            audioManager.Play("scroll");
+        }
+        yield return new WaitForSeconds(2);
+    }
     //removed references to blowpipe
     IEnumerator BlowPipeEvent()
     {
@@ -472,6 +479,7 @@ public class TutorialManager : MonoBehaviour
     //can make into regular function
     IEnumerator Blow()
     {
+        startInhaleTimer = true;
         sixthStage = true;
         audioManager.Play("inhale");
         barPrefab.SetActive(true);
