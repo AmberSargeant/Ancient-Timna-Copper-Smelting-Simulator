@@ -765,6 +765,7 @@ public class EventManager : MonoBehaviour
     }
     IEnumerator Newborn()
     {
+        audioManager.Play("baby");
         audioManager.Play("newborn");
         newbornText.SetActive(true);
         yield return new WaitForSeconds(5);
