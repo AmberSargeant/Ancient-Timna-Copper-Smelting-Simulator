@@ -62,9 +62,6 @@ public class EventManager : MonoBehaviour
     public GameObject redFlamePrefab;
     public GameObject dirtLavaPrefab;
     public GameObject snakePrefab;
-    public GameObject snakePrefab2;
-    public GameObject snakePrefab3;
-    public GameObject snakePrefab4;
     public GameObject finishedCopperPrefab;
     public GameObject finalLightSpotPrefab;
     public GameObject mirrorPrefab;
@@ -450,10 +447,8 @@ public class EventManager : MonoBehaviour
         if (fourteenthStage)
         {
             snakePrefab.SetActive(false);
-            snakePrefab2.SetActive(false);
-            snakePrefab3.SetActive(false);
-            snakePrefab4.SetActive(false);
             audioManager.Stop("born");
+            audioManager.Stop("copper snake");
             finalLightSpotPrefab.SetActive(true);
             if (lightSpotMovement.mirror)
             {
@@ -624,7 +619,6 @@ public class EventManager : MonoBehaviour
     }
     IEnumerator Drums()
     {
-        manAnimator.SetBool("Drum", true);
         audioManager.Play("Drums");
         audioManager.Play("drum");
         drumText.SetActive(true);
@@ -756,7 +750,6 @@ public class EventManager : MonoBehaviour
     }
     IEnumerator Birth()
     {
-        manAnimator.SetBool("Drum", false);
         audioManager.Play("see");
         birthText.SetActive(true);
         yield return new WaitForSeconds(4);
@@ -772,6 +765,7 @@ public class EventManager : MonoBehaviour
     }
     IEnumerator Newborn()
     {
+        audioManager.Play("baby");
         audioManager.Play("newborn");
         newbornText.SetActive(true);
         yield return new WaitForSeconds(5);
@@ -785,10 +779,8 @@ public class EventManager : MonoBehaviour
     IEnumerator SnakeEvent()
     {
         audioManager.Play("see2");
+        audioManager.Play("copper snake");
         snakePrefab.SetActive(true);
-        snakePrefab2.SetActive(true);
-        snakePrefab3.SetActive(true);
-        snakePrefab4.SetActive(true);
         seeText.SetActive(true);
         yield return new WaitForSeconds(4);
         seeText.SetActive(false);
@@ -841,6 +833,8 @@ public class EventManager : MonoBehaviour
         finishedCopperPrefab.SetActive(false);
         finalLightSpotPrefab.SetActive(false);
         mirrorPrefab.SetActive(true);
+        tongPrefab.SetActive(false);
+        handPrefab.SetActive(true);
         yield return new WaitForSeconds(4);
         hathorBlessedText.SetActive(false);
         StartCoroutine("ThankYou");
@@ -848,6 +842,10 @@ public class EventManager : MonoBehaviour
 
     IEnumerator ThankYou()
     {
+        RenderSettings.skybox = dawn;
+        childAnimator.SetBool("Celebration", true);
+        oldManAnimator.SetBool("Celebration", true);
+        manAnimator.SetBool("Celebration", true);
         audioManager.Play("celebration");
         audioManager.Play("thank you");
         thankYouText.SetActive(true);
@@ -887,12 +885,6 @@ public class EventManager : MonoBehaviour
     IEnumerator Celebration()
     {
         //enjoyText.SetActive(true);
-        RenderSettings.skybox = dawn;
-        childAnimator.SetBool("Celebration", true);
-        oldManAnimator.SetBool("Celebration", true);
-        manAnimator.SetBool("Celebration", true);
-        tongPrefab.SetActive(false);
-        handPrefab.SetActive(true);
         celebrationText.SetActive(true);
         yield return new WaitForSeconds(1);
     }

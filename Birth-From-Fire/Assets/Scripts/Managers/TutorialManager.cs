@@ -60,6 +60,8 @@ public class TutorialManager : MonoBehaviour
     public GameObject smoke;
     public GameObject exhalePrefab;
     public GameObject inhalePrefab;
+    public GameObject controls;
+    public Animator blink;
     private float inhaleTimer = 10;
     private bool startInhaleTimer = false;
     private GameManager GM;
@@ -73,10 +75,8 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         //rayPrefab.SetActive(false);
-        audioManager.Play("tutorial background");
         messageListener = FindObjectOfType<MessageListenerTutorial>();
-        StartCoroutine("WakeUpScene");
-        audioManager.Play("wake up");
+        StartCoroutine("Controls");
     }
 
     // Update is called once per frame
@@ -305,9 +305,20 @@ public class TutorialManager : MonoBehaviour
             }
         }
     }
+
+    IEnumerator Controls()
+    {
+        controls.SetActive(true);
+        yield return new WaitForSeconds(7);
+        controls.SetActive(false);
+        StartCoroutine("WakeUpScene");
+    }
     IEnumerator WakeUpScene()
     {
-        yield return new WaitForSeconds(7);
+        blink.SetBool("Wake Up", true);
+        audioManager.Play("tutorial background");
+        audioManager.Play("wake up");
+        yield return new WaitForSeconds(10);
         audioManager.Play("discovery hall");
         wakeUp.SetActive(false);
         timna.SetActive(true);

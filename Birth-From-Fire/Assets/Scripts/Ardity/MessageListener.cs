@@ -483,7 +483,7 @@ public class MessageListener : MonoBehaviour
         audioManager.Play("sheep sound");
         lookdown.SetActive(false);
         wishes.SetActive(true);
-        yield return new WaitForSeconds(8);
+        yield return new WaitForSeconds(12);
         wishes.SetActive(false);
         StartCoroutine("Leaving");
 
