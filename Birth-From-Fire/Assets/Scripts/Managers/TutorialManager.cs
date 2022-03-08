@@ -248,7 +248,7 @@ public class TutorialManager : MonoBehaviour
             if (startInhaleTimer)
             {
                 inhaleTimer -= Time.deltaTime;
-                if (inhaleTimer >= 6)
+                if (inhaleTimer <= 0)
                 {
                     messageListener.startBreathing = true;
                     inhalePrefab.SetActive(false);
@@ -401,6 +401,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator EndThirdScene()
     {
+        audioManager.Stop("use hand");
         audioManager.Play("better");
         lightSpot.SetActive(false);
         better.SetActive(true);
@@ -502,6 +503,7 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator DesertScene()
     {
+        audioManager.Stop("inhale");
         audioManager.Play("soul");
         inhale.SetActive(false);
         exhale.SetActive(false);
