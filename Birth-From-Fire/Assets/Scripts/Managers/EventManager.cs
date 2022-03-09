@@ -120,6 +120,20 @@ public class EventManager : MonoBehaviour
     public GameObject ancestorsText;
     public GameObject enjoyText;
     public GameObject celebrationText;
+    public GameObject developedText;
+    public GameObject designerText;
+    public GameObject threeDText;
+    public GameObject twoDText;
+    public GameObject programmerText;
+    public GameObject audioText;
+    public GameObject narrativeText;
+    public GameObject QAText;
+    public GameObject producerText;
+    public GameObject stakeText;
+    public GameObject instructorText;
+    public GameObject musicText;
+    public GameObject endingText;
+    public GameObject besPrefab;
     public Material dawn;
     public Animator childAnimator;
     public Animator oldManAnimator;
@@ -750,6 +764,7 @@ public class EventManager : MonoBehaviour
     }
     IEnumerator Birth()
     {
+        audioManager.Stop("inhale");
         audioManager.Play("see");
         birthText.SetActive(true);
         yield return new WaitForSeconds(4);
@@ -778,6 +793,7 @@ public class EventManager : MonoBehaviour
 
     IEnumerator SnakeEvent()
     {
+        audioManager.Stop("remove vessel");
         audioManager.Play("see2");
         audioManager.Play("copper snake");
         snakePrefab.SetActive(true);
@@ -843,6 +859,7 @@ public class EventManager : MonoBehaviour
     IEnumerator ThankYou()
     {
         RenderSettings.skybox = dawn;
+        besPrefab.SetActive(true);
         childAnimator.SetBool("Celebration", true);
         oldManAnimator.SetBool("Celebration", true);
         manAnimator.SetBool("Celebration", true);
@@ -884,11 +901,113 @@ public class EventManager : MonoBehaviour
     //can turn into normal function
     IEnumerator Celebration()
     {
-        //enjoyText.SetActive(true);
         celebrationText.SetActive(true);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(5);
+        StartCoroutine("Developed");
     }
 
+    IEnumerator Developed()
+    {
+        celebrationText.SetActive(false);
+        developedText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        StartCoroutine("Designer");
+    }
+
+    IEnumerator Designer()
+    {
+        developedText.SetActive(false);
+        designerText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        StartCoroutine("ThreeD");
+    }
+
+    IEnumerator ThreeD()
+    {
+        designerText.SetActive(false);
+        threeDText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        StartCoroutine("TwoD");
+    }
+
+    IEnumerator TwoD()
+    {
+        threeDText.SetActive(false);
+        twoDText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        StartCoroutine("Programmer");
+    }
+
+    IEnumerator Programmer()
+    {
+        twoDText.SetActive(false);
+        programmerText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        StartCoroutine("Audio");
+    }
+
+    IEnumerator Audio()
+    {
+        programmerText.SetActive(false);
+        audioText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        StartCoroutine("Narrative");
+    }
+    IEnumerator Narrative()
+    {
+        audioText.SetActive(false);
+        narrativeText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        StartCoroutine("QA");
+    }
+
+    IEnumerator QA()
+    {
+        narrativeText.SetActive(false);
+        QAText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        StartCoroutine("Producer");
+    }
+
+    IEnumerator Producer()
+    {
+        QAText.SetActive(false);
+        producerText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        StartCoroutine("Stake");
+    }
+
+    IEnumerator Stake()
+    {
+        producerText.SetActive(false);
+        stakeText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        StartCoroutine("Instructor");
+    }
+
+    IEnumerator Instructor()
+    {
+        stakeText.SetActive(false);
+        instructorText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        StartCoroutine("Music");
+    }
+
+    IEnumerator Music()
+    {
+        instructorText.SetActive(false);
+        musicText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        StartCoroutine("Ending");
+    }
+
+    IEnumerator Ending()
+    {
+        musicText.SetActive(false);
+        endingText.SetActive(true);
+        yield return new WaitForSeconds(10);
+        Application.Quit();
+    }
     IEnumerator PlaceOreVoice()
     {
         audioManager.Play("place ore");

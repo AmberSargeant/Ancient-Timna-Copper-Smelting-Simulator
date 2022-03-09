@@ -288,6 +288,7 @@ public class MessageListener : MonoBehaviour
                     decreasing = false;
                     continueDecreasing = false;
                     inhale = false;
+                    sfx2 = false;
                 }
                 //event changes
                 if (celciusCounter == 950)
@@ -295,6 +296,7 @@ public class MessageListener : MonoBehaviour
                     if (!playOnce1)
                     {
                         StartCoroutine(IncreaseLight());
+                        playOnce1 = true;
                     }
 
                     flame1.SetActive(false);
@@ -305,6 +307,7 @@ public class MessageListener : MonoBehaviour
                     if (!playOnce2)
                     {
                         StartCoroutine(IncreaseLight());
+                        playOnce2 = true;
                     }
                     flame2.SetActive(false);
                     flame3.SetActive(true);
@@ -320,6 +323,7 @@ public class MessageListener : MonoBehaviour
                     if (!playOnce3)
                     {
                         StartCoroutine(IncreaseLight());
+                        playOnce3 = true;
                     }
                     flame3.SetActive(false);
                     flame4.SetActive(true);
@@ -330,6 +334,7 @@ public class MessageListener : MonoBehaviour
                     if (!playOnce4)
                     {
                         StartCoroutine(IncreaseLight());
+                        playOnce4 = true;
                     }
                     flame4.SetActive(false);
                     flame5.SetActive(true);
@@ -418,6 +423,7 @@ public class MessageListener : MonoBehaviour
     //coroutine just in case we need to add extra myth stuff
     IEnumerator StartStarMap()
     {
+        audioManager.Stop("inhale");
         audioManager.Play("goddess");
         goddess.SetActive(true);
         bar.SetActive(false);
@@ -532,6 +538,7 @@ public class MessageListener : MonoBehaviour
         audioManager.Play("continue");
         cont.SetActive(true);
         yield return new WaitForSeconds(4);
+        audioManager.Play("inhale");
         cont.SetActive(false);
         eventManager.breathPhase1 = false;
         breathPhase2 = true;
