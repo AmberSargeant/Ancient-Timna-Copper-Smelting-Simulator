@@ -23,7 +23,9 @@ public class MessageListenerTutorial : MonoBehaviour
     public bool finishedBreathing = false;
     public bool startBreathing = false;
     private InputDevice targetDevice;
+    [SerializeField]
     private bool continueDecreasing = false;
+    [SerializeField]
     private bool decreasing = false;
     private bool countOnce = false;
     private float currentFillValue;
