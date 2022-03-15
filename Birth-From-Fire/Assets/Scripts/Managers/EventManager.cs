@@ -859,6 +859,7 @@ public class EventManager : MonoBehaviour
     IEnumerator ThankYou()
     {
         RenderSettings.skybox = dawn;
+        DynamicGI.UpdateEnvironment();
         besPrefab.SetActive(true);
         childAnimator.SetBool("Celebration", true);
         oldManAnimator.SetBool("Celebration", true);
