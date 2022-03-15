@@ -8310,6 +8310,11 @@ PrefabInstance:
       objectReference: {fileID: 1346237685}
     - target: {fileID: 1095213007351536384, guid: 2f031380fd8ed424a9b3ae4d1476d918,
         type: 3}
+      propertyPath: m_UpdateTrackingType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095213007351536384, guid: 2f031380fd8ed424a9b3ae4d1476d918,
+        type: 3}
       propertyPath: m_ModelSelectTransition
       value: 
       objectReference: {fileID: 0}
@@ -8458,6 +8463,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3333671990436011078, guid: 2f031380fd8ed424a9b3ae4d1476d918,
+        type: 3}
+      propertyPath: m_UpdateTrackingType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3564357241963688563, guid: 2f031380fd8ed424a9b3ae4d1476d918,
         type: 3}
       propertyPath: m_Radius
@@ -8508,6 +8518,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ModelTransform
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4116085949324142310, guid: 2f031380fd8ed424a9b3ae4d1476d918,
+        type: 3}
+      propertyPath: m_UpdateTrackingType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4593145049034674888, guid: 2f031380fd8ed424a9b3ae4d1476d918,
         type: 3}
@@ -8600,6 +8615,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1243837473675178097, guid: 0b4d776d8bff040609cf62111a0c43b6,
         type: 3}
+    - target: {fileID: 6485150725162505302, guid: 2f031380fd8ed424a9b3ae4d1476d918,
+        type: 3}
+      propertyPath: m_UpdateTrackingType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6580469420537514619, guid: 2f031380fd8ed424a9b3ae4d1476d918,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -23284,6 +23304,8 @@ MonoBehaviour:
   stoppedBreathing: {fileID: 1920037781}
   finishedBreathing: 0
   startBreathing: 0
+  continueDecreasing: 0
+  decreasing: 0
   speed: 22
 --- !u!4 &2106134560
 Transform:
