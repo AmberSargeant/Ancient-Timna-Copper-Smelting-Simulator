@@ -174,6 +174,7 @@ public class EventManager : MonoBehaviour
             {
                 if (rHand.selectTarget.tag == "Small Ore")
                 {
+                    audioManager.Stop("choose ore");
                     chooseOreText.SetActive(false);
                     StartCoroutine("PlaceOreVoice");
                     //need to refactor
@@ -363,7 +364,7 @@ public class EventManager : MonoBehaviour
                 }
             }
 
-            if (dirtTimer >= 0.5)
+            if (dirtTimer >= 0.1)
             {
                 dirtLavaPrefab.SetActive(true);
                 vesselLight.SetActive(false);
@@ -409,6 +410,7 @@ public class EventManager : MonoBehaviour
                 glows[4].SetActive(false);
                 tenthStage = false;
                 eleventhStage = true;
+                audioManager.Stop("original position");
             }
         }
 
