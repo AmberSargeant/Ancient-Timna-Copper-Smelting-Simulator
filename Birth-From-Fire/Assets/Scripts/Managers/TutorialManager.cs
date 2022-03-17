@@ -318,7 +318,7 @@ public class TutorialManager : MonoBehaviour
         blink.SetBool("Wake Up", true);
         audioManager.Play("tutorial background");
         audioManager.Play("wake up");
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(4);
         audioManager.Play("discovery hall");
         wakeUp.SetActive(false);
         timna.SetActive(true);
@@ -352,7 +352,7 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator CompleteContentScene()
     {
-        yield return new WaitForSeconds(7);
+        yield return new WaitForSeconds(6);
         audioManager.Play("complete content");
         changePerspective.SetActive(false);
         completeContent.SetActive(true);
@@ -378,7 +378,7 @@ public class TutorialManager : MonoBehaviour
     {
         well.SetActive(true);
         audioManager.Play("well");
-        yield return new WaitForSeconds(7);
+        yield return new WaitForSeconds(4);
         well.SetActive(false);
         rightHand.SetActive(true);
         audioManager.Play("hand");
@@ -387,7 +387,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator LightSpotScene()
     {
-        yield return new WaitForSeconds(7);
+        yield return new WaitForSeconds(5);
         audioManager.Play("use hand");
         rightHand.SetActive(false);
         lightSpot.SetActive(true);
@@ -405,7 +405,7 @@ public class TutorialManager : MonoBehaviour
         audioManager.Play("better");
         lightSpot.SetActive(false);
         better.SetActive(true);
-        yield return new WaitForSeconds(7);
+        yield return new WaitForSeconds(4);
         better.SetActive(false);
         audioManager.Play("grab");
         grab.SetActive(true);
@@ -414,7 +414,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator LeafletEvent()
     {
-        yield return new WaitForSeconds(7);
+        yield return new WaitForSeconds(6);
         audioManager.Play("leaflet");
         grab.SetActive(false);
         leaflet.SetActive(true);
@@ -422,7 +422,7 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator Picking()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         leaflet.SetActive(false);
         picking.SetActive(true);
         leafletPrefab.SetActive(true);
@@ -440,7 +440,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator EndFourthStagePart2()
     {
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(4f);
         //flyer.SetActive(false);
         fourthStagePart2 = true;
         audioManager.Play("put down leaflet");
@@ -456,7 +456,7 @@ public class TutorialManager : MonoBehaviour
         StartCoroutine("RayScrollEvent");
         yield return new WaitForSeconds(7f);
     }
-    //removed ray scroll event can make into regular function
+    //removed ray scroll event
     IEnumerator RayScrollEvent()
     {
         audioManager.Play("again");
@@ -483,7 +483,7 @@ public class TutorialManager : MonoBehaviour
         scrollScreenDirty.SetActive(true);
         dust.SetActive(true);
         audioManager.Play("dust");
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(10f);
         StartCoroutine("Blow");
 
     }
